@@ -60,14 +60,30 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 - **Container** — `docker compose up` corre BD + migração + seed (365 peças) + app;
   registo/login/sessão/rotas protegidas verificados contra o container.
 
-## O que falta exercitar via UI
+## Correções pós-deploy
 
-Os *server actions* de mutação (onboarding, check-in, journal, connect, seed de
-temas) estão implementados, com TypeScript sem erros e seguindo o mesmo padrão
-verificado do registo, mas a submissão através da UI ainda **não foi percorrida
-por um teste automatizado de browser**. Recomenda-se uma passagem manual ou um
-E2E Playwright (fora do âmbito do dia — Playwright não foi instalado para não
-depender de download de browsers).
+- **Onboarding preso em "A guardar"** — a server action gravava bem, mas a
+  navegação suave (`router.push`) a seguir à action era descartada, deixando o
+  botão preso. Corrigido com navegação forte (`window.location`) + `try/catch`
+  que repõe o botão em qualquer falha. Verificado no bundle em produção.
+- **Healthcheck** — `node:alpine` não traz `curl`/`wget`; o Coolify precisa de
+  um deles. Adicionado `curl` à imagem + `HEALTHCHECK` nativo. App `running:healthy`.
+
+## Resiliência
+
+- **Backup diário** da BD às 03h00 (Coolify, retenção local).
+- **Healthcheck** ativo → o Coolify reinicia a app sozinho se ficar sem resposta.
+- **`NEXT_SERVER_ACTIONS_ENCRYPTION_KEY`** fixada → sem "Failed to find Server
+  Action" entre redeploys.
+- **Snapshot manual** dos dados em `../backups/` (fora do servidor).
+- ⚠️ Backups só locais ao servidor — falta destino externo (S3/R2) para
+  sobreviver à perda do servidor.
+
+## Pendente
+
+- **Email diário** — enviar a peça do dia por email à `promptHour` de cada
+  utilizador. Decidido: Resend (remetente de teste). Falta a `RESEND_API_KEY`.
+- Teste E2E de browser dos restantes *server actions* (check-in, journal, connect).
 
 ## Deploy — concluído (Coolify)
 
