@@ -1,12 +1,23 @@
 # PROGRESS — MVP Páginas
 
+---
+
+# 🟢 URL PÚBLICO — partilhável já
+
+## ➡️  https://paginas.178.104.201.64.sslip.io
+
+App em produção, HTTPS com certificado Let's Encrypt válido.
+Partilhável com psicólogos e testers. Registo aberto em `/register`.
+
+---
+
 > Estado honesto da construção. Atualizado em 2026-05-21.
 
 ## Resumo
 
-O MVP ponta-a-ponta está **construído, a correr localmente e containerizado**.
-Os testes passam e a build de produção é bem-sucedida. O **deploy remoto** está
-**bloqueado por decisões/acessos que precisam do Nuno** (ver secção Deploy).
+O MVP ponta-a-ponta está **construído, containerizado e EM PRODUÇÃO**, acessível
+num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida e o
+**deploy remoto está concluído** via Coolify (ver secção Deploy).
 
 ## Stack final
 
@@ -34,7 +45,7 @@ Os testes passam e a build de produção é bem-sucedida. O **deploy remoto** es
 | 9 — Landing + legais | ✅ | disclaimer de bem-estar, RGPD, apoio em crise |
 | 10 — Testes | ✅ | 31 testes (motor, password, validação, smoke HTTP) |
 | 11 — Containerizar | ✅ | Dockerfile + compose; stack verificada localmente |
-| 11 — Deploy remoto | ⏸️ | bloqueado — ver abaixo |
+| 12 — Deploy remoto | ✅ | Coolify: app + Postgres gerido; URL público HTTPS |
 
 ## O que está verificado (como)
 
@@ -58,42 +69,43 @@ por um teste automatizado de browser**. Recomenda-se uma passagem manual ou um
 E2E Playwright (fora do âmbito do dia — Playwright não foi instalado para não
 depender de download de browsers).
 
-## Deploy — bloqueios concretos
+## Deploy — concluído (Coolify)
 
-O runbook assumia um caminho direto; na prática faltam peças:
+**URL público:** https://paginas.178.104.201.64.sslip.io
 
-1. **Como entregar o código ao Coolify.** O Coolify (`painel.leadshortcut.com`,
-   v4.0.0, 1 servidor utilizável) faz deploy a partir de um repositório Git ou de
-   uma imagem de registo. O repositório local **não tem remote** e não há
-   credenciais de registo. Publicar o código (ex.: GitHub) é uma decisão do Nuno.
-2. **Cloudflare.** `CLOUDFLARE_API_TOKEN` está vazio em `deploy.env`
-   ("TODO: cria token"). Sem ele não há gestão de DNS/SSL por API.
-3. **Domínio / IP público.** Não há domínio dedicado; o servidor Coolify reporta
-   apenas o IP interno (`10.0.1.1`), pelo que o fallback `sslip.io` precisaria do
-   IP público.
-4. **Hetzner.** `HETZNER_API_TOKEN` está vazio — sem caminho VPS direto.
+Infraestrutura provisionada via API do Coolify (`painel.leadshortcut.com`, v4.0.0):
 
-**Decisão pendente do Nuno:** escolher como entregar o código (publicar num Git
-remoto vs. deploy manual no painel Coolify) e fornecer o token Cloudflare + IP
-público (ou aceitar o domínio automático do Coolify).
+- **Servidor:** `localhost` do Coolify (IP público `178.104.201.64`), Docker saudável.
+- **Projeto:** `Paginas` → ambiente `production`.
+- **Postgres de produção:** base de dados gerida pelo Coolify, dedicada à app,
+  isolada de outros projetos; ligação interna na rede Docker do Coolify (sem
+  porta pública — exposição apenas temporária durante a verificação, já fechada).
+- **Aplicação:** build pack Dockerfile, a partir do repositório Git
+  `github.com/nunosimoes-web/paginas-app` (branch `main`, público — sem segredos).
+- **Domínio:** `paginas.178.104.201.64.sslip.io` (magic DNS sobre o IP público),
+  TLS Let's Encrypt automático (certificado `R13` válido, HTTP/2).
+- **Variáveis:** `DATABASE_URL` (Postgres do Coolify), `NEXTAUTH_SECRET`,
+  `NEXTAUTH_URL` (= URL público), `DEFAULT_LOCALE=pt-PT`.
 
-**Resultado autónomo:** não foram tomadas ações externas irreversíveis (não se
-publicou código num Git público, não se criaram tokens nem recursos em
-infraestrutura de terceiros por adivinhação). A app fica **entregue, testada e
-containerizada, pronta a subir** — conforme o fallback previsto no runbook.
+O `runner` do Dockerfile foi ajustado para correr, no arranque,
+`prisma migrate deploy` → `prisma db seed` (idempotente) → `node server.js`.
+Logs de produção confirmam: 3 migrações aplicadas e **"Seed concluído: 9 temas,
+365 peças"**.
 
-### Subir manualmente (3 passos)
+### Smoke test ao URL público (HTTPS, curl)
 
-```bash
-# na VPS / host de destino, com o repositório presente:
-export NEXTAUTH_SECRET="<gera: openssl rand -base64 32>"
-export NEXTAUTH_URL="https://<o-teu-host>"
-docker compose up -d --build      # sobe db + migração+seed + web
-```
+| Verificação | Resultado |
+|---|---|
+| `GET /` (home) | **200** — HTTPS, cert Let's Encrypt válido |
+| `GET /en` (troca de locale) | **200** |
+| `GET /login`, `/register`, `/privacy`, `/terms` | **200** |
+| `GET /today` sem sessão | **307** → redireciona para login |
+| `POST /api/register` | **201** — utilizador criado |
+| Login NextAuth (`callback/credentials`) | **200** + sessão com `user.id` |
+| `GET /today` autenticado (PT) | **200** — peça do dia renderizada (Metáfora, tema Ansiedade) |
+| `GET /en/today` autenticado (EN) | **200** — mesma peça, traduzida |
 
-O serviço `migrate` aplica `prisma migrate deploy` e semeia as 365 peças
-automaticamente antes de o `web` arrancar. Falta apenas um proxy TLS à frente
-(Caddy/Traefik) ou o domínio automático do Coolify.
+BD de produção verificada: **365 peças**, **9 temas**, **365 com `needsReview=true`**.
 
 ## Invioláveis respeitados
 
