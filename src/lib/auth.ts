@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
+import { verifyPassword } from "./password";
 
 // Auth.js (NextAuth v4) — credenciais email/password, sessão por JWT.
 // Sem adapter de BD: as credenciais exigem estratégia JWT e o User vive no
@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return null;
 
-        const ok = await bcrypt.compare(password, user.passwordHash);
+        const ok = await verifyPassword(password, user.passwordHash);
         if (!ok) return null;
 
         return {
