@@ -71,13 +71,15 @@ model ContentPiece {
 }
 
 model PromptDelivery {
-  id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  piece     ContentPiece @relation(fields: [pieceId], references: [id])
-  pieceId   String
-  date      DateTime @default(now())
-  opened    Boolean  @default(false)
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  piece       ContentPiece @relation(fields: [pieceId], references: [id])
+  pieceId     String
+  date        DateTime @default(now())
+  opened      Boolean  @default(false)
+  // Quando a peça do dia foi enviada por email — idempotência do envio diário.
+  emailSentAt DateTime?
   @@unique([userId, date])
 }
 
