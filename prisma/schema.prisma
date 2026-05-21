@@ -1,8 +1,22 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+generator client {
+  provider = "prisma-client-js"
+}
 
-enum Role { INDIVIDUAL THERAPIST }
-enum PieceType { METAPHOR REMINDER EXERCISE REFLECTION }
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  INDIVIDUAL
+  THERAPIST
+}
+
+enum PieceType {
+  METAPHOR
+  REMINDER
+  EXERCISE
+  REFLECTION
+}
 
 model User {
   id            String   @id @default(cuid())

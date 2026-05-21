@@ -1,8 +1,11 @@
 import { PrismaClient, PieceType } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { readFileSync } from "fs";
 import { join } from "path";
+import "dotenv/config";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 const THEMES: Record<string, { "pt-PT": string; en: string }> = {
   anxiety:        { "pt-PT": "Ansiedade", en: "Anxiety" },
