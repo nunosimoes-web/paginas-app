@@ -133,13 +133,16 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
   return { html, text };
 }
 
-/** Envia a peça do dia por email. Lança em caso de falha (o chamador trata). */
-export async function sendDailyEmail(input: DailyEmailInput): Promise<void> {
+/** Envio genérico via Resend. Lança em caso de falha (o chamador trata). */
+export async function sendEmail(opts: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY em falta");
   const from = process.env.EMAIL_FROM || "Páginas <onboarding@resend.dev>";
-  const c = COPY[input.locale === "en" ? "en" : "pt-PT"];
-  const { html, text } = render(c, input);
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -147,10 +150,23 @@ export async function sendDailyEmail(input: DailyEmailInput): Promise<void> {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from, to: input.to, subject: c.subject, html, text }),
+    body: JSON.stringify({
+      from,
+      to: opts.to,
+      subject: opts.subject,
+      html: opts.html,
+      text: opts.text,
+    }),
   });
 
   if (!res.ok) {
     throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 300)}`);
   }
+}
+
+/** Envia a peça do dia por email. Lança em caso de falha (o chamador trata). */
+export async function sendDailyEmail(input: DailyEmailInput): Promise<void> {
+  const c = COPY[input.locale === "en" ? "en" : "pt-PT"];
+  const { html, text } = render(c, input);
+  await sendEmail({ to: input.to, subject: c.subject, html, text });
 }
