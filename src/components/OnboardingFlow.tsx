@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { routing } from "@/i18n/routing";
 import { PROMPT_HOURS } from "@/lib/content";
 import { styles } from "@/components/ui";
 import { completeOnboarding } from "@/app/[locale]/onboarding/actions";
@@ -19,7 +19,7 @@ export function OnboardingFlow({
 }) {
   const t = useTranslations("onboarding");
   const c = useTranslations("common");
-  const router = useRouter();
+  const locale = useLocale();
 
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<string[]>([]);
@@ -39,17 +39,25 @@ export function OnboardingFlow({
   async function finish() {
     setError(null);
     setLoading(true);
-    const result = await completeOnboarding({
-      themeSlugs: selected,
-      role,
-      promptHour: hour,
-    });
-    if ("ok" in result) {
-      router.push("/today");
-      router.refresh();
-      return;
+    try {
+      const result = await completeOnboarding({
+        themeSlugs: selected,
+        role,
+        promptHour: hour,
+      });
+      if ("ok" in result) {
+        // Navegação forte (full load): fiável a seguir a uma server action.
+        // O router.push suave pode ser descartado na resolução da action,
+        // deixando o botão preso em "A guardar".
+        const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+        window.location.assign(`${prefix}/today`);
+        return;
+      }
+      setError(c("somethingWrong"));
+    } catch {
+      // Qualquer falha (rede, server action) repõe o botão em vez de o deixar preso.
+      setError(c("somethingWrong"));
     }
-    setError(c("somethingWrong"));
     setLoading(false);
   }
 
