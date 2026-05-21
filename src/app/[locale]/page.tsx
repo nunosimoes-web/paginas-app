@@ -167,8 +167,8 @@ export default async function HomePage() {
             {c("appName")} — {t("footerRights")}
           </span>
           <span className="flex gap-4">
-            <Link href="/review" className="hover:text-ink">
-              {t("footerReview")}
+            <Link href="/support" className="hover:text-ink">
+              {t("footerSupport")}
             </Link>
             <Link href="/privacy" className="hover:text-ink">
               {t("footerPrivacy")}

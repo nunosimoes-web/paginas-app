@@ -5,6 +5,7 @@
 //  Não altera nada — as peças mantêm-se intactas, needsReview incluído.
 // =============================================================================
 
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { pickText } from "@/lib/content";
 
@@ -15,7 +16,13 @@ function cell(v: unknown): string {
   return `"${s.replace(/"/g, '""')}"`;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  // Mesmo gate da página /review — acesso só por chave.
+  const key = process.env.REVIEW_KEY;
+  if (!key || new URL(request.url).searchParams.get("k") !== key) {
+    return NextResponse.json({ error: "not_found" }, { status: 404 });
+  }
+
   const [pieces, themes] = await Promise.all([
     prisma.contentPiece.findMany({ orderBy: [{ day: "asc" }] }),
     prisma.theme.findMany(),

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 import { styles } from "@/components/ui";
 
 type Mode = "login" | "register";
@@ -118,6 +119,17 @@ export function AuthForm({ mode }: { mode: Mode }) {
           <p className="text-xs text-muted">{t("passwordHint")}</p>
         ) : null}
       </div>
+
+      {mode === "login" ? (
+        <p className="text-sm">
+          <Link
+            href="/forgot-password"
+            className="text-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            {t("forgotLink")}
+          </Link>
+        </p>
+      ) : null}
 
       {error ? (
         <p role="alert" className="text-sm text-clay">

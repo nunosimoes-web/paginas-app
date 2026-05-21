@@ -24,6 +24,7 @@
     "signIn": "Sign in",
     "signUp": "Sign up",
     "signOut": "Sign out",
+    "support": "Support",
     "skipToContent": "Skip to content"
   },
   "landing": {
@@ -55,6 +56,7 @@
     "footerPrivacy": "Privacy",
     "footerTerms": "Terms",
     "footerReview": "Review content",
+    "footerSupport": "Support",
     "footerRights": "A calm space for your journey."
   },
   "review": {
@@ -80,6 +82,37 @@
     "invalid": "This unsubscribe link is not valid or has expired.",
     "backHome": "Back to home"
   },
+  "forgotPassword": {
+    "title": "Reset your password",
+    "subtitle": "Enter your email and we'll send you a link to set a new password.",
+    "submit": "Send link",
+    "sent": "If an account exists for that email, we've sent a link to reset the password. Check your inbox.",
+    "backToLogin": "Back to sign in"
+  },
+  "resetPassword": {
+    "title": "New password",
+    "subtitle": "Choose a new password for your account.",
+    "submit": "Save password",
+    "done": "Password updated. You can now sign in with your new password.",
+    "invalid": "This link is no longer valid — it may have expired or already been used. Request a new one.",
+    "backToLogin": "Request a new link",
+    "toLogin": "Sign in"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "Found a problem or have a suggestion? Write to us — we read everything.",
+    "emailLabel": "Your email (so we can reply)",
+    "messageLabel": "Message",
+    "submit": "Send message",
+    "sent": "We received your message. Thank you — we'll read it carefully.",
+    "backHome": "Back to home"
+  },
+  "errorPage": {
+    "title": "Something went wrong.",
+    "body": "We hit a snag loading this page. You can try again — if it persists, let us know via support.",
+    "retry": "Try again",
+    "support": "Contact support"
+  },
   "auth": {
     "signInTitle": "Welcome back",
     "signInSubtitle": "Sign in to see today's piece.",
@@ -99,7 +132,8 @@
     "errorEmailTaken": "An account with this email already exists.",
     "errorWeakPassword": "Your password needs at least 8 characters.",
     "errorGeneric": "Couldn't complete that. Please try again.",
-    "passwordHint": "At least 8 characters."
+    "passwordHint": "At least 8 characters.",
+    "forgotLink": "Forgot your password?"
   },
   "onboarding": {
     "title": "Let's get to know you",
@@ -198,7 +232,11 @@
     "saved": "Preferences saved.",
     "dangerSection": "Your data",
     "dataNote": "Your mood and journal records are sensitive data. We handle them under GDPR and you can request their deletion.",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "deleteNote": "You can permanently delete your account and all your data. This action cannot be undone.",
+    "deleteAccount": "Delete my account",
+    "deleteConfirm": "Are you sure? We will permanently delete your account and all your records — mood, journal, deliveries. There is no going back.",
+    "deleteConfirmYes": "Yes, delete everything"
   },
   "therapist": {
     "title": "Your clients",

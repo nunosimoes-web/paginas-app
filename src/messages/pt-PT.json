@@ -24,6 +24,7 @@
     "signIn": "Entrar",
     "signUp": "Criar conta",
     "signOut": "Sair",
+    "support": "Suporte",
     "skipToContent": "Saltar para o conteúdo"
   },
   "landing": {
@@ -55,6 +56,7 @@
     "footerPrivacy": "Privacidade",
     "footerTerms": "Termos",
     "footerReview": "Validar conteúdo",
+    "footerSupport": "Suporte",
     "footerRights": "Um espaço calmo para o teu percurso."
   },
   "review": {
@@ -80,6 +82,37 @@
     "invalid": "Este link de cancelamento não é válido ou expirou.",
     "backHome": "Voltar ao início"
   },
+  "forgotPassword": {
+    "title": "Recuperar a palavra-passe",
+    "subtitle": "Indica o teu email e enviamos-te um link para definir uma nova palavra-passe.",
+    "submit": "Enviar link",
+    "sent": "Se existir uma conta com esse email, enviámos um link para repor a palavra-passe. Verifica a tua caixa de entrada.",
+    "backToLogin": "Voltar a entrar"
+  },
+  "resetPassword": {
+    "title": "Nova palavra-passe",
+    "subtitle": "Escolhe uma nova palavra-passe para a tua conta.",
+    "submit": "Guardar palavra-passe",
+    "done": "Palavra-passe atualizada. Já podes entrar com a nova palavra-passe.",
+    "invalid": "Este link já não é válido — pode ter expirado ou já ter sido usado. Pede um novo.",
+    "backToLogin": "Pedir um novo link",
+    "toLogin": "Entrar"
+  },
+  "support": {
+    "title": "Suporte",
+    "subtitle": "Encontraste um problema ou tens uma sugestão? Escreve-nos — lemos tudo.",
+    "emailLabel": "O teu email (para te respondermos)",
+    "messageLabel": "Mensagem",
+    "submit": "Enviar mensagem",
+    "sent": "Recebemos a tua mensagem. Obrigado — vamos ler com atenção.",
+    "backHome": "Voltar ao início"
+  },
+  "errorPage": {
+    "title": "Algo correu menos bem.",
+    "body": "Tivemos um percalço a carregar esta página. Podes tentar de novo — se persistir, diz-nos pelo suporte.",
+    "retry": "Tentar de novo",
+    "support": "Contactar o suporte"
+  },
   "auth": {
     "signInTitle": "Bem-vindo de volta",
     "signInSubtitle": "Entra para ver a peça de hoje.",
@@ -99,7 +132,8 @@
     "errorEmailTaken": "Já existe uma conta com este email.",
     "errorWeakPassword": "A palavra-passe precisa de pelo menos 8 caracteres.",
     "errorGeneric": "Não foi possível concluir. Tenta novamente.",
-    "passwordHint": "Mínimo de 8 caracteres."
+    "passwordHint": "Mínimo de 8 caracteres.",
+    "forgotLink": "Esqueci-me da palavra-passe"
   },
   "onboarding": {
     "title": "Vamos conhecer-te",
@@ -198,7 +232,11 @@
     "saved": "Preferências guardadas.",
     "dangerSection": "Os teus dados",
     "dataNote": "Os teus registos de humor e diário são dados sensíveis. Tratamo-los segundo o RGPD e podes pedir o seu apagamento.",
-    "signOut": "Terminar sessão"
+    "signOut": "Terminar sessão",
+    "deleteNote": "Podes apagar a tua conta e todos os teus dados em definitivo. Esta ação não pode ser revertida.",
+    "deleteAccount": "Apagar a minha conta",
+    "deleteConfirm": "Tens a certeza? Vamos apagar em definitivo a tua conta e todos os teus registos — humor, diário, entregas. Não há volta atrás.",
+    "deleteConfirmYes": "Sim, apagar tudo"
   },
   "therapist": {
     "title": "Os teus clientes",

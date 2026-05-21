@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
@@ -14,7 +15,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title"), robots: { index: false, follow: false } };
 }
 
-export default async function ReviewPage() {
+export default async function ReviewPage({
+  searchParams,
+}: PageProps<"/[locale]/review">) {
+  // Acesso só por chave — partilhada apenas com os revisores escolhidos.
+  const sp = await searchParams;
+  const key = process.env.REVIEW_KEY;
+  if (!key || sp.k !== key) notFound();
+
   const t = await getTranslations("review");
   const pt = await getTranslations("pieceType");
   const locale = await getLocale();
@@ -70,7 +78,7 @@ export default async function ReviewPage() {
           </dl>
 
           <a
-            href="/api/review/export"
+            href={`/api/review/export?k=${encodeURIComponent(key)}`}
             className="inline-flex items-center gap-2 rounded-full bg-accent-strong px-5 py-2.5 text-sm font-medium text-white transition hover:bg-accent"
           >
             ↓ {t("download")}

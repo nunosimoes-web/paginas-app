@@ -54,6 +54,12 @@ export function AppNav({ isTherapist }: { isTherapist: boolean }) {
           })}
         </ul>
         <div className="flex items-center gap-3 text-sm">
+          <Link
+            href="/support"
+            className="text-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            {t("support")}
+          </Link>
           <LocaleSwitcher />
           <SignOutButton className="text-muted underline-offset-4 hover:text-ink hover:underline" />
         </div>
