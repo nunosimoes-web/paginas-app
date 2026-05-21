@@ -90,7 +90,14 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 - **Landing page** reformulada — hero com pré-visualização da peça, secções
   "como funciona" e "para terapeutas", CTA final.
 - **/review** — as 365 peças para revisão profissional (PT+EN) + exportação
-  CSV (`/api/review/export`) com colunas para anotações. Não altera as peças.
+  CSV (`/api/review/export`). Privada: exige `?k=REVIEW_KEY`; fora do rodapé.
+- **Apagar conta (RGPD)** — ação `deleteAccount` + botão nas definições; apaga
+  a conta e todos os dados dependentes e termina a sessão.
+- **Recuperação de palavra-passe** — `/forgot-password` + `/reset-password`;
+  `PasswordResetToken` (token de uso único, validade 1h); link no login.
+- **Suporte** — `/support` + `POST /api/support` (email para a equipa); ligação
+  na navegação e no rodapé. `error.tsx` — fronteira de erro calma com link
+  para o suporte.
 
 ## Resiliência
 
