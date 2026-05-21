@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { routing } from "@/i18n/routing";
 import { styles } from "@/components/ui";
 
 type Mode = "login" | "register";
@@ -11,7 +11,7 @@ type Mode = "login" | "register";
 export function AuthForm({ mode }: { mode: Mode }) {
   const t = useTranslations("auth");
   const c = useTranslations("common");
-  const router = useRouter();
+  const locale = useLocale();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,9 +54,11 @@ export function AuthForm({ mode }: { mode: Mode }) {
         return;
       }
 
-      // O destino (/today vs /onboarding) é decidido server-side em /today.
-      router.push("/today");
-      router.refresh();
+      // Navegação forte: fiável a seguir a uma ação assíncrona (o push suave
+      // pode ser descartado, deixando o botão preso). O destino real
+      // (/today vs /onboarding) é decidido server-side.
+      const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+      window.location.assign(`${prefix}/today`);
     } catch {
       setError(t("errorGeneric"));
       setLoading(false);
