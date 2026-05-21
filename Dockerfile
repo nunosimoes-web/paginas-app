@@ -23,7 +23,7 @@ COPY data ./data
 RUN npx prisma generate
 CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed"]
 
-# ---- runner: a app, output standalone ----
+# ---- runner: a app, output standalone + toolchain de migração ----
 FROM node:24-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
@@ -32,8 +32,15 @@ RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Toolchain para migrate + seed no arranque (prisma CLI, ts-node, schema, dados).
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts /app/tsconfig.json ./
+COPY --chown=nextjs:nodejs docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
-CMD ["node", "server.js"]
+CMD ["./docker-entrypoint.sh"]
