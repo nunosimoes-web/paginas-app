@@ -26,6 +26,7 @@ model User {
   locale        String   @default("pt-PT")
   role          Role     @default(INDIVIDUAL)
   promptHour    Int      @default(8)
+  onboardedAt   DateTime?
   createdAt     DateTime @default(now())
   themes        UserTheme[]
   checkIns      MoodCheckIn[]
