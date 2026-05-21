@@ -79,8 +79,14 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 - **Email diário** — `POST /api/cron/send-emails` envia a peça do dia à
   `promptHour` de cada utilizador (template PT/EN, Resend). Tarefa agendada do
   Coolify de hora a hora. Idempotente via `PromptDelivery.emailSentAt`.
-  Nota: o domínio de teste da Resend só entrega ao próprio email da conta —
-  falta verificar um domínio para chegar aos testers.
+  Domínio `leadshortcut.com` verificado na Resend (DKIM/SPF/MX no Cloudflare);
+  remetente `paginas@leadshortcut.com` — entrega a qualquer destinatário.
+- **Opt-in / cancelamento** — `User.emailDaily` (interruptor nas definições);
+  link de cancelamento + header `List-Unsubscribe` nos emails; página
+  `/unsubscribe` + `POST /api/unsubscribe` (token HMAC, sem login).
+- **Relatório diário** — `POST /api/cron/daily-report` envia para `REPORT_EMAIL`
+  um resumo de utilização (métricas + tabela por utilizador). Tarefa agendada
+  diária (07h UTC).
 - **Landing page** reformulada — hero com pré-visualização da peça, secções
   "como funciona" e "para terapeutas", CTA final.
 - **/review** — as 365 peças para revisão profissional (PT+EN) + exportação
@@ -98,9 +104,10 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 
 ## Pendente
 
-- **Verificar um domínio na Resend** (ex.: `paginasemetaforas.pt`) para os
-  emails diários chegarem aos testers, não só ao email da conta Resend.
 - **Backup externo** (S3/R2) — os backups são locais ao servidor.
+- Migrar o remetente de email para um domínio próprio da marca quando
+  `paginasemetaforas.pt` estiver disponível no Cloudflare (hoje usa
+  `leadshortcut.com` como solução temporária).
 - Teste E2E de browser dos *server actions* (check-in, journal, connect).
 
 ## Deploy — concluído (Coolify)
