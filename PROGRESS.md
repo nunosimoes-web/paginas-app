@@ -64,10 +64,27 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 
 - **Onboarding preso em "A guardar"** — a server action gravava bem, mas a
   navegação suave (`router.push`) a seguir à action era descartada, deixando o
-  botão preso. Corrigido com navegação forte (`window.location`) + `try/catch`
-  que repõe o botão em qualquer falha. Verificado no bundle em produção.
+  botão preso. Corrigido com navegação forte (`window.location`) + `try/catch`.
+- **Logout preso** — o `signOut` não saía da área autenticada. Corrigido com
+  `signOut({redirect:false})` + navegação forte. `AuthForm` (login) reforçado
+  com o mesmo padrão por precaução.
 - **Healthcheck** — `node:alpine` não traz `curl`/`wget`; o Coolify precisa de
   um deles. Adicionado `curl` à imagem + `HEALTHCHECK` nativo. App `running:healthy`.
+- Auditados os 13 componentes com ações: só o onboarding e o logout tinham o
+  padrão problemático (navegar a seguir a uma ação); os outros 10 usam o padrão
+  correto (`router.refresh()` + `useTransition`).
+
+## Funcionalidades pós-MVP
+
+- **Email diário** — `POST /api/cron/send-emails` envia a peça do dia à
+  `promptHour` de cada utilizador (template PT/EN, Resend). Tarefa agendada do
+  Coolify de hora a hora. Idempotente via `PromptDelivery.emailSentAt`.
+  Nota: o domínio de teste da Resend só entrega ao próprio email da conta —
+  falta verificar um domínio para chegar aos testers.
+- **Landing page** reformulada — hero com pré-visualização da peça, secções
+  "como funciona" e "para terapeutas", CTA final.
+- **/review** — as 365 peças para revisão profissional (PT+EN) + exportação
+  CSV (`/api/review/export`) com colunas para anotações. Não altera as peças.
 
 ## Resiliência
 
@@ -81,9 +98,10 @@ num URL público HTTPS. Os testes passam, a build de produção é bem-sucedida 
 
 ## Pendente
 
-- **Email diário** — enviar a peça do dia por email à `promptHour` de cada
-  utilizador. Decidido: Resend (remetente de teste). Falta a `RESEND_API_KEY`.
-- Teste E2E de browser dos restantes *server actions* (check-in, journal, connect).
+- **Verificar um domínio na Resend** (ex.: `paginasemetaforas.pt`) para os
+  emails diários chegarem aos testers, não só ao email da conta Resend.
+- **Backup externo** (S3/R2) — os backups são locais ao servidor.
+- Teste E2E de browser dos *server actions* (check-in, journal, connect).
 
 ## Deploy — concluído (Coolify)
 
