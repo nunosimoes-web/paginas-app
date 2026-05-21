@@ -43,3 +43,6 @@ next-env.d.ts
 .env
 node_modules
 .next
+
+# Ficheiro de instruções/notas — não versionar
+DEPLOY_PROMPT.md
