@@ -103,10 +103,12 @@ model ClientLink {
   id          String  @id @default(cuid())
   therapist   User    @relation("TherapistSide", fields: [therapistId], references: [id])
   therapistId String
-  client      User    @relation("ClientSide", fields: [clientId], references: [id])
-  clientId    String
+  // clientId é nulo enquanto o convite está pendente (antes de redimido).
+  client      User?   @relation("ClientSide", fields: [clientId], references: [id])
+  clientId    String?
   inviteCode  String  @unique
   status      String  @default("pending")
   seededThemes Json?
+  createdAt   DateTime @default(now())
   @@unique([therapistId, clientId])
 }
