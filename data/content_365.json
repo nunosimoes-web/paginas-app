@@ -1,0 +1,6272 @@
+{
+  "meta": {
+    "version": "0.1",
+    "generated_for": "Páginas — app de acompanhamento terapêutico diário",
+    "languages": [
+      "pt-PT",
+      "en"
+    ],
+    "count": 365,
+    "disclaimer": "Conteúdo de bem-estar, não clínico. Carece de validação por profissional qualificado antes de uso real."
+  },
+  "pieces": [
+    {
+      "id": "pc_fbae4bedc992",
+      "day": 1,
+      "type": "METAPHOR",
+      "principle": "ACT_defusion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Os pensamentos são como folhas a descer um rio. Não tens de saltar atrás de cada uma. Senta-te na margem e vê-as passar — chegam, ficam um instante, e seguem.",
+        "en": "Thoughts are like leaves drifting down a river. You don't have to jump in after each one. Sit on the bank and watch them pass — they arrive, linger a moment, and move on."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_b91f1b83b38a",
+      "day": 2,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que precisaria de ouvir hoje, se viesse de alguém que me ama?",
+        "en": "What would I need to hear today, if it came from someone who loves me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_471bfaab5b98",
+      "day": 3,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de ganhar o teu próprio descanso. Mereces gentileza só por seres humano.",
+        "en": "You don't have to earn your own rest. You deserve kindness simply for being human."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_561cf66cc0b5",
+      "day": 4,
+      "type": "EXERCISE",
+      "principle": "polyvagal",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Respiração 4-7-8: inspira pelo nariz a contar até 4, suspende a contar até 7, expira pela boca a contar até 8. Repete quatro vezes. A expiração longa diz ao corpo que está seguro.",
+        "en": "4-7-8 breathing: inhale through your nose for a count of 4, hold for 7, exhale through your mouth for 8. Repeat four times. The long exhale tells your body it's safe."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c96ec1255442",
+      "day": 5,
+      "type": "METAPHOR",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A ansiedade é um passageiro barulhento no teu autocarro. Podes deixá-la gritar no banco de trás e continuar a conduzir na direção que escolheste. Não precisas de a expulsar para chegares aonde queres.",
+        "en": "Anxiety is a loud passenger on your bus. You can let it shout from the back seat and keep driving toward where you chose to go. You don't need to throw it off to reach your destination."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0ba2f927f905",
+      "day": 6,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde sinto esta emoção no corpo, neste momento? Que forma e que peso tem?",
+        "en": "Where do I feel this emotion in my body right now? What shape and weight does it have?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_db978c5945b0",
+      "day": 7,
+      "type": "METAPHOR",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Imagina que um amigo querido te dizia exatamente o que dizes a ti próprio nos dias maus. Ouvirias com pena por ele. Hoje, oferece-te essa mesma voz — a do amigo, não a do crítico.",
+        "en": "Imagine a dear friend said to you exactly what you say to yourself on bad days. You'd ache for them. Today, offer yourself that same voice — the friend's, not the critic's."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_24ff25936f63",
+      "day": 8,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se ninguém me julgasse, o que escolheria fazer com o dia de hoje?",
+        "en": "If no one were judging me, what would I choose to do with today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_179496ec0945",
+      "day": 9,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Sentir medo não significa que estás em perigo. Significa que algo te importa.",
+        "en": "Feeling fear doesn't mean you're in danger. It means something matters to you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1e3194c6079e",
+      "day": 10,
+      "type": "EXERCISE",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Ancoragem 5-4-3-2-1: nomeia 5 coisas que vês, 4 que ouves, 3 que tocas, 2 que cheiras, 1 que saboreias. Traz a mente de volta ao corpo e ao presente.",
+        "en": "5-4-3-2-1 grounding: name 5 things you see, 4 you hear, 3 you can touch, 2 you smell, 1 you taste. Bring your mind back to your body and the present."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2ba8e9066cb9",
+      "day": 11,
+      "type": "METAPHOR",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A mente é como um céu. Os pensamentos e as emoções são nuvens — algumas escuras, algumas leves. Passam todas. O céu permanece, e tu és o céu, não a tempestade.",
+        "en": "The mind is like the sky. Thoughts and emotions are clouds — some dark, some light. They all pass. The sky remains, and you are the sky, not the storm."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1f0972fa9bab",
+      "day": 12,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim precisa de mais gentileza hoje, e o que lhe diria?",
+        "en": "Which part of me needs more gentleness today, and what would I say to it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6d0a77749b75",
+      "day": 13,
+      "type": "METAPHOR",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 3,
+      "body": {
+        "pt-PT": "A dor do luto é como uma onda. No início vêm enormes e seguidas, quase sem te deixarem respirar. Com o tempo, o intervalo entre elas alarga-se. Não desaparecem por completo, mas aprendes a manter-te de pé quando chegam.",
+        "en": "Grief comes in waves. At first they are huge and relentless, barely letting you breathe. With time, the space between them widens. They never vanish entirely, but you learn to stay standing when they arrive."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_60bc9c3b19c2",
+      "day": 14,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quem me faz sentir seguro para ser eu próprio? Quando foi a última vez que lho disse?",
+        "en": "Who makes me feel safe to be myself? When did I last tell them?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8ee62ab2ea4d",
+      "day": 15,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não há forma errada de sentir aquilo que sentes. A emoção não pede permissão.",
+        "en": "There is no wrong way to feel what you feel. Emotion asks no permission."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_387c3a5d757f",
+      "day": 16,
+      "type": "EXERCISE",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Coloca uma mão sobre o coração e sente o calor. Diz em silêncio: 'Este é um momento difícil. O sofrimento faz parte de ser humano. Que eu possa ser gentil comigo agora.'",
+        "en": "Place a hand over your heart and feel its warmth. Say silently: 'This is a hard moment. Suffering is part of being human. May I be kind to myself right now.'"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_70c148422cbc",
+      "day": 17,
+      "type": "METAPHOR",
+      "principle": "DBT_distress_tolerance",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Uma emoção intensa é como segurar uma brasa: quanto mais a apertas, mais queima. Por vezes, a coragem não é largar de imediato — é abrir a mão devagar e deixá-la arrefecer.",
+        "en": "An intense emotion is like holding an ember: the tighter you grip, the more it burns. Sometimes courage isn't letting go at once — it's slowly opening your hand and letting it cool."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9f60569b1dcb",
+      "day": 18,
+      "type": "REFLECTION",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A que é que disse 'sim' recentemente, quando o meu corpo queria dizer 'não'?",
+        "en": "What did I recently say 'yes' to, when my body wanted to say 'no'?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5014db9fdd96",
+      "day": 19,
+      "type": "METAPHOR",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "angry"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Os limites não são muros para afastar as pessoas. São portas com fechadura: tu decides quem entra e quando. Ter chave da tua própria porta não é egoísmo — é cuidado.",
+        "en": "Boundaries aren't walls to keep people out. They are doors with locks: you decide who enters and when. Holding the key to your own door isn't selfishness — it's care."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_56d501c3b6da",
+      "day": 20,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequena coisa de hoje merecia mais atenção do que lhe dei?",
+        "en": "What small thing from today deserved more attention than I gave it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9da98320187f",
+      "day": 21,
+      "type": "REMINDER",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Dizer 'não' não te torna má pessoa. Torna-te uma pessoa com limites.",
+        "en": "Saying 'no' doesn't make you a bad person. It makes you a person with limits."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2fd8d80b51aa",
+      "day": 22,
+      "type": "EXERCISE",
+      "principle": "DBT_distress_tolerance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Técnica TIPP: segura um cubo de gelo ou lava as mãos com água fria durante 30 segundos. A mudança de temperatura ajuda o corpo a sair de um pico emocional sem te magoares.",
+        "en": "TIPP skill: hold an ice cube or run cold water over your hands for 30 seconds. The temperature shift helps your body step down from an emotional peak without harming yourself."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f7b95385aa43",
+      "day": 23,
+      "type": "METAPHOR",
+      "principle": "IFS_parts",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 3,
+      "body": {
+        "pt-PT": "Dentro de ti vivem várias partes, como uma família. A parte que critica costuma ser, no fundo, uma parte assustada a tentar proteger-te. Não a silencies — pergunta-lhe do que tem medo.",
+        "en": "Inside you live many parts, like a family. The part that criticizes is often, underneath, a frightened part trying to protect you. Don't silence it — ask it what it's afraid of."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_13e5452754ad",
+      "day": 24,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se a minha raiva pudesse falar com calma, o que estaria a tentar proteger?",
+        "en": "If my anger could speak calmly, what would it be trying to protect?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6c82335637bc",
+      "day": 25,
+      "type": "METAPHOR",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Os valores são como uma bússola, não como um destino. Não 'chegas' à bondade ou à coragem — apontas para elas, passo a passo. Mesmo perdido, a bússola continua a indicar o norte.",
+        "en": "Values are like a compass, not a destination. You don't 'arrive' at kindness or courage — you point toward them, step by step. Even when lost, the compass still shows you north."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f110fc66c08a",
+      "day": 26,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "trauma",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que história costumo contar sobre mim que talvez já não seja verdade?",
+        "en": "What story do I tend to tell about myself that may no longer be true?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_94441b1971c7",
+      "day": 27,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de resolver o ano inteiro hoje. Só este momento. Só o próximo passo.",
+        "en": "You don't have to solve the whole year today. Just this moment. Just the next step."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5c559c29dd06",
+      "day": 28,
+      "type": "EXERCISE",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Escolhe um valor que importa para ti (ex.: bondade, coragem, honestidade). Identifica uma ação pequena, hoje, que aponte nessa direção — por mínima que seja. Fá-la antes do fim do dia.",
+        "en": "Pick a value that matters to you (e.g., kindness, courage, honesty). Identify one small action, today, that points in that direction — however tiny. Do it before the day ends."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_efd1bf39a6d3",
+      "day": 29,
+      "type": "METAPHOR",
+      "principle": "polyvagal",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "O teu sistema nervoso é como um alarme de fumo: às vezes dispara com o vapor do chuveiro, não com fogo. Quando o corpo soa o alarme, podes perguntar com gentileza: há mesmo fogo, ou é só vapor?",
+        "en": "Your nervous system is like a smoke alarm: sometimes it goes off at shower steam, not fire. When your body sounds the alarm, you can gently ask: is there really a fire, or just steam?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_65cfa589ea19",
+      "day": 30,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Daqui a um ano, do que terei orgulho por ter começado hoje?",
+        "en": "A year from now, what will I be proud of having started today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_518adc97f582",
+      "day": 31,
+      "type": "METAPHOR",
+      "principle": "narrative",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A tua vida é uma história ainda a ser escrita, e tu seguras a caneta. Um capítulo difícil não é o fim do livro — é a parte onde a personagem aprende algo que vai precisar mais à frente.",
+        "en": "Your life is a story still being written, and you hold the pen. A hard chapter isn't the end of the book — it's the part where the character learns something they'll need later."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_97ccaed2eb1d",
+      "day": 32,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que é que está, de facto, sob o meu controlo neste momento — e o que não está?",
+        "en": "What is actually within my control right now — and what is not?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fda1daee949f",
+      "day": 33,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Falar contigo com dureza nunca te fez melhor — só mais cansado. Experimenta a gentileza.",
+        "en": "Speaking harshly to yourself never made you better — only more tired. Try kindness."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_44dbc22735fd",
+      "day": 34,
+      "type": "EXERCISE",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Dá um nome à emoção que sentes agora, em voz alta ou no papel: 'Estou a sentir ___.' Nomear uma emoção reduz a sua intensidade — o cérebro acalma-se quando a experiência ganha palavras.",
+        "en": "Name the emotion you feel right now, aloud or on paper: 'I am feeling ___.' Naming an emotion lowers its intensity — the brain settles when the experience finds words."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_dabcd11dae66",
+      "day": 35,
+      "type": "METAPHOR",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A raiva costuma ser a guarda-costas de uma emoção mais frágil — mágoa, medo, vergonha. Quando ela aparecer, agradece-lhe a proteção e pergunta com calma: quem é que ela está a tentar defender?",
+        "en": "Anger is often the bodyguard of a more fragile feeling — hurt, fear, shame. When it shows up, thank it for the protection and gently ask: who is it trying to defend?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d73bf169f902",
+      "day": 36,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Como seria tratar a minha solidão como uma visita, e não como um inimigo?",
+        "en": "What would it be like to treat my loneliness as a visitor, not an enemy?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7d7310c5f9af",
+      "day": 37,
+      "type": "METAPHOR",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Não falarias com uma criança que tropeça a dizer-lhe que é inútil. Levantá-la-ias com cuidado. A criança que tropeçou ainda vive em ti — trata-a com as mesmas mãos.",
+        "en": "You wouldn't tell a child who stumbles that they're worthless. You'd lift them gently. The child who stumbled still lives in you — treat them with those same hands."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0d1749aa3c54",
+      "day": 38,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que conversa tenho andado a adiar, e o que receio que aconteça se a tiver?",
+        "en": "What conversation have I been postponing, and what do I fear will happen if I have it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_cd3e6c6e0e70",
+      "day": 39,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Progresso não é linha reta. Recuar e voltar a tentar também é caminhar.",
+        "en": "Progress isn't a straight line. Stepping back and trying again is also moving forward."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e1d10ce5c83f",
+      "day": 40,
+      "type": "EXERCISE",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Faz uma pausa de um minuto. Não tentes mudar nada — só repara em como estás a respirar, sem corrigir. Por vezes, a única tarefa é estar presente sem te exigires nada.",
+        "en": "Take a one-minute pause. Don't try to change anything — just notice how you're breathing, without correcting it. Sometimes the only task is to be present without demanding anything of yourself."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d308b8aa843c",
+      "day": 41,
+      "type": "METAPHOR",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A atenção é como uma lanterna num quarto escuro: aquilo para onde a apontas é o que vês. Hoje, escolhe com cuidado para onde apontas a tua.",
+        "en": "Attention is like a flashlight in a dark room: whatever you point it at is what you see. Today, choose carefully where you aim yours."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_71568d4f3f1b",
+      "day": 42,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que sinto mais falta, e o que essa falta me diz sobre o que valorizo?",
+        "en": "What do I miss most, and what does that longing tell me about what I value?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8427815561e1",
+      "day": 43,
+      "type": "METAPHOR",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 3,
+      "body": {
+        "pt-PT": "Carregar uma perda é como carregar uma pedra ao bolso. Não desaparece, mas com o tempo conheces o seu peso, a sua forma, e aprendes a caminhar com ela sem que te puxe ao chão.",
+        "en": "Carrying a loss is like carrying a stone in your pocket. It doesn't disappear, but in time you come to know its weight, its shape, and you learn to walk with it without it dragging you down."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8d5e00003d8d",
+      "day": 44,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quem, na minha vida, merece um obrigado que ainda não disse em voz alta?",
+        "en": "Who in my life deserves a thank-you I haven't yet said aloud?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e54f6c368485",
+      "day": 45,
+      "type": "REMINDER",
+      "principle": "DBT_distress_tolerance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "low",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Já sobreviveste a 100% dos teus piores dias. A tua taxa de sobrevivência é perfeita.",
+        "en": "You've survived 100% of your worst days. Your survival rate is perfect."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_345b43a95c15",
+      "day": 46,
+      "type": "EXERCISE",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Pratica uma frase de limite hoje: 'Não consigo agora, mas obrigado por pensares em mim.' Dizer não a uma coisa é dizer sim ao teu tempo e à tua energia.",
+        "en": "Practice one boundary sentence today: 'I can't right now, but thank you for thinking of me.' Saying no to one thing is saying yes to your time and energy."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2951bea0a55c",
+      "day": 47,
+      "type": "METAPHOR",
+      "principle": "DBT_distress_tolerance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "low",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "As emoções têm uma curva, como uma onda que sobe e quebra. Nenhuma emoção, por mais intensa, dura para sempre no seu pico. Se conseguires surfar os próximos minutos, a onda vai descer.",
+        "en": "Emotions have an arc, like a wave that rises and breaks. No emotion, however intense, stays at its peak forever. If you can ride the next few minutes, the wave will come down."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7192ce4bc890",
+      "day": 48,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno passo daria hoje se soubesse que não podia falhar?",
+        "en": "What small step would I take today if I knew I could not fail?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_88e1ba2b5727",
+      "day": 49,
+      "type": "METAPHOR",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Comparar a tua vida com a dos outros é como comparar o teu bastidor com o palco deles. Vês os teus ensaios falhados e só o espetáculo final dos outros. Não é uma comparação justa.",
+        "en": "Comparing your life to others' is like comparing your backstage to their stage. You see your own failed rehearsals and only their finished show. It was never a fair comparison."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6944181c93ce",
+      "day": 50,
+      "type": "REFLECTION",
+      "principle": "boundaries",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde ando a gastar energia que gostaria de guardar para mim?",
+        "en": "Where am I spending energy I'd rather keep for myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_eb3723607089",
+      "day": 51,
+      "type": "REMINDER",
+      "principle": "relationships",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Pedir ajuda não é fraqueza. É a coragem de confiar que não tens de fazer tudo sozinho.",
+        "en": "Asking for help isn't weakness. It's the courage to trust you don't have to do it all alone."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3325440938c2",
+      "day": 52,
+      "type": "EXERCISE",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "neutral",
+        "low",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Escreve três coisas pequenas e concretas que correram bem hoje — não grandiosas, apenas reais (um café quente, uma mensagem, o sol). O cérebro tende ao negativo; isto reequilibra-o.",
+        "en": "Write three small, concrete things that went well today — nothing grand, just real (a warm coffee, a message, the sun). The brain leans negative; this gently rebalances it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8afd50a9e19c",
+      "day": 53,
+      "type": "METAPHOR",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A mudança é como atravessar uma ponte no nevoeiro. Não vês a outra margem, mas o próximo passo está sempre iluminado. Não precisas de ver tudo — só o suficiente para dar mais um passo.",
+        "en": "Change is like crossing a bridge in fog. You can't see the far bank, but the next step is always lit. You don't need to see it all — just enough to take one more step."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a35bc151883d",
+      "day": 54,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que padrão de exigência herdei e que talvez já não precise de carregar?",
+        "en": "What pattern of pressure did I inherit that I may no longer need to carry?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e604ea9fed80",
+      "day": 55,
+      "type": "METAPHOR",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A solidão é, muitas vezes, a tua própria companhia a pedir gentileza. Em vez de fugires de ti, podes sentar-te contigo como te sentarias com alguém que precisa de não estar só.",
+        "en": "Loneliness is often your own company asking for kindness. Instead of fleeing yourself, you can sit with yourself the way you'd sit with someone who needs not to be alone."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_41383518400e",
+      "day": 56,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que é 'suficiente' para mim, hoje — e porque me custa tanto acreditar nisso?",
+        "en": "What is 'enough' for me today — and why is it so hard to believe it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9db31c9c2292",
+      "day": 57,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Descansar não é desistir. Até a terra precisa de invernos para voltar a dar frutos.",
+        "en": "Resting isn't giving up. Even the earth needs winters to bear fruit again."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8191a754f5ce",
+      "day": 58,
+      "type": "EXERCISE",
+      "principle": "polyvagal",
+      "theme": "trauma",
+      "mood_fit": [
+        "anxious",
+        "low",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Pousa os pés no chão e sente os quatro cantos de cada pé. Pressiona ligeiramente. Diz a ti próprio: 'Estou aqui. Agora. Em segurança neste momento.' Repete três vezes.",
+        "en": "Plant your feet on the floor and feel the four corners of each foot. Press down gently. Tell yourself: 'I am here. Now. Safe in this moment.' Repeat three times."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_24777f86d0c3",
+      "day": 59,
+      "type": "METAPHOR",
+      "principle": "narrative",
+      "theme": "trauma",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 3,
+      "body": {
+        "pt-PT": "As cicatrizes não são provas de que estavas partido — são provas de que sararas. O corpo conta a história de tudo a que sobreviveste, e tu ainda aqui estás a lê-la.",
+        "en": "Scars aren't proof that you were broken — they're proof that you healed. The body tells the story of everything you survived, and here you still are, reading it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_27b84f913561",
+      "day": 60,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que receio meu, se o escrevesse por extenso, perderia parte do seu poder?",
+        "en": "What fear of mine, if I wrote it out in full, would lose some of its power?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d5a968f84cae",
+      "day": 61,
+      "type": "METAPHOR",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Lutar contra a ansiedade é como tentar empurrar a água: quanto mais força fazes, mais ela resiste. Às vezes, flutuar é mais sábio do que nadar contra a corrente.",
+        "en": "Fighting anxiety is like pushing against water: the more force you use, the more it resists. Sometimes floating is wiser than swimming against the current."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f6fa75891233",
+      "day": 62,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se este capítulo da minha vida tivesse um título, qual seria — e qual gostaria que fosse?",
+        "en": "If this chapter of my life had a title, what would it be — and what would I want it to be?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_96cb67c3b54d",
+      "day": 63,
+      "type": "REMINDER",
+      "principle": "ACT_defusion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Um pensamento não é um facto. É só uma das muitas coisas que a tua mente diz.",
+        "en": "A thought is not a fact. It's just one of the many things your mind says."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0c69835e8d29",
+      "day": 64,
+      "type": "EXERCISE",
+      "principle": "ACT_defusion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Quando surgir um pensamento duro, acrescenta-lhe à frente: 'Estou a ter o pensamento de que...'. 'Sou um falhado' torna-se 'Estou a ter o pensamento de que sou um falhado.' Cria espaço entre ti e o pensamento.",
+        "en": "When a harsh thought arises, add in front of it: 'I'm having the thought that...'. 'I'm a failure' becomes 'I'm having the thought that I'm a failure.' It creates space between you and the thought."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c5d0ac8f302c",
+      "day": 65,
+      "type": "METAPHOR",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Não tratas uma planta que murcha com gritos. Dás-lhe luz, água e tempo. Tu também cresces assim — com cuidado, não com castigo.",
+        "en": "You don't treat a wilting plant by shouting at it. You give it light, water and time. You grow the same way — with care, not punishment."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_392b352b4de4",
+      "day": 66,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "De quem me sinto distante e gostaria de reaproximar? Que primeiro gesto seria possível?",
+        "en": "Who do I feel distant from and wish to reconnect with? What first gesture would be possible?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a7b3374b727d",
+      "day": 67,
+      "type": "METAPHOR",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A vida é como um comboio: as paisagens mudam à janela, mas tu continuas a viajar. Não tens de agarrar cada vista — basta veres-las passar.",
+        "en": "Life is like a train: the scenery shifts at the window, but you keep travelling. You don't have to grasp each view — just let them pass."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4040b58fbb1b",
+      "day": 68,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que exigência fiz a mim hoje que nunca faria a alguém de quem gosto?",
+        "en": "What demand did I make of myself today that I'd never make of someone I love?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2a39e498fdbf",
+      "day": 69,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Está tudo bem em sentir raiva. O que escolhes fazer com ela é que te define.",
+        "en": "It's okay to feel anger. What you choose to do with it is what defines you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7437a4dc7b17",
+      "day": 70,
+      "type": "EXERCISE",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "tender"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Envia uma mensagem curta e sincera a alguém de quem gostas, sem motivo nenhum. A conexão não precisa de ocasião — e fortalece-te tanto a ti como a quem a recebe.",
+        "en": "Send a short, sincere message to someone you care about, for no reason at all. Connection needs no occasion — and it strengthens both you and the person who receives it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e9164903b8d8",
+      "day": 71,
+      "type": "METAPHOR",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "O luto não é uma escada que se sobe até ao fim. É mais como o mar: há marés altas e baixas, e nenhuma é o destino — são todas o caminho.",
+        "en": "Grief isn't a staircase you climb to the top. It's more like the sea: there are high tides and low, and none is the destination — they're all the way through."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d666814b5b02",
+      "day": 72,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "trauma",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria à versão mais nova de mim que passou pelo que passei?",
+        "en": "What would I say to the younger version of me who went through what I went through?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7709745b952b",
+      "day": 73,
+      "type": "METAPHOR",
+      "principle": "DBT_distress_tolerance",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Uma crise emocional é como uma tempestade de neve: parece infinita enquanto dura, mas nenhuma nevasca caiu para sempre. Abriga-te e espera que abrande.",
+        "en": "An emotional crisis is like a snowstorm: it feels endless while it lasts, but no blizzard ever fell forever. Take shelter and wait for it to ease."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_02c707664478",
+      "day": 74,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha rotina alimenta quem quero ser, e que parte a esvazia?",
+        "en": "Which part of my routine feeds who I want to be, and which part empties it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0b6bf8006eee",
+      "day": 75,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Curar não é esquecer. É chegar a um ponto em que a memória já não te comanda.",
+        "en": "Healing isn't forgetting. It's reaching a point where the memory no longer commands you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_11cdbe4ebb21",
+      "day": 76,
+      "type": "EXERCISE",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Bebe um copo de água devagar, prestando atenção a cada gole — a temperatura, o movimento, o engolir. Um ato simples feito com presença total é uma pequena âncora ao agora.",
+        "en": "Drink a glass of water slowly, paying attention to each sip — the temperature, the motion, the swallow. A simple act done with full presence is a small anchor to now."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1c6a9899cff8",
+      "day": 77,
+      "type": "METAPHOR",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Comparares-te com os outros é correr uma corrida em que cada um tem um percurso diferente. A tua única medida justa és tu de ontem.",
+        "en": "Comparing yourself to others is running a race where everyone has a different course. Your only fair measure is who you were yesterday."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8f4e3643f0c2",
+      "day": 78,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que ajuda recebi recentemente sem ter pedido — e reparei nela?",
+        "en": "What help did I recently receive without asking — and did I notice it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_712a66806256",
+      "day": 79,
+      "type": "METAPHOR",
+      "principle": "boundaries",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Um copo só pode encher os outros se não estiver vazio. Cuidar de ti primeiro não é egoísmo — é o que torna o cuidado pelos outros possível.",
+        "en": "A cup can only fill others if it isn't empty. Caring for yourself first isn't selfish — it's what makes caring for others possible."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_93d3daae9111",
+      "day": 80,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se permitisse à minha frustração existir sem a julgar?",
+        "en": "What would change if I let my frustration exist without judging it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2050676500df",
+      "day": 81,
+      "type": "REMINDER",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Olha para o quanto já caminhaste, não só para o quanto falta. Também isso é verdade.",
+        "en": "Look at how far you've already come, not only how far is left. That, too, is true."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_abc9b2fc65e7",
+      "day": 82,
+      "type": "EXERCISE",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Põe a mão na barriga e faz cinco respirações em que sintas a barriga subir, não o peito. A respiração abdominal sinaliza segurança ao sistema nervoso.",
+        "en": "Place a hand on your belly and take five breaths where you feel the belly rise, not the chest. Belly breathing signals safety to the nervous system."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_df7949237d56",
+      "day": 83,
+      "type": "METAPHOR",
+      "principle": "polyvagal",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "O corpo guarda a tensão como um punho fechado há horas. Não precisas de o abrir à força — basta lembrá-lo, devagar, de que já pode descansar.",
+        "en": "The body holds tension like a fist clenched for hours. You don't need to force it open — just remind it, slowly, that it's allowed to rest now."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_606e7800e0ba",
+      "day": 84,
+      "type": "REFLECTION",
+      "principle": "boundaries",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que 'devia' ando a carregar que, na verdade, ninguém me pediu?",
+        "en": "What 'should' am I carrying that, in truth, no one asked of me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e0a2bde48eeb",
+      "day": 85,
+      "type": "METAPHOR",
+      "principle": "narrative",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "Cada pessoa é um livro de muitos capítulos. Estás a julgar a tua história toda por uma página difícil — vira-a, há mais para escrever.",
+        "en": "Each person is a book of many chapters. You're judging your whole story by one hard page — turn it, there's more to write."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_be16c7e641b9",
+      "day": 86,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quando foi o último momento em que me senti verdadeiramente calmo? O que o tornou possível?",
+        "en": "When was the last moment I felt truly calm? What made it possible?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6083ecba319f",
+      "day": 87,
+      "type": "REMINDER",
+      "principle": "boundaries",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quem te quer bem vai respeitar os teus limites. Quem só os contesta, mostra-te algo.",
+        "en": "Those who wish you well will respect your limits. Those who only push back are showing you something."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1b0551d010af",
+      "day": 88,
+      "type": "EXERCISE",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Escreve uma frase de encorajamento como a escreverias a um amigo, e depois lê-a em voz alta dirigida a ti.",
+        "en": "Write a sentence of encouragement as you'd write it to a friend, then read it aloud, addressed to yourself."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_649e5ccfbf7b",
+      "day": 89,
+      "type": "METAPHOR",
+      "principle": "IFS_parts",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 2,
+      "body": {
+        "pt-PT": "A parte de ti que se preocupa demais é como um guarda que nunca dorme. Não a despeças — agradece-lhe o turno e diz-lhe que pode descansar um pouco.",
+        "en": "The part of you that worries too much is like a guard who never sleeps. Don't fire it — thank it for the shift and tell it it can rest a while."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1fd5d34479a2",
+      "day": 90,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que qualidade minha costumo ignorar porque me parece pequena demais?",
+        "en": "What quality of mine do I tend to overlook because it seems too small?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4d30583097f0",
+      "day": 91,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a sentir 5% mais leve agora mesmo?",
+        "en": "What would help me feel 5% lighter right now?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a35917b35b07",
+      "day": 92,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de ter tudo decidido. Tens permissão para descobrir à medida que avanças.",
+        "en": "You don't have to have it all figured out. You're allowed to discover as you go."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6a30e9f70d79",
+      "day": 93,
+      "type": "EXERCISE",
+      "principle": "gratitude",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Antes de dormir, recorda um momento de hoje em que te sentiste minimamente bem. Demora-te nele 30 segundos. Estás a treinar a mente a registar o bom.",
+        "en": "Before sleep, recall one moment today when you felt even slightly good. Linger on it for 30 seconds. You're training your mind to register the good."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_588d91e4e5a8",
+      "day": 94,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se confiasse plenamente em mim, qual seria o meu próximo passo?",
+        "en": "If I fully trusted myself, what would my next step be?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2fcc6e609db1",
+      "day": 95,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que me perdoaria hoje, se me deixasse?",
+        "en": "What might I forgive myself for today, if I let myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4ac4306a2d98",
+      "day": 96,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Mesmo nos dias em que não gostas de ti, continuas a ser digno de cuidado.",
+        "en": "Even on the days you don't like yourself, you remain worthy of care."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2c32efd828c6",
+      "day": 97,
+      "type": "EXERCISE",
+      "principle": "DBT_distress_tolerance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Faz a contagem dos objetos de uma cor à tua volta (ex.: tudo o que é azul). Ocupar a mente com uma tarefa neutra ajuda a baixar a intensidade emocional.",
+        "en": "Count the objects of one colour around you (e.g., everything blue). Occupying the mind with a neutral task helps bring emotional intensity down."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0e30e78fc6e6",
+      "day": 98,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Como gostaria que as pessoas se sentissem depois de estarem comigo?",
+        "en": "How would I like people to feel after spending time with me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e92b3229c86f",
+      "day": 99,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que esta perda me ensinou sobre aquilo que mais valorizo?",
+        "en": "What has this loss taught me about what I value most?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6d8d3dbee94d",
+      "day": 100,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não precisas de ser produtivo para teres valor. Existes, e isso já basta.",
+        "en": "You don't need to be productive to have worth. You exist, and that is already enough."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_718f21858a1e",
+      "day": 101,
+      "type": "EXERCISE",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Escreve uma palavra que queres que oriente o teu dia (ex.: 'calma', 'coragem'). Volta a ela de cada vez que tiveres de decidir algo.",
+        "en": "Write one word you want to guide your day (e.g., 'calm', 'courage'). Return to it each time you have to make a decision."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_314fd4497ea9",
+      "day": 102,
+      "type": "REFLECTION",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que limite, se o pusesse, me devolveria mais paz?",
+        "en": "What boundary, if I set it, would give me back the most peace?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7e95518d8102",
+      "day": 103,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte do meu corpo merecia um obrigado pelo que faz por mim?",
+        "en": "What part of my body deserves a thank-you for what it does for me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6d6435099d5f",
+      "day": 104,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "As lágrimas não são sinal de fraqueza. São o corpo a libertar o que pesava demais.",
+        "en": "Tears aren't a sign of weakness. They're the body releasing what grew too heavy to hold."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_056ca53d38b9",
+      "day": 105,
+      "type": "EXERCISE",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Identifica uma tarefa que podes delegar, adiar ou recusar esta semana. Liberta esse espaço deliberadamente — e repara como te sentes.",
+        "en": "Identify one task you can delegate, postpone or decline this week. Free that space deliberately — and notice how it feels."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_81336e877274",
+      "day": 106,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que versão de mim quero estar a construir nos próximos meses?",
+        "en": "What version of myself do I want to be building over the coming months?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_64f522e29d76",
+      "day": 107,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde, hoje, fui mais duro comigo do que a situação pedia?",
+        "en": "Where today was I harder on myself than the situation called for?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c9353daf3e89",
+      "day": 108,
+      "type": "REMINDER",
+      "principle": "DBT_distress_tolerance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Esta sensação é desconfortável, não perigosa. Vai passar, como tudo passa.",
+        "en": "This feeling is uncomfortable, not dangerous. It will pass, as all things do."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f1fd6924cc7b",
+      "day": 109,
+      "type": "EXERCISE",
+      "principle": "relationships",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Marca, hoje, um momento concreto para falar com alguém esta semana. Pôr a ligação na agenda torna-a mais provável do que esperar pela vontade.",
+        "en": "Today, schedule a concrete moment to talk with someone this week. Putting connection on the calendar makes it more likely than waiting for the urge."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_cef6a5a2bbee",
+      "day": 110,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se ouvisse a minha irritação em vez de a calar?",
+        "en": "What would change if I listened to my irritation instead of silencing it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5561fca5f9a7",
+      "day": 111,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria por mim hoje se me tratasse como ao meu melhor amigo?",
+        "en": "What would I do for myself today if I treated myself like my best friend?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4e54d35ea7b2",
+      "day": 112,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O cansaço não é preguiça. É o corpo a pedir o que merece.",
+        "en": "Tiredness isn't laziness. It's the body asking for what it deserves."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d337b301ba5e",
+      "day": 113,
+      "type": "EXERCISE",
+      "principle": "polyvagal",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Faz um suspiro fisiológico: duas inspirações curtas pelo nariz seguidas de uma expiração longa pela boca. Repete três vezes para reequilibrar o corpo.",
+        "en": "Do a physiological sigh: two short inhales through the nose followed by one long exhale through the mouth. Repeat three times to rebalance the body."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_13b9b6a60af6",
+      "day": 114,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que estou a perseguir que talvez nem queira de verdade?",
+        "en": "What am I chasing that I may not even truly want?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c1cb0414a0a2",
+      "day": 115,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que tipo de ligação me faz falta — e onde poderia procurá-la?",
+        "en": "What kind of connection am I missing — and where might I look for it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7f75a0ce1947",
+      "day": 116,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Podes ter medo e agir na mesma. A coragem é isso, não a ausência de medo.",
+        "en": "You can be afraid and act anyway. That's courage — not the absence of fear."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3ba355813fba",
+      "day": 117,
+      "type": "EXERCISE",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Escreve, sem filtro, tudo o que te irrita neste momento — e depois decide o que fazer (ou não) com isso. Pôr no papel separa o sentir do agir.",
+        "en": "Write, unfiltered, everything that angers you right now — then decide what to do (or not) with it. Putting it on paper separates feeling from acting."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d6f4c6bd2b98",
+      "day": 118,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que estaria disposto a soltar para abrir espaço a algo novo?",
+        "en": "What would I be willing to release to make room for something new?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e46ce8f08463",
+      "day": 119,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se o meu medo fosse uma personagem, do que estaria à procura?",
+        "en": "If my fear were a character, what would it be searching for?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e65b87d758b3",
+      "day": 120,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Inspira. O ar que entra agora é a prova de que ainda há um próximo momento.",
+        "en": "Breathe in. The air entering now is proof there is still a next moment."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2cd0cea2d0b5",
+      "day": 121,
+      "type": "EXERCISE",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Põe um temporizador de dois minutos e não faças nada. Só observa. Permitires-te a pausa é, em si, um ato de auto-respeito.",
+        "en": "Set a two-minute timer and do nothing. Just observe. Allowing yourself the pause is, in itself, an act of self-respect."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_19888a7e50bc",
+      "day": 122,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "trauma",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que cuidado mereço hoje que costumo adiar para 'quando tiver tempo'?",
+        "en": "What care do I deserve today that I usually postpone to 'when I have time'?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4e8741ec7a07",
+      "day": 123,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quem tornou a minha semana mais leve, mesmo sem saber?",
+        "en": "Who made my week lighter, even without knowing it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d7b654f5ccbf",
+      "day": 124,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A saudade é o amor que não tem para onde ir. Continua a ser amor.",
+        "en": "Longing is love with nowhere to go. It is still love."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3037522544bb",
+      "day": 125,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que rótulo antigo já não me serve e gostaria de largar?",
+        "en": "What old label no longer fits me and I'd like to let go of?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8481af0493f6",
+      "day": 126,
+      "type": "REFLECTION",
+      "principle": "boundaries",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde confundo cuidar dos outros com desaparecer de mim?",
+        "en": "Where do I confuse caring for others with disappearing from myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c3b028016f76",
+      "day": 127,
+      "type": "REMINDER",
+      "principle": "boundaries",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O silêncio também é uma resposta. Não tens de justificar todos os teus 'não'.",
+        "en": "Silence is also an answer. You don't have to justify every 'no'."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_b08565bab384",
+      "day": 128,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria hoje se medisse o sucesso por sentido, não por velocidade?",
+        "en": "What would I do today if I measured success by meaning, not speed?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2a7a251cf004",
+      "day": 129,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pensamento ando a tratar como facto sem o ter verificado?",
+        "en": "What thought am I treating as fact without having checked it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fd6328af659c",
+      "day": 130,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Recomeçar não apaga o que aprendeste. Levas tudo contigo.",
+        "en": "Starting over doesn't erase what you learned. You carry it all with you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6036de9d9681",
+      "day": 131,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Como soaria o meu dia se a minha voz interior fosse uma aliada?",
+        "en": "How would my day sound if my inner voice were an ally?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ad899004cc9d",
+      "day": 132,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que gostaria de dizer a quem ou ao que perdi, se pudesse?",
+        "en": "What would I want to say to whom or what I lost, if I could?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_591cf76caf25",
+      "day": 133,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Estar só não é o mesmo que estar sozinho. Podes ser boa companhia para ti.",
+        "en": "Being alone isn't the same as being lonely. You can be good company to yourself."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_cb04c9585d10",
+      "day": 134,
+      "type": "REFLECTION",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que gesto pequeno faria alguém sentir-se visto hoje?",
+        "en": "What small gesture would make someone feel seen today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_23adadda058c",
+      "day": 135,
+      "type": "REFLECTION",
+      "principle": "gratitude",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que, no meu presente, o meu eu de há cinco anos invejaria?",
+        "en": "What in my present would my self of five years ago envy?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_960f4b97b760",
+      "day": 136,
+      "type": "REMINDER",
+      "principle": "DBT_distress_tolerance",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de acreditar em todos os teus pensamentos para sobreviveres a eles.",
+        "en": "You don't have to believe every one of your thoughts to survive them."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4debf860198f",
+      "day": 137,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me daria alegria hoje, mesmo que pequena?",
+        "en": "What would bring me joy today, even a small one?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7712c85fa2bd",
+      "day": 138,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que peso ando a carregar que não é meu para carregar?",
+        "en": "What weight am I carrying that isn't mine to carry?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6d37b1847d7b",
+      "day": 139,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Hoje basta fazer o que é possível. O resto pode esperar por ti.",
+        "en": "Today, doing what's possible is enough. The rest can wait for you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8acaa7a72748",
+      "day": 140,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quando me senti orgulhoso de mim pela última vez, e porquê?",
+        "en": "When did I last feel proud of myself, and why?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_cc872c0ab5e0",
+      "day": 141,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se soubesse que ninguém ia saber?",
+        "en": "What would I do if I knew no one would ever find out?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3a473dbcc59b",
+      "day": 142,
+      "type": "REMINDER",
+      "principle": "relationships",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quem te ama nos teus dias difíceis viu a tua verdade — e ficou.",
+        "en": "Those who love you on your hard days have seen your truth — and stayed."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_207598674a49",
+      "day": 143,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que conversa comigo próprio precisava de ter hoje?",
+        "en": "What conversation with myself did I need to have today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2687213a638c",
+      "day": 144,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o meu corpo me tem tentado dizer e eu tenho ignorado?",
+        "en": "What has my body been trying to tell me that I've been ignoring?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5450039019c0",
+      "day": 145,
+      "type": "REMINDER",
+      "principle": "gratitude",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Mesmo um dia cinzento traz algo. Procura, e costuma aparecer.",
+        "en": "Even a grey day holds something. Look, and it usually appears."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_cc12ffed6e4d",
+      "day": 146,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo meu já não corresponde à pessoa que sou hoje?",
+        "en": "What fear of mine no longer matches the person I am today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2495a5b9d1c4",
+      "day": 147,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde, na minha vida, quero mais coragem e menos perfeição?",
+        "en": "Where in my life do I want more courage and less perfection?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_428336cb42ba",
+      "day": 148,
+      "type": "REMINDER",
+      "principle": "ACT_defusion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A tua mente é boa a inventar histórias de medo. Não tens de comprar todas.",
+        "en": "Your mind is skilled at inventing fearful stories. You don't have to buy them all."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f489a1c24077",
+      "day": 149,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se acreditasse que mereço o que desejo?",
+        "en": "What would change if I believed I deserve what I long for?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3987ea4e91ac",
+      "day": 150,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que hábito pequeno me faria sentir mais cuidado comigo?",
+        "en": "What small habit would make me feel more cared for?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3bfd36647ccf",
+      "day": 151,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Sob a raiva costuma estar uma fronteira que foi atravessada. Ouve-a.",
+        "en": "Beneath anger there's often a boundary that was crossed. Listen to it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bfafc45236e7",
+      "day": 152,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Qual foi o momento mais tranquilo do meu dia, e o que o criou?",
+        "en": "What was the calmest moment of my day, and what created it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_12b67e3e9230",
+      "day": 153,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria a alguém que sente exatamente o que eu sinto agora?",
+        "en": "What would I say to someone feeling exactly what I feel right now?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5a72a18f81bb",
+      "day": 154,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "trauma",
+      "mood_fit": [
+        "low",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Sobreviveste com as ferramentas que tinhas. Não te julgues com as de hoje.",
+        "en": "You survived with the tools you had. Don't judge yourself with today's."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_668a38961496",
+      "day": 155,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim tenho evitado olhar, e porquê?",
+        "en": "What part of myself have I been avoiding looking at, and why?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_27f1e9f85973",
+      "day": 156,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que significa, para mim, descansar de verdade?",
+        "en": "What does true rest mean to me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7900aa0e1913",
+      "day": 157,
+      "type": "REMINDER",
+      "principle": "polyvagal",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Quando o corpo acelera, abranda a expiração. O fôlego é o teu travão.",
+        "en": "When your body races, slow your exhale. Your breath is your brake."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_83efa9dd2e5b",
+      "day": 158,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que decisão tomaria se o medo não tivesse voto?",
+        "en": "What decision would I make if fear had no vote?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_191d0f253194",
+      "day": 159,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho confundido pressa com progresso?",
+        "en": "Where have I confused hurry with progress?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_47cf7aedd64a",
+      "day": 160,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não és o teu pior dia. És o que fazes na manhã seguinte.",
+        "en": "You are not your worst day. You are what you do the next morning."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1a74771cdb84",
+      "day": 161,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pessoa me inspira calma, e o que ela faz que eu poderia imitar?",
+        "en": "Who inspires calm in me, and what do they do that I could imitate?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c3482e9996d0",
+      "day": 162,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que precisaria de soltar para dormir mais leve esta noite?",
+        "en": "What would I need to release to sleep lighter tonight?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8c80cbba9f41",
+      "day": 163,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Estar presente contigo é uma forma de companhia que ninguém te pode tirar.",
+        "en": "Being present with yourself is a companionship no one can take from you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_527bf21e3c8c",
+      "day": 164,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha história mereceria mais compaixão da minha parte?",
+        "en": "What part of my story would deserve more compassion from me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c1f47f00c2af",
+      "day": 165,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria amanhã de forma diferente, se hoje fosse um ensaio?",
+        "en": "What would I do differently tomorrow, if today were a rehearsal?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3b5bd8e7b3ea",
+      "day": 166,
+      "type": "REMINDER",
+      "principle": "boundaries",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Proteger a tua paz não é construir muros. É escolher onde gastas o coração.",
+        "en": "Protecting your peace isn't building walls. It's choosing where to spend your heart."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_41185d9badef",
+      "day": 167,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno limite me protegeria de me esgotar?",
+        "en": "What small boundary would protect me from burning out?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_195ff46eccbf",
+      "day": 168,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faz sentir mais eu próprio, e quando foi a última vez que o fiz?",
+        "en": "What makes me feel most like myself, and when did I last do it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_729befbeddba",
+      "day": 169,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não há prazo para a dor. Cura ao teu ritmo, não ao dos outros.",
+        "en": "There's no deadline for grief. Heal at your pace, not anyone else's."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1d759342c53e",
+      "day": 170,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que emoção tenho evitado sentir, e o que ela talvez me queira mostrar?",
+        "en": "What emotion have I been avoiding, and what might it want to show me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9f8f0fe3b66e",
+      "day": 171,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde sou mais generoso com os outros do que comigo?",
+        "en": "Where am I more generous with others than with myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2cfe15ecb221",
+      "day": 172,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Trata-te como tratarias alguém de quem realmente gostas. Mereces isso de ti.",
+        "en": "Treat yourself as you'd treat someone you truly love. You deserve that from you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d4f8e6ca4a07",
+      "day": 173,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria na minha semana se a gentileza fosse a regra, não a exceção?",
+        "en": "What would change in my week if kindness were the rule, not the exception?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_67e48e14f9a7",
+      "day": 174,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade pequena tenho receio de admitir a mim mesmo?",
+        "en": "What small truth am I afraid to admit to myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_665d049150ca",
+      "day": 175,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Nem tudo precisa de ser resolvido. Algumas coisas só precisam de ser sentidas.",
+        "en": "Not everything needs solving. Some things just need to be felt."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3ece18cf63b0",
+      "day": 176,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a sentir-me menos sozinho esta semana?",
+        "en": "What would help me feel less alone this week?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3c3eca1a89f7",
+      "day": 177,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que vitória silenciosa de hoje passou despercebida?",
+        "en": "What quiet victory of today went unnoticed?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_629d22b4fdb7",
+      "day": 178,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O presente é o único lugar onde a vida acontece de facto. Volta a ele.",
+        "en": "The present is the only place life actually happens. Return to it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6e3932714161",
+      "day": 179,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se confiasse que está tudo bem em não estar bem?",
+        "en": "What would I do if I trusted it's okay not to be okay?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_63f209f277d6",
+      "day": 180,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte do meu passado já posso agradecer, mesmo que tenha doído?",
+        "en": "What part of my past can I already be grateful for, even though it hurt?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7e1d164565ab",
+      "day": 181,
+      "type": "REMINDER",
+      "principle": "relationships",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A vulnerabilidade não te enfraquece. É a porta por onde a ligação entra.",
+        "en": "Vulnerability doesn't weaken you. It's the door connection comes through."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f392ef80082b",
+      "day": 182,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria hoje se acreditasse que o meu tempo também conta?",
+        "en": "What would I do today if I believed my time matters too?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_77ecd3e7e64a",
+      "day": 183,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pensamento repetido me tem feito mal, e seria mesmo verdade?",
+        "en": "What repeated thought has been harming me, and would it really be true?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8388ef40a62e",
+      "day": 184,
+      "type": "REMINDER",
+      "principle": "gratitude",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Reconhece o esforço, não só o resultado. Tentar já é vitória.",
+        "en": "Honour the effort, not only the outcome. Trying is already a victory."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_af89cf4aab38",
+      "day": 185,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia ser 10% mais gentil comigo esta semana?",
+        "en": "Where could I be 10% kinder to myself this week?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5dad75c6991f",
+      "day": 186,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que aprendi sobre mim no último mês que ainda não tinha reparado?",
+        "en": "What have I learned about myself this past month that I hadn't noticed?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6a81f2367937",
+      "day": 187,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Pequenos passos repetidos viram caminhos. Não desprezes o pouco de hoje.",
+        "en": "Small steps repeated become paths. Don't dismiss today's little bit."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6643bf246ccd",
+      "day": 188,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que necessidade minha tenho deixado em último lugar?",
+        "en": "What need of mine have I kept in last place?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5cf6821c7d7b",
+      "day": 189,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Se o meu coração pudesse falar agora, o que pediria?",
+        "en": "If my heart could speak right now, what would it ask for?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2b66596f7c00",
+      "day": 190,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A paz que procuras lá fora começa por um gesto gentil cá dentro.",
+        "en": "The peace you seek outside begins with a gentle gesture within."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bbae54e7667a",
+      "day": 191,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que situação me esgota e o que poderia mudar nela, mesmo que pouco?",
+        "en": "What situation drains me, and what could I change in it, even slightly?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_726e58877af6",
+      "day": 192,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a sentir-me mais seguro dentro de mim?",
+        "en": "What would help me feel safer within myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_834a66cb62ae",
+      "day": 193,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de estar bem o tempo todo para estares no bom caminho.",
+        "en": "You don't have to be okay all the time to be on the right path."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_92e8d12920aa",
+      "day": 194,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim quero ouvir mais vezes, e qual ando a abafar?",
+        "en": "Which part of me do I want to hear more often, and which am I muffling?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1153ee53eaac",
+      "day": 195,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria diferente se confiasse que sou suficiente?",
+        "en": "What would I do differently if I trusted that I am enough?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_25781e923c31",
+      "day": 196,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O teu valor não oscila com a tua produtividade.",
+        "en": "Your worth doesn't swing with your productivity."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a32e1c5d56fe",
+      "day": 197,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que limite gostaria de aprender a defender sem culpa?",
+        "en": "What boundary would I like to learn to hold without guilt?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0ec50e756bd9",
+      "day": 198,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde estou a tentar controlar algo que não me cabe controlar?",
+        "en": "Where am I trying to control something that isn't mine to control?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_546aeeab9c3d",
+      "day": 199,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Mereces o mesmo cuidado que ofereces tão facilmente aos outros.",
+        "en": "You deserve the same care you offer others so easily."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1279a2288cdd",
+      "day": 200,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que gesto de bondade poderia oferecer a mim mesmo hoje?",
+        "en": "What act of kindness could I offer myself today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_beb915104c3c",
+      "day": 201,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faz sentir vivo, e como poderia ter mais disso?",
+        "en": "What makes me feel alive, and how could I have more of it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_890912970cbe",
+      "day": 202,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Sentir-te perdido às vezes faz parte de estares a procurar o teu caminho.",
+        "en": "Feeling lost sometimes is part of finding your way."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9c56ad49e46b",
+      "day": 203,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que mágoa antiga ainda influencia as minhas decisões de hoje?",
+        "en": "What old hurt still shapes my decisions today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e145ed905330",
+      "day": 204,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se tratasse os meus erros como aprendizagens?",
+        "en": "What would change if I treated my mistakes as learning?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_74b1bd2ae022",
+      "day": 205,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Cada respiração é uma nova oportunidade de recomeçar.",
+        "en": "Each breath is a fresh chance to begin again."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_097f3c9a3559",
+      "day": 206,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que palavra descreveria como quero sentir-me ao fim do dia?",
+        "en": "What word describes how I want to feel by the end of the day?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e27d56c67cf6",
+      "day": 207,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho dito 'sim' por medo, em vez de por desejo?",
+        "en": "Where have I said 'yes' out of fear rather than desire?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_122412b9a486",
+      "day": 208,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não é egoísmo cuidar de ti. É a base de tudo o resto.",
+        "en": "Caring for yourself isn't selfish. It's the foundation of everything else."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_dc036b69fb05",
+      "day": 209,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o meu eu mais sábio me aconselharia agora?",
+        "en": "What would my wisest self advise me right now?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f571c6cd839b",
+      "day": 210,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno passo adiei e poderia dar ainda hoje?",
+        "en": "What small step did I postpone that I could take today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_244aa8a0969a",
+      "day": 211,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Os teus sentimentos são informação, não ordens. Podes ouvi-los sem os obedecer.",
+        "en": "Your feelings are information, not orders. You can hear them without obeying them."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0baa0ea90cd5",
+      "day": 212,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me dá esperança, mesmo nos dias mais difíceis?",
+        "en": "What gives me hope, even on the hardest days?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_beefa276dc4f",
+      "day": 213,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha rotina me rouba paz sem eu reparar?",
+        "en": "What part of my routine steals my peace without my noticing?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_11768fcdfa38",
+      "day": 214,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Ser gentil contigo nos dias maus é onde a verdadeira força vive.",
+        "en": "Being kind to yourself on bad days is where real strength lives."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e136b5c4ef6c",
+      "day": 215,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Como reagiria a este problema alguém que admiro pela sua calma?",
+        "en": "How would someone I admire for their calm respond to this problem?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_105fa5228b2c",
+      "day": 216,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que estou pronto a perdoar, em mim ou nos outros?",
+        "en": "What am I ready to forgive, in myself or others?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_67216bef473c",
+      "day": 217,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não precisas de te apressar para curar. O tempo também trabalha por ti.",
+        "en": "You don't have to rush to heal. Time is working for you too."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_88fe5605cbd1",
+      "day": 218,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que tipo de descanso me faz mesmo falta — do corpo ou da mente?",
+        "en": "What kind of rest do I really need — of body or of mind?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9186067b3d32",
+      "day": 219,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que ganharia se parasse de me comparar por um dia?",
+        "en": "What would I gain if I stopped comparing myself for one day?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1a4a2fa3a885",
+      "day": 220,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Está tudo bem em precisar de mais tempo do que pensavas.",
+        "en": "It's okay to need more time than you thought."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a1e748d89c3e",
+      "day": 221,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade sobre os meus limites tenho ignorado?",
+        "en": "What truth about my limits have I been ignoring?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bdfe54f1a694",
+      "day": 222,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia pedir ajuda em vez de carregar tudo sozinho?",
+        "en": "Where could I ask for help instead of carrying it all alone?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ac35b6658dba",
+      "day": 223,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Pedir espaço não é rejeitar ninguém. É cuidar de ti.",
+        "en": "Asking for space isn't rejecting anyone. It's caring for yourself."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bc009872c475",
+      "day": 224,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me deixaria orgulhoso de mim ao deitar-me hoje?",
+        "en": "What would make me proud of myself as I lie down tonight?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a031a397f92b",
+      "day": 225,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo perderia força se o partilhasse com alguém de confiança?",
+        "en": "What fear would lose its power if I shared it with someone I trust?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_eaa706622268",
+      "day": 226,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O descanso é parte do trabalho, não uma fuga a ele.",
+        "en": "Rest is part of the work, not an escape from it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ae8c7d2ca953",
+      "day": 227,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte do meu dia mereceu mais presença do que lhe dei?",
+        "en": "What part of my day deserved more presence than I gave it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c9d9fdbc89a6",
+      "day": 228,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se soubesse que está tudo bem em mudar de ideias?",
+        "en": "What would I do if I knew it's okay to change my mind?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_de1dfdf80b55",
+      "day": 229,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de carregar hoje tudo o que ainda nem aconteceu.",
+        "en": "You don't have to carry today everything that hasn't even happened."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_22a9c356ca7f",
+      "day": 230,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que crença sobre mim herdei e nunca cheguei a questionar?",
+        "en": "What belief about myself did I inherit and never question?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_a77f5941d5b4",
+      "day": 231,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde confundo amor com sacrifício de mim próprio?",
+        "en": "Where do I confuse love with self-sacrifice?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_547381e9eb39",
+      "day": 232,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A tua sensibilidade não é um defeito. É uma forma de ver o mundo a fundo.",
+        "en": "Your sensitivity isn't a flaw. It's a way of seeing the world deeply."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_dce19ae7a7b3",
+      "day": 233,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o silêncio me diria, se eu o deixasse falar?",
+        "en": "What would silence tell me, if I let it speak?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e3e214e43012",
+      "day": 234,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que sonho pequeno tenho adiado por achar que não há tempo?",
+        "en": "What small dream have I postponed believing there's no time?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d2eeb81fc934",
+      "day": 235,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Pequenos progressos contam. Sobretudo nos dias em que custam mais.",
+        "en": "Small progress counts. Especially on the days it costs the most."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f5fa189fd30d",
+      "day": 236,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Como seria um dia em que me tratasse como prioridade?",
+        "en": "What would a day look like where I treated myself as a priority?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2160b3481200",
+      "day": 237,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que emoção me visitou hoje e o que veio dizer-me?",
+        "en": "What emotion visited me today, and what did it come to say?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_b94ff2df4431",
+      "day": 238,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Permite-te sentir sem te explicar. Nem tudo precisa de razão.",
+        "en": "Let yourself feel without explaining. Not everything needs a reason."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d49e1f9b5705",
+      "day": 239,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se acreditasse que mereço cuidado sem o ter de provar?",
+        "en": "What would change if I believed I deserve care without proving it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_55f34e5d3a44",
+      "day": 240,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim ainda espera por reconhecimento que eu próprio posso dar?",
+        "en": "What part of me still waits for recognition I could give myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_555d18f3ebdc",
+      "day": 241,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O facto de ser difícil não significa que estejas a fazer mal.",
+        "en": "Just because it's hard doesn't mean you're doing it wrong."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8259737ed7ed",
+      "day": 242,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho sido corajoso ultimamente, mesmo em pequena escala?",
+        "en": "Where have I been brave lately, even on a small scale?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_63d7e5a95516",
+      "day": 243,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a confiar mais no meu próprio ritmo?",
+        "en": "What would help me trust my own pace more?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2b79a4c9cd08",
+      "day": 244,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não és um problema a resolver. És uma pessoa a ser cuidada.",
+        "en": "You are not a problem to solve. You are a person to be cared for."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_424dc11f7da9",
+      "day": 245,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que conversa difícil me libertaria, se a tivesse?",
+        "en": "What hard conversation would free me, if I had it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e1de301c99fd",
+      "day": 246,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria com uma hora só para mim, hoje?",
+        "en": "What would I do with an hour just for me, today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c73948faa37d",
+      "day": 247,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Hoje, basta seres humano. Já é mais do que suficiente.",
+        "en": "Today, being human is enough. It already is more than enough."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2138a004461a",
+      "day": 248,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pensamento gentil poderia repetir nos momentos de dúvida?",
+        "en": "What kind thought could I repeat in moments of doubt?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_75c8fd8d8472",
+      "day": 249,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho exigido perfeição quando bastava ser humano?",
+        "en": "Where have I demanded perfection when being human was enough?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c8ed51c208a1",
+      "day": 250,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "A coragem nem sempre ruge. Às vezes é a voz baixa que diz: amanhã tento de novo.",
+        "en": "Courage doesn't always roar. Sometimes it's the quiet voice saying: tomorrow I'll try again."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d92c7489614d",
+      "day": 251,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faz sentir em casa dentro de mim?",
+        "en": "What makes me feel at home within myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_31be1bbaf596",
+      "day": 252,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que peso poderia pousar, nem que fosse só por hoje?",
+        "en": "What weight could I set down, even just for today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d2e15c23df14",
+      "day": 253,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Mereces relações onde não tenhas de te encolher para caber.",
+        "en": "You deserve relationships where you don't have to shrink to fit."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_008af68ca41c",
+      "day": 254,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria à minha dor se a recebesse como uma mensageira?",
+        "en": "What would I say to my pain if I received it as a messenger?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_99936cfeddfb",
+      "day": 255,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequena escolha de hoje aponta para quem quero ser?",
+        "en": "What small choice today points toward who I want to be?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_549cb0404c3a",
+      "day": 256,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de merecer descanso. Já o mereces por estares cansado.",
+        "en": "You don't have to earn rest. Being tired already earns it."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5320c6bed374",
+      "day": 257,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me tem dado força sem eu lhe agradecer?",
+        "en": "What has been giving me strength without my thanking it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_16467bcdb965",
+      "day": 258,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha vida pede mais coragem do que controlo?",
+        "en": "What part of my life asks for more courage than control?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4609c844f358",
+      "day": 259,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Falhar uma vez não apaga tudo o que já conseguiste.",
+        "en": "Failing once doesn't erase all you've already achieved."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_45dc14a9b77c",
+      "day": 260,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia substituir a autocrítica por curiosidade?",
+        "en": "Where could I replace self-criticism with curiosity?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8b3796701d68",
+      "day": 261,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se ouvisse o meu corpo como ouço um amigo?",
+        "en": "What would change if I listened to my body as I listen to a friend?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fc4540b83b88",
+      "day": 262,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O teu ritmo é válido, mesmo quando é mais lento do que gostarias.",
+        "en": "Your pace is valid, even when it's slower than you'd like."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9af1cd7b89b2",
+      "day": 263,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo me tem protegido, mas já cumpriu o seu papel?",
+        "en": "What fear has protected me but has already served its purpose?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9dae7f47785d",
+      "day": 264,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me reconcilia comigo depois de um dia difícil?",
+        "en": "What reconciles me with myself after a hard day?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_872179a9b5f4",
+      "day": 265,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de ter todas as respostas hoje. Só de continuar a fazer perguntas honestas.",
+        "en": "You don't need all the answers today. Just to keep asking honest questions."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_881c95cd542a",
+      "day": 266,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade simples me costuma escapar quando estou ansioso?",
+        "en": "What simple truth tends to escape me when I'm anxious?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fe3e02fb14ce",
+      "day": 267,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho espaço para mais leveza, se me deixasse?",
+        "en": "Where do I have room for more lightness, if I allowed it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_caf2e626fd7e",
+      "day": 268,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Estás a fazer melhor do que a tua mente, nos dias maus, quer convencer-te.",
+        "en": "You're doing better than your mind, on bad days, wants to convince you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_1064dc4b4705",
+      "day": 269,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria hoje se confiasse plenamente na minha intuição?",
+        "en": "What would I do today if I fully trusted my intuition?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bfcaa8d7fcb0",
+      "day": 270,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno ritual me ajudaria a fechar bem o dia?",
+        "en": "What small ritual would help me close the day well?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_17ac7325c06a",
+      "day": 271,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Cuidar de ti não é um luxo que ganhas no fim. É o que te permite chegar lá.",
+        "en": "Caring for yourself isn't a luxury you earn at the end. It's what lets you get there."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7df6cc4eb7bb",
+      "day": 272,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faria sentir mais leve se o dissesse em voz alta?",
+        "en": "What would make me feel lighter if I said it aloud?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_01169125004d",
+      "day": 273,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha história mereceria ser contada com mais ternura?",
+        "en": "What part of my story would deserve to be told with more tenderness?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2dd44a5a80e9",
+      "day": 274,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Há força em pedir ajuda. Sempre houve.",
+        "en": "There is strength in asking for help. There always was."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3f9fe7823d23",
+      "day": 275,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho espaço para confiar mais e controlar menos?",
+        "en": "Where do I have room to trust more and control less?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ba029889aa1f",
+      "day": 276,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se acreditasse que posso pedir o que preciso?",
+        "en": "What would change if I believed I can ask for what I need?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_dfd6e24d1ce5",
+      "day": 277,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O teu passado explica-te, mas não te define.",
+        "en": "Your past explains you, but it doesn't define you."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_26196e14b7a5",
+      "day": 278,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequena alegria costumo adiar para 'depois'?",
+        "en": "What small joy do I usually postpone to 'later'?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2100c8363e9b",
+      "day": 279,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o meu corpo agradeceria que eu fizesse hoje?",
+        "en": "What would my body thank me for doing today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_7ed05a9d5b6d",
+      "day": 280,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Podes recomeçar a qualquer hora do dia. Não tens de esperar por segunda-feira.",
+        "en": "You can begin again at any hour of the day. You don't have to wait for Monday."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3edb68a1a339",
+      "day": 281,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pensamento me limita e de onde é que ele veio?",
+        "en": "What thought limits me, and where did it come from?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2d2d75d7b4be",
+      "day": 282,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia ser mais paciente comigo, como seria com uma criança?",
+        "en": "Where could I be more patient with myself, as I would with a child?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fff67a7b126c",
+      "day": 283,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Ser amável contigo não te torna preguiçoso. Torna-te sustentável.",
+        "en": "Being gentle with yourself doesn't make you lazy. It makes you sustainable."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ae41c8dda948",
+      "day": 284,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a sentir-me menos sobrecarregado esta semana?",
+        "en": "What would help me feel less overwhelmed this week?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0ac295345b2e",
+      "day": 285,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo deixaria de mandar em mim se eu o olhasse de frente?",
+        "en": "What fear would stop ruling me if I looked at it head-on?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c9dc1c4a9fcf",
+      "day": 286,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "angry",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Sentir muito não é exagero. É a tua forma de estar inteiro no mundo.",
+        "en": "Feeling deeply isn't too much. It's your way of being fully in the world."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f46004b0e142",
+      "day": 287,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que significaria, para mim, estar em paz comigo?",
+        "en": "What would being at peace with myself mean to me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e329e54c14b0",
+      "day": 288,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim tem trabalhado demais e merecia descanso?",
+        "en": "What part of me has been overworking and deserves rest?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_26ffd15e9e87",
+      "day": 289,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "low",
+        "sad",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Está tudo bem em pousar o que não consegues carregar hoje.",
+        "en": "It's okay to set down what you can't carry today."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2fcc0aeaf3e1",
+      "day": 290,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se soubesse que não tenho de agradar a todos?",
+        "en": "What would I do if I knew I don't have to please everyone?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_b7ecd26e750e",
+      "day": 291,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade me custa aceitar, mas que sei lá no fundo?",
+        "en": "What truth is hard for me to accept, but I know deep down?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f51e269d98ec",
+      "day": 292,
+      "type": "REMINDER",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "anxious",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Mereces ocupar espaço, ter voz e ser ouvido.",
+        "en": "You deserve to take up space, to have a voice, and to be heard."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f6b726645e54",
+      "day": 293,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho confundido estar ocupado com estar bem?",
+        "en": "Where have I confused being busy with being well?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4f91a8c500b3",
+      "day": 294,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria a mim próprio se fosse o meu maior apoiante?",
+        "en": "What would I say to myself if I were my biggest supporter?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_624b574668f0",
+      "day": 295,
+      "type": "REMINDER",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "neutral",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O progresso conta mesmo quando ninguém o vê — sobretudo aí.",
+        "en": "Progress counts even when no one sees it — especially then."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_9debbe44358f",
+      "day": 296,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que emoção tenho guardado em vez de a deixar passar?",
+        "en": "What emotion have I been holding instead of letting pass?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_62ca15c8692f",
+      "day": 297,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me devolveria a sensação de estar no comando da minha vida?",
+        "en": "What would give me back the sense of being in charge of my life?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_543455ce32d6",
+      "day": 298,
+      "type": "REMINDER",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "low",
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não tens de provar a tua dor para ela ser válida.",
+        "en": "You don't have to prove your pain for it to be valid."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_52f966da2eb7",
+      "day": 299,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que hábito gentil gostaria de começar, por pequeno que seja?",
+        "en": "What gentle habit would I like to begin, however small?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f67454857786",
+      "day": 300,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia trocar o 'tenho de' pelo 'escolho'?",
+        "en": "Where could I trade 'I have to' for 'I choose to'?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_120cff70c3d6",
+      "day": 301,
+      "type": "REMINDER",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Cada pequeno cuidado contigo soma-se a uma vida mais gentil.",
+        "en": "Each small act of care toward yourself adds up to a gentler life."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3478c8edb760",
+      "day": 302,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que perdoaria a mim mesmo se acreditasse que mereço perdão?",
+        "en": "What would I forgive myself for if I believed I deserve forgiveness?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_38ad2215fcf7",
+      "day": 303,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte do meu dia me aproxima de quem quero ser?",
+        "en": "What part of my day brings me closer to who I want to be?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3194cfc8706f",
+      "day": 304,
+      "type": "REMINDER",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "sad",
+        "tender",
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Não estás atrasado na tua vida. Estás exatamente no teu próprio tempo.",
+        "en": "You're not behind in your life. You're exactly in your own time."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ec97dc5a1b2d",
+      "day": 305,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se desse a mim a paciência que dou aos outros?",
+        "en": "What would change if I gave myself the patience I give others?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4cf8ece5a17f",
+      "day": 306,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que sinal de cansaço tenho ignorado por orgulho ou hábito?",
+        "en": "What sign of tiredness have I ignored out of pride or habit?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_87a9116096fb",
+      "day": 307,
+      "type": "REMINDER",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Tens permissão para mudar de opinião à medida que cresces.",
+        "en": "You're allowed to change your mind as you grow."
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ba67552adcd3",
+      "day": 308,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a confiar que vou conseguir, um passo de cada vez?",
+        "en": "What would help me trust that I'll manage, one step at a time?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_596120ed416c",
+      "day": 309,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que conversa comigo próprio tenho evitado ter?",
+        "en": "What conversation with myself have I been avoiding?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_74341e99d81c",
+      "day": 310,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho sido mais severo do que justo comigo?",
+        "en": "Where have I been harsher than fair with myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_badc2f9cd34c",
+      "day": 311,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o meu eu de daqui a dez anos me agradeceria por começar hoje?",
+        "en": "What would my self ten years from now thank me for starting today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_db8c727a01aa",
+      "day": 312,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha vida pede aceitação em vez de luta?",
+        "en": "What part of my life asks for acceptance rather than struggle?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d59708f95fb7",
+      "day": 313,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me reconforta quando tudo parece demais?",
+        "en": "What comforts me when everything feels like too much?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ea7728fdfae9",
+      "day": 314,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno limite me protegeria sem magoar ninguém?",
+        "en": "What small boundary would protect me without hurting anyone?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3369964ea35f",
+      "day": 315,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se confiasse que está tudo bem em descansar?",
+        "en": "What would I do if I trusted it's okay to rest?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f5d288b045c8",
+      "day": 316,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo já não corresponde à realidade da minha vida atual?",
+        "en": "What fear no longer matches the reality of my life now?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_05423b197065",
+      "day": 317,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia celebrar um progresso que tenho desvalorizado?",
+        "en": "Where could I celebrate a progress I've been downplaying?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2b82563125db",
+      "day": 318,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faz sentir genuinamente eu próprio?",
+        "en": "What makes me feel genuinely like myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3d897ee9f26a",
+      "day": 319,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que peso emocional poderia partilhar em vez de carregar sozinho?",
+        "en": "What emotional weight could I share instead of carrying alone?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3c01b1b604c5",
+      "day": 320,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se me visse com os olhos de quem me ama?",
+        "en": "What would change if I saw myself through the eyes of someone who loves me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_79cb273e9a38",
+      "day": 321,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim precisa de ouvir que está tudo bem hoje?",
+        "en": "What part of me needs to hear that it's okay today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f661a0d9427d",
+      "day": 322,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a adormecer com a mente mais calma?",
+        "en": "What would help me fall asleep with a calmer mind?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fded65f3902d",
+      "day": 323,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que escolha pequena de amor-próprio posso fazer ainda hoje?",
+        "en": "What small choice of self-love can I make today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_6b5b483b2632",
+      "day": 324,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria hoje se a minha única tarefa fosse cuidar de mim?",
+        "en": "What would I do today if my only task were to take care of myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_18c2bc323219",
+      "day": 325,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim merece um obrigado pelo que aguentou?",
+        "en": "What part of me deserves a thank-you for what it has endured?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d793b345bd17",
+      "day": 326,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia escolher a compaixão em vez da pressa?",
+        "en": "Where could I choose compassion over hurry?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_08f5b151c93d",
+      "day": 327,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se confiasse que basta dar um passo de cada vez?",
+        "en": "What would change if I trusted that one step at a time is enough?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_af5110af346e",
+      "day": 328,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que receio me tem feito mais pequeno do que sou?",
+        "en": "What fear has made me smaller than I am?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_8484a340f00d",
+      "day": 329,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me daria mais sentido se o trouxesse de volta à minha vida?",
+        "en": "What would give me more meaning if I brought it back into my life?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_d2be053e44c5",
+      "day": 330,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que limite gentil me devolveria energia esta semana?",
+        "en": "What gentle boundary would give me energy back this week?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ffd9328028f5",
+      "day": 331,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria à minha tristeza se a tratasse com respeito?",
+        "en": "What would I say to my sadness if I treated it with respect?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c6b169397d11",
+      "day": 332,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho deixado a minha voz em silêncio quando queria falar?",
+        "en": "Where have I kept my voice silent when I wanted to speak?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ed0553f0a210",
+      "day": 333,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a sentir-me mais ancorado quando tudo acelera?",
+        "en": "What would help me feel more grounded when everything speeds up?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ee7c838688fc",
+      "day": 334,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno prazer simples poderia oferecer-me hoje?",
+        "en": "What small, simple pleasure could I offer myself today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_206a260e73dc",
+      "day": 335,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se acreditasse que é seguro descansar?",
+        "en": "What would change if I believed it's safe to rest?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_918f69118edd",
+      "day": 336,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha vida pede mais ternura e menos exigência?",
+        "en": "What part of my life asks for more tenderness and less demand?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f0c31892f7fd",
+      "day": 337,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me faz sentir grato quando paro para reparar?",
+        "en": "What makes me feel grateful when I stop to notice?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_fe9b4c9bf124",
+      "day": 338,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que medo perderia força se eu o escrevesse por inteiro?",
+        "en": "What fear would lose its power if I wrote it out in full?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_bffa4f0eb02b",
+      "day": 339,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia confiar mais no tempo e menos no controlo?",
+        "en": "Where could I trust time more and control less?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_0e6ee257f304",
+      "day": 340,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que o meu corpo me agradeceria por largar hoje?",
+        "en": "What would my body thank me for letting go of today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c6828f0b3211",
+      "day": 341,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade sobre quem sou tenho receio de celebrar?",
+        "en": "What truth about who I am am I afraid to celebrate?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_e5d3245bf55c",
+      "day": 342,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria se soubesse que mereço estar bem?",
+        "en": "What would I do if I knew I deserve to be well?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_53fd0c03c535",
+      "day": 343,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que conversa comigo me deixaria mais em paz esta noite?",
+        "en": "What conversation with myself would leave me more at peace tonight?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ff686af4c695",
+      "day": 344,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho confundido força com não pedir ajuda?",
+        "en": "Where have I confused strength with not asking for help?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_14f3658899a4",
+      "day": 345,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se me desse permissão para sentir sem julgar?",
+        "en": "What would change if I allowed myself to feel without judging?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_25c00f3094a5",
+      "day": 346,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte da minha rotina me devolve a calma?",
+        "en": "What part of my routine gives me back my calm?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c4845d6856e4",
+      "day": 347,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que diria à criança que fui, hoje?",
+        "en": "What would I say to the child I once was, today?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_29f80f57cf49",
+      "day": 348,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno gesto de coragem está ao meu alcance agora?",
+        "en": "What small gesture of courage is within my reach right now?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_de8242ce17b5",
+      "day": 349,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a ser mais paciente com o meu próprio processo?",
+        "en": "What would help me be more patient with my own process?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_afee89ef7f0e",
+      "day": 350,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que peso poderia partilhar com alguém de confiança?",
+        "en": "What weight could I share with someone I trust?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_2751b24cebf8",
+      "day": 351,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria diferente se soubesse que sou suficiente como sou?",
+        "en": "What would I do differently if I knew I'm enough as I am?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_b11ec0442baa",
+      "day": 352,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que emoção me visitou hoje e o que veio ensinar-me?",
+        "en": "What emotion visited me today, and what did it come to teach me?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_498eb1a39e09",
+      "day": 353,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde poderia trocar o medo de falhar pela curiosidade de tentar?",
+        "en": "Where could I trade the fear of failing for the curiosity to try?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_ad30c497d632",
+      "day": 354,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me devolveria a sensação de leveza, mesmo que por instantes?",
+        "en": "What would give me back a sense of lightness, even for a moment?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5ddc354756a0",
+      "day": 355,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim ando a esconder e gostaria de aceitar?",
+        "en": "What part of myself am I hiding that I'd like to accept?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_59f46b7bf6dd",
+      "day": 356,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se tratasse os meus dias maus com mais doçura?",
+        "en": "What would change if I treated my bad days with more sweetness?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_f09c96a9a0e6",
+      "day": 357,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que pequeno passo me aproximaria da vida que desejo?",
+        "en": "What small step would bring me closer to the life I want?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_4e89c1ef7fe7",
+      "day": 358,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "transitions",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me reconforta de forma simples e verdadeira?",
+        "en": "What comforts me in a simple and true way?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_67957597b0fa",
+      "day": 359,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "loneliness",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que crença sobre o meu valor já posso questionar?",
+        "en": "What belief about my worth can I now question?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_64a94395b015",
+      "day": 360,
+      "type": "REFLECTION",
+      "principle": "mindfulness",
+      "theme": "relationships",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Onde tenho espaço para mais alegria, se a deixasse entrar?",
+        "en": "Where do I have room for more joy, if I let it in?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c2a7e4ebe73b",
+      "day": 361,
+      "type": "REFLECTION",
+      "principle": "self_compassion",
+      "theme": "grief",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que faria hoje se confiasse plenamente em mim?",
+        "en": "What would I do today if I fully trusted myself?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_be1952b30856",
+      "day": 362,
+      "type": "REFLECTION",
+      "principle": "values",
+      "theme": "boundaries",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que parte de mim agradeço por nunca ter desistido?",
+        "en": "What part of me am I grateful never gave up?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_5cd005b61761",
+      "day": 363,
+      "type": "REFLECTION",
+      "principle": "narrative",
+      "theme": "anger",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que me ajudaria a fechar este dia com gentileza?",
+        "en": "What would help me close this day with kindness?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_3b4e08857fa5",
+      "day": 364,
+      "type": "REFLECTION",
+      "principle": "emotion_processing",
+      "theme": "self_criticism",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "Que verdade simples me acalma quando a recordo?",
+        "en": "What simple truth calms me when I remember it?"
+      },
+      "needs_professional_review": true
+    },
+    {
+      "id": "pc_c48ee35899fc",
+      "day": 365,
+      "type": "REFLECTION",
+      "principle": "ACT_acceptance",
+      "theme": "anxiety",
+      "mood_fit": [
+        "any",
+        "neutral"
+      ],
+      "depth": 1,
+      "body": {
+        "pt-PT": "O que mudaria se acreditasse que está tudo bem em ser obra em construção?",
+        "en": "What would change if I believed it's okay to be a work in progress?"
+      },
+      "needs_professional_review": true
+    }
+  ]
+}

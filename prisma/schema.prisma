@@ -1,0 +1,97 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+enum Role { INDIVIDUAL THERAPIST }
+enum PieceType { METAPHOR REMINDER EXERCISE REFLECTION }
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  displayName   String?
+  locale        String   @default("pt-PT")
+  role          Role     @default(INDIVIDUAL)
+  promptHour    Int      @default(8)
+  createdAt     DateTime @default(now())
+  themes        UserTheme[]
+  checkIns      MoodCheckIn[]
+  journalEntries JournalEntry[]
+  deliveries    PromptDelivery[]
+  asClient      ClientLink[] @relation("ClientSide")
+  asTherapist   ClientLink[] @relation("TherapistSide")
+}
+
+model Theme {
+  id        String @id @default(cuid())
+  slug      String @unique
+  nameI18n  Json
+  pieces    ContentPiece[]
+  userThemes UserTheme[]
+}
+
+model UserTheme {
+  id      String @id @default(cuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  theme   Theme  @relation(fields: [themeId], references: [id])
+  themeId String
+  weight  Int    @default(1)
+  @@unique([userId, themeId])
+}
+
+model ContentPiece {
+  id          String   @id @default(cuid())
+  externalId  String   @unique
+  day         Int
+  type        PieceType
+  principle   String
+  bodyI18n    Json
+  moodFit     String[]
+  depth       Int      @default(1)
+  themeId     String?
+  theme       Theme?   @relation(fields: [themeId], references: [id])
+  needsReview Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  deliveries  PromptDelivery[]
+}
+
+model PromptDelivery {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  piece     ContentPiece @relation(fields: [pieceId], references: [id])
+  pieceId   String
+  date      DateTime @default(now())
+  opened    Boolean  @default(false)
+  @@unique([userId, date])
+}
+
+model MoodCheckIn {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  mood      Int
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+model JournalEntry {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  body      String
+  pieceId   String?
+  createdAt DateTime @default(now())
+}
+
+model ClientLink {
+  id          String  @id @default(cuid())
+  therapist   User    @relation("TherapistSide", fields: [therapistId], references: [id])
+  therapistId String
+  client      User    @relation("ClientSide", fields: [clientId], references: [id])
+  clientId    String
+  inviteCode  String  @unique
+  status      String  @default("pending")
+  seededThemes Json?
+  @@unique([therapistId, clientId])
+}
