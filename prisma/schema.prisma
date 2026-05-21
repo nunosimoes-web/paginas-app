@@ -26,6 +26,8 @@ model User {
   locale        String   @default("pt-PT")
   role          Role     @default(INDIVIDUAL)
   promptHour    Int      @default(8)
+  // Opt-in do email diário da peça. Pode desligar-se nas definições / unsubscribe.
+  emailDaily    Boolean  @default(true)
   onboardedAt   DateTime?
   createdAt     DateTime @default(now())
   themes        UserTheme[]

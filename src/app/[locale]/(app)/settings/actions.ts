@@ -14,13 +14,14 @@ export async function updateSettings(
   const parsed = settingsSchema.safeParse(input);
   if (!parsed.success) return { error: "invalid" };
 
-  const { displayName, locale, promptHour, role } = parsed.data;
+  const { displayName, locale, promptHour, emailDaily, role } = parsed.data;
   await prisma.user.update({
     where: { id: user.id },
     data: {
       displayName: displayName ? displayName : null,
       locale,
       promptHour,
+      emailDaily,
       role,
     },
   });

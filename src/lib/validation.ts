@@ -26,6 +26,7 @@ export const settingsSchema = z.object({
   displayName: z.string().trim().max(60).optional().or(z.literal("")),
   locale: z.enum(["pt-PT", "en"]),
   promptHour: z.number().int().min(0).max(23),
+  emailDaily: z.boolean(),
   role: z.enum(["INDIVIDUAL", "THERAPIST"]),
 });
 

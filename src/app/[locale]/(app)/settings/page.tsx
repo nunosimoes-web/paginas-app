@@ -28,6 +28,7 @@ export default async function SettingsPage({
           displayName: user.displayName ?? "",
           email: user.email,
           promptHour: user.promptHour,
+          emailDaily: user.emailDaily,
           role: user.role,
         }}
       />

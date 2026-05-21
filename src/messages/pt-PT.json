@@ -72,6 +72,14 @@
     "needsReviewBadge": "Por rever",
     "backHome": "Voltar ao início"
   },
+  "unsubscribe": {
+    "title": "Cancelar subscrição",
+    "prompt": "Queres deixar de receber a peça diária por email? Podes voltar a ativá-la a qualquer momento nas definições da app.",
+    "confirm": "Confirmar cancelamento",
+    "done": "Subscrição cancelada. Já não vais receber a peça diária por email. Continuas a poder vê-la na app, quando quiseres.",
+    "invalid": "Este link de cancelamento não é válido ou expirou.",
+    "backHome": "Voltar ao início"
+  },
   "auth": {
     "signInTitle": "Bem-vindo de volta",
     "signInSubtitle": "Entra para ver a peça de hoje.",
@@ -182,6 +190,8 @@
     "email": "Email",
     "language": "Idioma",
     "promptHour": "Hora preferida da peça",
+    "emailDaily": "Receber a peça diária por email",
+    "emailDailyHelp": "Enviamos a peça do dia para o teu email à hora escolhida. Podes desligar a qualquer momento.",
     "role": "Tipo de conta",
     "roleIndividual": "Pessoal",
     "roleTherapist": "Terapeuta",

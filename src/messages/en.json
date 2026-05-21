@@ -72,6 +72,14 @@
     "needsReviewBadge": "To review",
     "backHome": "Back to home"
   },
+  "unsubscribe": {
+    "title": "Unsubscribe",
+    "prompt": "Do you want to stop receiving the daily piece by email? You can turn it back on anytime in the app settings.",
+    "confirm": "Confirm unsubscribe",
+    "done": "Unsubscribed. You will no longer receive the daily piece by email. You can still see it in the app whenever you like.",
+    "invalid": "This unsubscribe link is not valid or has expired.",
+    "backHome": "Back to home"
+  },
   "auth": {
     "signInTitle": "Welcome back",
     "signInSubtitle": "Sign in to see today's piece.",
@@ -182,6 +190,8 @@
     "email": "Email",
     "language": "Language",
     "promptHour": "Preferred piece hour",
+    "emailDaily": "Receive the daily piece by email",
+    "emailDailyHelp": "We send the day's piece to your email at your chosen hour. You can turn this off anytime.",
     "role": "Account type",
     "roleIndividual": "Personal",
     "roleTherapist": "Therapist",

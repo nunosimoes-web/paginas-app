@@ -16,6 +16,7 @@ export function SettingsForm({
     displayName: string;
     email: string;
     promptHour: number;
+    emailDaily: boolean;
     role: Role;
   };
 }) {
@@ -29,6 +30,7 @@ export function SettingsForm({
   const [displayName, setDisplayName] = useState(initial.displayName);
   const [locale, setLocale] = useState(currentLocale);
   const [promptHour, setPromptHour] = useState(initial.promptHour);
+  const [emailDaily, setEmailDaily] = useState(initial.emailDaily);
   const [role, setRole] = useState<Role>(initial.role);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +41,13 @@ export function SettingsForm({
     setError(null);
     setSaved(false);
     startTransition(async () => {
-      const r = await updateSettings({ displayName, locale, promptHour, role });
+      const r = await updateSettings({
+        displayName,
+        locale,
+        promptHour,
+        emailDaily,
+        role,
+      });
       if (!("ok" in r)) {
         setError(c("somethingWrong"));
         return;
@@ -114,6 +122,20 @@ export function SettingsForm({
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="space-y-1.5">
+          <label htmlFor="emailDaily" className="flex items-center gap-2.5">
+            <input
+              id="emailDaily"
+              type="checkbox"
+              checked={emailDaily}
+              onChange={(e) => setEmailDaily(e.target.checked)}
+              className="h-4 w-4 rounded border-line accent-accent-strong"
+            />
+            <span className={styles.label}>{t("emailDaily")}</span>
+          </label>
+          <p className="text-sm text-muted">{t("emailDailyHelp")}</p>
         </div>
 
         <div className="space-y-1.5">

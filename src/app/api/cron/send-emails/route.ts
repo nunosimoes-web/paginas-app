@@ -15,6 +15,7 @@ import { selectDailyPiece } from "@/lib/engine";
 import { dayRangeUTC } from "@/lib/day";
 import { pickText } from "@/lib/content";
 import { sendDailyEmail } from "@/lib/email";
+import { unsubscribeUrl } from "@/lib/unsubscribe";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
   const { start, end } = dayRangeUTC();
 
   const users = await prisma.user.findMany({
-    where: { onboardedAt: { not: null }, promptHour: hour },
+    where: { onboardedAt: { not: null }, promptHour: hour, emailDaily: true },
   });
   const themes = await prisma.theme.findMany();
   const themeName = (slug: string | null, locale: string): string | null => {
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
         themeName: themeName(piece.themeSlug, user.locale),
         body: pickText(piece.bodyI18n, user.locale),
         appUrl,
+        unsubscribeUrl: unsubscribeUrl(appUrl, user.id, user.locale),
       });
       await prisma.promptDelivery.update({
         where: { id: delivery.id },

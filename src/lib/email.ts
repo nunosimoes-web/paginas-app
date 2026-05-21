@@ -19,6 +19,7 @@ interface Copy {
   closing: string;
   disclaimer: string;
   footer: string;
+  unsubscribe: string;
 }
 
 const COPY: Record<"pt-PT" | "en", Copy> = {
@@ -39,6 +40,7 @@ const COPY: Record<"pt-PT" | "en", Copy> = {
       "Conteúdo de bem-estar em revisão por profissionais. A Páginas é um apoio de reflexão e não substitui acompanhamento clínico.",
     footer:
       "Recebes este email porque escolheste uma hora para a tua peça diária nas definições da Páginas.",
+    unsubscribe: "Cancelar a subscrição",
   },
   en: {
     subject: "Your piece for today · Páginas",
@@ -57,6 +59,7 @@ const COPY: Record<"pt-PT" | "en", Copy> = {
       "Wellbeing content under review by professionals. Páginas is a reflective companion and not a substitute for clinical care.",
     footer:
       "You receive this email because you chose a time for your daily piece in Páginas settings.",
+    unsubscribe: "Unsubscribe",
   },
 };
 
@@ -70,6 +73,8 @@ export interface DailyEmailInput {
   body: string;
   /** URL público da app (sem barra final). */
   appUrl: string;
+  /** URL de cancelamento de subscrição (com token). */
+  unsubscribeUrl: string;
 }
 
 function escapeHtml(s: string): string {
@@ -104,7 +109,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
         </td></tr>
         <tr><td style="padding:26px 38px 0 38px;"><div style="border-top:1px solid #ece6d8;"></div></td></tr>
         <tr><td style="padding:16px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#a79f88;">${escapeHtml(c.disclaimer)}</td></tr>
-        <tr><td style="padding:10px 38px 32px 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#bdb6a2;">${escapeHtml(c.footer)}</td></tr>
+        <tr><td style="padding:10px 38px 32px 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#bdb6a2;">${escapeHtml(c.footer)} &nbsp;·&nbsp; <a href="${escapeHtml(input.unsubscribeUrl)}" style="color:#bdb6a2;text-decoration:underline;">${escapeHtml(c.unsubscribe)}</a></td></tr>
       </table>
     </td></tr>
   </table>
@@ -128,6 +133,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
     "—",
     c.disclaimer,
     c.footer,
+    `${c.unsubscribe}: ${input.unsubscribeUrl}`,
   ].join("\n");
 
   return { html, text };
@@ -139,6 +145,7 @@ export async function sendEmail(opts: {
   subject: string;
   html: string;
   text: string;
+  headers?: Record<string, string>;
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY em falta");
@@ -156,6 +163,7 @@ export async function sendEmail(opts: {
       subject: opts.subject,
       html: opts.html,
       text: opts.text,
+      ...(opts.headers ? { headers: opts.headers } : {}),
     }),
   });
 
@@ -168,5 +176,12 @@ export async function sendEmail(opts: {
 export async function sendDailyEmail(input: DailyEmailInput): Promise<void> {
   const c = COPY[input.locale === "en" ? "en" : "pt-PT"];
   const { html, text } = render(c, input);
-  await sendEmail({ to: input.to, subject: c.subject, html, text });
+  await sendEmail({
+    to: input.to,
+    subject: c.subject,
+    html,
+    text,
+    // Permite o botão nativo de cancelar subscrição nos clientes de email.
+    headers: { "List-Unsubscribe": `<${input.unsubscribeUrl}>` },
+  });
 }
