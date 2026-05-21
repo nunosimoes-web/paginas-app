@@ -77,6 +77,24 @@ O runbook assumia um caminho direto; na prática faltam peças:
 remoto vs. deploy manual no painel Coolify) e fornecer o token Cloudflare + IP
 público (ou aceitar o domínio automático do Coolify).
 
+**Resultado autónomo:** não foram tomadas ações externas irreversíveis (não se
+publicou código num Git público, não se criaram tokens nem recursos em
+infraestrutura de terceiros por adivinhação). A app fica **entregue, testada e
+containerizada, pronta a subir** — conforme o fallback previsto no runbook.
+
+### Subir manualmente (3 passos)
+
+```bash
+# na VPS / host de destino, com o repositório presente:
+export NEXTAUTH_SECRET="<gera: openssl rand -base64 32>"
+export NEXTAUTH_URL="https://<o-teu-host>"
+docker compose up -d --build      # sobe db + migração+seed + web
+```
+
+O serviço `migrate` aplica `prisma migrate deploy` e semeia as 365 peças
+automaticamente antes de o `web` arrancar. Falta apenas um proxy TLS à frente
+(Caddy/Traefik) ou o domínio automático do Coolify.
+
 ## Invioláveis respeitados
 
 - Copy de bem-estar, nunca clínico.
