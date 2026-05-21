@@ -28,7 +28,8 @@ FROM node:24-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
+# curl: necessário para o healthcheck (Coolify e o HEALTHCHECK abaixo).
+RUN apk add --no-cache curl && addgroup -S nodejs && adduser -S nextjs -G nodejs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
@@ -43,4 +44,7 @@ USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+# start-period generoso: o arranque corre migrate + seed antes de o servidor subir.
+HEALTHCHECK --interval=15s --timeout=8s --start-period=120s --retries=5 \
+  CMD curl -fsS http://127.0.0.1:3000/ || exit 1
 CMD ["./docker-entrypoint.sh"]
