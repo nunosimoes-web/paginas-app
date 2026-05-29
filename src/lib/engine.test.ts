@@ -1,6 +1,6 @@
 // src/lib/engine.test.ts — testes do núcleo de personalização (Vitest)
 import { describe, it, expect } from "vitest";
-import { pickPiece, moodToTokens, stableHash, type Piece, type SelectionContext } from "./engine";
+import { pickPiece, moodToTokens, stableHash, selectDailyPiece, type Piece, type SelectionContext } from "./engine";
 
 const lib: Piece[] = [
   { id: "m_anx",  day: 1, type: "METAPHOR",   principle: "ACT_defusion",   themeSlug: "anxiety",        moodFit: ["anxious","any"], depth: 2 },
@@ -96,5 +96,53 @@ describe("pickPiece", () => {
 
   it("lança erro se a biblioteca estiver vazia", () => {
     expect(() => pickPiece(ctx({ candidates: [] }))).toThrow();
+  });
+});
+
+describe("selectDailyPiece (wrapper Prisma)", () => {
+  // Duas peças, ambas do tema do utilizador; a METÁFORA pontua sempre mais alto
+  // do que o LEMBRETE (viés de tipo), por isso seria a escolha "vencedora" todos
+  // os dias se a exclusão de repetidos não funcionasse.
+  const dbPieces = [
+    { id: "db_p1", externalId: "ext_p1", day: 1, type: "METAPHOR", principle: "x", theme: { slug: "anxiety" }, moodFit: ["any"], depth: 1, bodyI18n: { "pt-PT": "P1" } },
+    { id: "db_p2", externalId: "ext_p2", day: 2, type: "REMINDER", principle: "y", theme: { slug: "anxiety" }, moodFit: ["any"], depth: 1, bodyI18n: { "pt-PT": "P2" } },
+  ];
+
+  function makePrisma(recentDeliveries: any[]) {
+    const created: any[] = [];
+    const prisma = {
+      promptDelivery: {
+        findFirst: async () => null, // ainda não há entrega para hoje
+        findMany: async () => recentDeliveries,
+        create: async ({ data }: any) => { created.push(data); return data; },
+      },
+      user: { findUnique: async () => ({ id: "u1", locale: "pt-PT", displayName: "Carla" }) },
+      userTheme: { findMany: async () => [{ theme: { slug: "anxiety" }, weight: 2 }] },
+      moodCheckIn: { findFirst: async () => ({ mood: 3 }) },
+      clientLink: { findMany: async () => [] },
+      contentPiece: {
+        findMany: async () => dbPieces,
+        findUnique: async ({ where }: any) => dbPieces.find((p) => p.externalId === where.externalId),
+      },
+    };
+    return { prisma, created };
+  }
+
+  it("não reentrega a peça já recebida noutro dia (caso real: mesmo texto repetido)", async () => {
+    // Ontem a Carla recebeu a peça vencedora (ext_p1). A entrega guarda o id
+    // INTERNO (pieceId), tal como a base de dados real.
+    const { prisma, created } = makePrisma([
+      { piece: { externalId: "ext_p1" }, pieceId: "db_p1" },
+    ]);
+    const r = await selectDailyPiece(prisma as any, "u1");
+    // Hoje tem de escolher a OUTRA peça, não repetir a de ontem.
+    expect(r.externalId).toBe("ext_p2");
+    expect(created[0].pieceId).toBe("db_p2");
+  });
+
+  it("sem entregas anteriores, escolhe a peça de maior pontuação", async () => {
+    const { prisma } = makePrisma([]);
+    const r = await selectDailyPiece(prisma as any, "u1");
+    expect(r.externalId).toBe("ext_p1");
   });
 });
