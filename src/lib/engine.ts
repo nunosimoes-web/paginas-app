@@ -187,7 +187,10 @@ export async function selectDailyPiece(prisma: any, userId: string, date = new D
     prisma.user.findUnique({ where: { id: userId } }),
     prisma.userTheme.findMany({ where: { userId }, include: { theme: true } }),
     prisma.moodCheckIn.findFirst({ where: { userId }, orderBy: { createdAt: "desc" } }),
-    prisma.promptDelivery.findMany({ where: { userId }, orderBy: { date: "desc" }, take: 60, select: { pieceId: true } }),
+    // Recolhe o `externalId` da peça entregue (não o `pieceId` interno): é por
+    // `externalId` que `pickPiece` identifica os candidatos, por isso a exclusão
+    // de repetidos só funciona se os dois lados usarem o mesmo código.
+    prisma.promptDelivery.findMany({ where: { userId }, orderBy: { date: "desc" }, take: 60, select: { piece: { select: { externalId: true } } } }),
     prisma.clientLink.findMany({ where: { clientId: userId, status: "active" } }),
     prisma.contentPiece.findMany({ include: { theme: true } }),
   ]);
@@ -223,7 +226,7 @@ export async function selectDailyPiece(prisma: any, userId: string, date = new D
     recentMood: lastMood?.mood ?? null,
     seededThemes,
     recentlyDeliveredIds: recentDeliveries
-      .map((d: any) => d.pieceId)
+      .map((d: any) => d.piece?.externalId)
       .filter(Boolean) as string[],
   });
 
