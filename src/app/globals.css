@@ -41,6 +41,46 @@ body {
   border-radius: 4px;
 }
 
+/* ---------------------------------------------------------------------------
+   Elementos de "paz, sabedoria, iluminação" — discretos, nunca decorativos a
+   mais. Toda a animação é neutralizada por prefers-reduced-motion (abaixo).
+--------------------------------------------------------------------------- */
+
+/* Iluminação: luz suave de amanhecer, vinda do topo. Usar em secções-âncora. */
+.dawn {
+  background:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      color-mix(in srgb, var(--color-accent-soft) 75%, white) 0%,
+      transparent 60%
+    );
+}
+
+/* Paz: entrada serena (subida leve + fade). Sem sobressaltos. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Sabedoria: uma linha tranquila — citação/intenção em serif, contida. */
+.quiet-line {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-muted);
+  line-height: 1.6;
+  border-left: 2px solid var(--color-line);
+  padding-left: 1rem;
+}
+
 /* Respeita quem prefere menos movimento. */
 @media (prefers-reduced-motion: reduce) {
   *,

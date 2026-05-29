@@ -28,10 +28,10 @@ export default async function HomePage() {
         <section className="relative overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-2/3 bg-accent-soft/50"
+            className="dawn pointer-events-none absolute inset-x-0 top-0 h-3/4"
           />
           <div className="relative mx-auto grid w-full max-w-5xl gap-12 px-6 py-16 sm:py-24 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div className="space-y-6">
+            <div className="rise space-y-6">
               <p className="font-serif text-sm tracking-wide text-accent-strong">
                 {c("tagline")}
               </p>

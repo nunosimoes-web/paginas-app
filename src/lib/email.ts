@@ -75,6 +75,8 @@ export interface DailyEmailInput {
   appUrl: string;
   /** URL de cancelamento de subscrição (com token). */
   unsubscribeUrl: string;
+  /** Chave de idempotência (ex.: por utilizador+dia) — a Resend recusa duplicados. */
+  idempotencyKey?: string;
 }
 
 function escapeHtml(s: string): string {
@@ -108,8 +110,8 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
           <a href="${today}" style="display:inline-block;background:#6f7d5c;color:#fffdf8;text-decoration:none;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:14px;padding:11px 22px;border-radius:9px;">${escapeHtml(c.cta)}</a>
         </td></tr>
         <tr><td style="padding:26px 38px 0 38px;"><div style="border-top:1px solid #ece6d8;"></div></td></tr>
-        <tr><td style="padding:16px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#a79f88;">${escapeHtml(c.disclaimer)}</td></tr>
-        <tr><td style="padding:10px 38px 32px 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#bdb6a2;">${escapeHtml(c.footer)} &nbsp;·&nbsp; <a href="${escapeHtml(input.unsubscribeUrl)}" style="color:#bdb6a2;text-decoration:underline;">${escapeHtml(c.unsubscribe)}</a></td></tr>
+        <tr><td style="padding:16px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#6f6a5c;">${escapeHtml(c.disclaimer)}</td></tr>
+        <tr><td style="padding:10px 38px 32px 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#74705f;">${escapeHtml(c.footer)} &nbsp;·&nbsp; <a href="${escapeHtml(input.unsubscribeUrl)}" style="color:#74705f;text-decoration:underline;">${escapeHtml(c.unsubscribe)}</a></td></tr>
       </table>
     </td></tr>
   </table>
@@ -146,6 +148,8 @@ export async function sendEmail(opts: {
   html: string;
   text: string;
   headers?: Record<string, string>;
+  /** Header `Idempotency-Key` da Resend: bloqueia reenvios do mesmo email 24h. */
+  idempotencyKey?: string;
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY em falta");
@@ -156,6 +160,7 @@ export async function sendEmail(opts: {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
+      ...(opts.idempotencyKey ? { "Idempotency-Key": opts.idempotencyKey } : {}),
     },
     body: JSON.stringify({
       from,
@@ -183,5 +188,6 @@ export async function sendDailyEmail(input: DailyEmailInput): Promise<void> {
     text,
     // Permite o botão nativo de cancelar subscrição nos clientes de email.
     headers: { "List-Unsubscribe": `<${input.unsubscribeUrl}>` },
+    idempotencyKey: input.idempotencyKey,
   });
 }
