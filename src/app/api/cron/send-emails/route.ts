@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     forced !== null && forced !== "" ? Number(forced) : lisbonHour(new Date());
 
   const appUrl = (process.env.NEXTAUTH_URL || "").replace(/\/$/, "");
-  const { start, end } = dayRangeUTC();
+  const { iso: dayISO, start, end } = dayRangeUTC();
 
   const users = await prisma.user.findMany({
     where: { onboardedAt: { not: null }, promptHour: hour, emailDaily: true },
@@ -75,21 +75,41 @@ export async function POST(request: Request) {
         continue;
       }
 
-      await sendDailyEmail({
-        to: user.email,
-        locale: user.locale,
-        displayName: user.displayName,
-        pieceType: piece.type,
-        themeName: themeName(piece.themeSlug, user.locale),
-        body: pickText(piece.bodyI18n, user.locale),
-        appUrl,
-        unsubscribeUrl: unsubscribeUrl(appUrl, user.id, user.locale),
-      });
-      await prisma.promptDelivery.update({
-        where: { id: delivery.id },
+      // Reclamar o envio de forma ATÓMICA antes de enviar. O `updateMany`
+      // condicional (`emailSentAt: null`) só afeta uma linha; se outra execução
+      // sobreposta já a reclamou, `count` é 0 e não reenviamos. Isto fecha a
+      // condição de corrida entre o "ler" e o "marcar" que causava duplicados.
+      const claim = await prisma.promptDelivery.updateMany({
+        where: { id: delivery.id, emailSentAt: null },
         data: { emailSentAt: new Date() },
       });
-      sent++;
+      if (claim.count === 0) {
+        skipped++;
+        continue;
+      }
+
+      try {
+        await sendDailyEmail({
+          to: user.email,
+          locale: user.locale,
+          displayName: user.displayName,
+          pieceType: piece.type,
+          themeName: themeName(piece.themeSlug, user.locale),
+          body: pickText(piece.bodyI18n, user.locale),
+          appUrl,
+          unsubscribeUrl: unsubscribeUrl(appUrl, user.id, user.locale),
+          // Defesa adicional: a Resend recusa um reenvio com a mesma chave 24h.
+          idempotencyKey: `paginas-daily-${user.id}-${dayISO}`,
+        });
+        sent++;
+      } catch (e) {
+        // Falha no envio: libertar a reclamação para nova tentativa futura.
+        await prisma.promptDelivery.update({
+          where: { id: delivery.id },
+          data: { emailSentAt: null },
+        });
+        throw e;
+      }
     } catch (e) {
       failed++;
       errors.push(`${user.email}: ${(e as Error).message}`);
