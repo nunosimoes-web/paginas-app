@@ -103,8 +103,10 @@ h1 em,h2 em{font-style:italic;color:var(--gold-deep)}
 @keyframes scrolly{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 
 /* Brands marquee */
-.brands{padding:56px 0 48px;background:var(--cream)}
-.marquee{overflow:hidden;margin-top:26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.brands{padding:80px 0 56px;background:var(--cream)}
+.brands-title{text-align:center;font-size:clamp(1.7rem,3.4vw,2.6rem);max-width:760px;margin:6px auto 0}
+.brands-sub{text-align:center;color:var(--ink-soft);opacity:.78;max-width:520px;margin:14px auto 0;font-size:1rem}
+.marquee{overflow:hidden;margin-top:44px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquee-track{display:flex;gap:64px;width:max-content;animation:scrollx 32s linear infinite}
 .marquee-track span{font-family:var(--serif);font-size:1.7rem;font-weight:500;letter-spacing:.12em;color:var(--ink);opacity:.45;white-space:nowrap;transition:opacity .3s}
 .marquee:hover .marquee-track{animation-play-state:paused}
@@ -122,6 +124,15 @@ h1 em,h2 em{font-style:italic;color:var(--gold-deep)}
 .cat-card h3{font-size:1.55rem;margin-bottom:10px}
 .cat-card p{font-size:.96rem;color:var(--ink-soft);opacity:.82;margin:0 0 20px}
 .cat-link{margin-top:auto;font-size:.85rem;font-weight:500;letter-spacing:.04em;color:var(--gold-deep)}
+
+/* Manifesto */
+.manifesto{background:var(--ink);color:#fff;text-align:center;padding:96px 0;position:relative;overflow:hidden}
+.manifesto::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 120% at 50% 0%,rgba(199,154,75,.18),transparent 60%)}
+.manifesto .container{position:relative;z-index:2}
+.manifesto-quote{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3.1rem);line-height:1.18;max-width:920px;margin:18px auto 0;color:#f3ece0}
+.manifesto-quote em{font-style:italic;color:var(--gold-soft)}
+.manifesto-verbs{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:42px 0 0;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:#b3a896}
+.manifesto-verbs span{color:var(--gold-deep)}
 
 /* Feature split */
 .feature{background:var(--cream-2)}
