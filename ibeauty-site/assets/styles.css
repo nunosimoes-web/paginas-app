@@ -63,11 +63,11 @@ h1 em,h2 em{font-style:italic;color:var(--gold-deep)}
 .site-header{position:sticky;top:0;z-index:50;background:rgba(247,243,236,.82);backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s,background .3s}
 .site-header.scrolled{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(20,17,15,.5)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:78px}
-.logo{position:relative;font-family:var(--serif);font-size:1.7rem;font-weight:600;line-height:1;color:var(--ink);display:inline-flex;align-items:baseline}
-.logo .logo-i{color:var(--gold-deep);font-style:italic}
-.logo .logo-sub{position:absolute;left:0;bottom:-12px;font-family:var(--sans);font-size:.52rem;letter-spacing:.42em;color:var(--ink-soft);opacity:.7;font-weight:500}
-.logo-light{color:var(--cream)}
-.logo-light .logo-sub{color:#bcae9a}
+.logo{display:inline-flex;align-items:center;line-height:1}
+.logo-img{height:42px;width:auto;display:block;transition:opacity .25s}
+.logo-img--dark{filter:brightness(0) saturate(100%)}
+.logo:hover .logo-img{opacity:.82}
+.site-footer .logo-img{height:46px}
 .nav{display:flex;gap:34px}
 .nav a{font-size:.92rem;font-weight:400;color:var(--ink-soft);position:relative;padding:4px 0}
 .nav a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--gold-deep);transition:width .3s}
@@ -204,6 +204,7 @@ h1 em,h2 em{font-style:italic;color:var(--gold-deep)}
 }
 @media(max-width:560px){
   .section{padding:72px 0}
+  .logo-img{height:34px}
   .cat-grid{grid-template-columns:1fr}
   .hero-trust{gap:26px}
   .hero-trust strong{font-size:1.7rem}
