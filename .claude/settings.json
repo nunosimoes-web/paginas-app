@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__ed935e98-72a1-4c8a-91d9-198f3d4a907b__d1_database_query",
+      "mcp__ed935e98-72a1-4c8a-91d9-198f3d4a907b__d1_databases_list",
+      "mcp__ed935e98-72a1-4c8a-91d9-198f3d4a907b__accounts_list",
+      "mcp__github__pull_request_read",
+      "mcp__df244947-3286-4724-b5e8-d1013179bb36__search_threads",
+      "mcp__df244947-3286-4724-b5e8-d1013179bb36__get_thread",
+      "Bash(npx vitest run *)",
+      "Bash(curl *)"
+    ]
+  }
+}
