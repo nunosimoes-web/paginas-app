@@ -76,12 +76,31 @@ export async function buildUsageReport(): Promise<{
         role: true,
         createdAt: true,
         onboardedAt: true,
+        emailDaily: true,
+        promptHour: true,
         _count: {
           select: { checkIns: true, journalEntries: true, deliveries: true },
         },
       },
     }),
   ]);
+
+  // --- Quem recebe o email diário ---------------------------------------
+  // Regra do cron: onboardedAt != null E emailDaily = true → envio à promptHour.
+  const receiving = perUser.filter((u) => u.emailDaily && u.onboardedAt !== null);
+  const optOut = perUser.filter((u) => !u.emailDaily);
+  const pendingOnboarding = perUser.filter(
+    (u) => u.emailDaily && u.onboardedAt === null,
+  );
+  const hourCounts = new Map<number, number>();
+  for (const u of receiving) {
+    hourCounts.set(u.promptHour, (hourCounts.get(u.promptHour) ?? 0) + 1);
+  }
+  const hourSummary =
+    [...hourCounts.entries()]
+      .sort((a, b) => a[0] - b[0])
+      .map(([h, n]) => `${String(h).padStart(2, "0")}h: ${n}`)
+      .join(" · ") || "—";
 
   const active7 = new Set<string>([
     ...checkin7.map((c) => c.userId),
@@ -107,6 +126,10 @@ export async function buildUsageReport(): Promise<{
     ["Entradas de diário (total / 24h)", `${journals} / ${journals24}`],
     ["Peças entregues (total / abertas)", `${deliveries} / ${opened}`],
     ["Emails enviados (24h)", emailed24],
+    ["A RECEBER o email diário", receiving.length],
+    ["Horários de envio", hourSummary],
+    ["Opt-out do email diário", optOut.length],
+    ["Opt-in mas sem onboarding (não recebem)", pendingOnboarding.length],
     ["Ligações terapeuta–cliente ativas", links],
   ];
 
@@ -123,8 +146,15 @@ export async function buildUsageReport(): Promise<{
       const name = u.displayName || u.email;
       const role = u.role === "THERAPIST" ? " (terapeuta)" : "";
       const ob = u.onboardedAt ? "✓" : "—";
+      const mail = !u.emailDaily
+        ? "opt-out"
+        : u.onboardedAt === null
+          ? "sem onboarding"
+          : `✓ ${String(u.promptHour).padStart(2, "0")}h`;
+      const mailColor = mail.startsWith("✓") ? "#2f6d4f" : "#a1602f";
       return `<tr>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#2f2b26;">${esc(name)}${role}</td>
+<td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:${mailColor};text-align:center;font-weight:600;white-space:nowrap;">${esc(mail)}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${fmtDate(u.createdAt)}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${ob}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${u._count.checkIns}</td>
@@ -145,11 +175,35 @@ export async function buildUsageReport(): Promise<{
 <tr><td style="padding:20px 34px 0 34px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${statRows}</table>
 </td></tr>
+<tr><td style="padding:26px 34px 8px 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#a79f88;">Quem recebe o email diário (${receiving.length})</td></tr>
+<tr><td style="padding:0 34px 0 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#2f2b26;line-height:1.7;">
+${
+  receiving.length === 0
+    ? '<span style="color:#a1602f;">Ninguém. Nenhum utilizador cumpre onboarding concluído + opt-in ativo.</span>'
+    : receiving
+        .map(
+          (u) =>
+            `• ${esc(u.email)}${u.displayName ? ` (${esc(u.displayName)})` : ""} — ${String(u.promptHour).padStart(2, "0")}h${u.role === "THERAPIST" ? " · terapeuta" : ""}`,
+        )
+        .join("<br>")
+}
+${
+  pendingOnboarding.length > 0
+    ? `<div style="margin-top:10px;color:#a1602f;">Com opt-in mas sem onboarding — não recebem: ${pendingOnboarding.map((u) => esc(u.email)).join(", ")}</div>`
+    : ""
+}
+${
+  optOut.length > 0
+    ? `<div style="margin-top:6px;color:#a1602f;">Opt-out: ${optOut.map((u) => esc(u.email)).join(", ")}</div>`
+    : ""
+}
+</td></tr>
 <tr><td style="padding:26px 34px 8px 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#a79f88;">Por utilizador</td></tr>
 <tr><td style="padding:0 34px 0 34px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 <tr>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;text-align:left;">Utilizador</th>
+<th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Email diário</th>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Registo</th>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Onb.</th>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Check-ins</th>
@@ -172,7 +226,24 @@ ${userRows}
         `  ${u.displayName || u.email}${u.role === "THERAPIST" ? " (terapeuta)" : ""} — registo ${fmtDate(u.createdAt)}, onboarding ${u.onboardedAt ? "sim" : "nao"}, check-ins ${u._count.checkIns}, diario ${u._count.journalEntries}, pecas ${u._count.deliveries}`,
     )
     .join("\n");
-  const text = `Páginas — relatório diário (${today})\n\n${textStats}\n\nPor utilizador:\n${textUsers}\n`;
+  const textReceiving =
+    receiving.length === 0
+      ? "  (ninguem)"
+      : receiving
+          .map(
+            (u) =>
+              `  ${u.email}${u.displayName ? ` (${u.displayName})` : ""} — ${String(u.promptHour).padStart(2, "0")}h${u.role === "THERAPIST" ? " · terapeuta" : ""}`,
+          )
+          .join("\n");
+  const textPending =
+    pendingOnboarding.length > 0
+      ? `\nCom opt-in mas sem onboarding (nao recebem):\n${pendingOnboarding.map((u) => `  ${u.email}`).join("\n")}\n`
+      : "";
+  const textOptOut =
+    optOut.length > 0
+      ? `\nOpt-out:\n${optOut.map((u) => `  ${u.email}`).join("\n")}\n`
+      : "";
+  const text = `Páginas — relatório diário (${today})\n\n${textStats}\n\nQuem recebe o email diário (${receiving.length}):\n${textReceiving}\n${textPending}${textOptOut}\nPor utilizador:\n${textUsers}\n`;
 
   return { subject, html, text };
 }
