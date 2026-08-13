@@ -34,5 +34,8 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.redirect(new URL(path, url.origin), 302);
+  // O destino tem de ser construído a partir do URL público da app: atrás do
+  // proxy, `url.origin` é o endereço interno do container (0.0.0.0:3000).
+  const base = (process.env.NEXTAUTH_URL || url.origin).replace(/\/$/, "");
+  return NextResponse.redirect(new URL(path, base), 302);
 }
