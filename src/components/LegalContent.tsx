@@ -9,6 +9,10 @@ export async function LegalContent() {
   const sections = [
     { heading: t("disclaimerHeading"), body: t("disclaimerBody") },
     { heading: t("rgpdHeading"), body: t("rgpdBody") },
+    {
+      heading: t("emailTrackingHeading"),
+      body: t("emailTrackingBody"),
+    },
     { heading: t("contactHeading"), body: t("contactBody") },
   ];
 

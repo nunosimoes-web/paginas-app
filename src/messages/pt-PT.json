@@ -278,6 +278,8 @@
     "crisisBody": "Se estás em sofrimento intenso ou em risco, procura ajuda imediata. Em Portugal: SOS Voz Amiga 213 544 545 / 912 802 669 / 963 524 660. Em emergência, liga 112.",
     "rgpdHeading": "Os teus dados (RGPD)",
     "rgpdBody": "Os registos de humor e as entradas de diário são dados sensíveis de saúde. Recolhemos o mínimo necessário, guardamo-los na União Europeia e não os partilhamos. Tens direito a aceder, corrigir e apagar os teus dados — basta pedir.",
+    "emailTrackingHeading": "Medição do email diário",
+    "emailTrackingBody": "No email diário registamos se foi aberto e se clicaste no botão para abrir a Páginas, para percebermos se o envio está a ser útil. Não lemos o conteúdo do teu email nem partilhamos estes dados. Se preferires não ser medido, podes desligar as imagens no teu cliente de email ou cancelar a subscrição do email diário nas definições.",
     "contactHeading": "Contacto",
     "contactBody": "Para qualquer questão sobre privacidade ou os teus dados, contacta a equipa da Páginas."
   },

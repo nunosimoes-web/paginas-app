@@ -94,6 +94,11 @@ model PromptDelivery {
   opened      Boolean  @default(false)
   // Quando a peça do dia foi enviada por email — idempotência do envio diário.
   emailSentAt DateTime?
+  // Medição do email: primeira abertura / primeiro clique e respetivas contagens.
+  emailOpenedAt  DateTime?
+  emailOpenCount Int      @default(0)
+  emailClickedAt DateTime?
+  emailClickCount Int     @default(0)
   @@unique([userId, date])
 }
 

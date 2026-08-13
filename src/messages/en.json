@@ -278,6 +278,8 @@
     "crisisBody": "If you are in intense distress or at risk, seek help immediately. In Portugal: SOS Voz Amiga 213 544 545 / 912 802 669 / 963 524 660. In an emergency, call 112.",
     "rgpdHeading": "Your data (GDPR)",
     "rgpdBody": "Mood records and journal entries are sensitive health data. We collect the minimum necessary, store it in the European Union and do not share it. You have the right to access, correct and delete your data — just ask.",
+    "emailTrackingHeading": "Daily email measurement",
+    "emailTrackingBody": "In the daily email we record whether it was opened and whether you clicked the button to open Páginas, so we can tell whether the email is useful. We do not read your email content and we do not share this data. If you would rather not be measured, you can block images in your email client or turn off the daily email in settings.",
     "contactHeading": "Contact",
     "contactBody": "For any question about privacy or your data, contact the Páginas team."
   },

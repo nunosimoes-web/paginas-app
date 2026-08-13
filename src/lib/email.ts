@@ -6,6 +6,7 @@
 // =============================================================================
 
 import type { DailyPieceForUser } from "./engine";
+import { openPixelUrl, trackedLinkUrl } from "./tracking";
 
 type PieceType = DailyPieceForUser["type"];
 
@@ -77,6 +78,8 @@ export interface DailyEmailInput {
   unsubscribeUrl: string;
   /** Chave de idempotência (ex.: por utilizador+dia) — a Resend recusa duplicados. */
   idempotencyKey?: string;
+  /** Id da entrega do dia — activa a medição de abertura e clique. */
+  deliveryId?: string;
 }
 
 function escapeHtml(s: string): string {
@@ -90,7 +93,16 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
   const kicker = [c.pieceType[input.pieceType], input.themeName ? `${c.themeLabel}: ${input.themeName}` : null]
     .filter(Boolean)
     .join("  ·  ");
-  const today = `${input.appUrl}/today`;
+  const localePrefix = input.locale === "en" ? "/en" : "";
+  const todayPath = `${localePrefix}/today`;
+  const today = `${input.appUrl}${todayPath}`;
+  // Com deliveryId, o botão passa pelo medidor de cliques; sem ele, link direto.
+  const todayLink = input.deliveryId
+    ? trackedLinkUrl(input.appUrl, input.deliveryId, todayPath)
+    : today;
+  const pixel = input.deliveryId
+    ? `<img src="${openPixelUrl(input.appUrl, input.deliveryId)}" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0;opacity:0;">`
+    : "";
   const greeting = c.greeting(input.displayName);
 
   const html = `<!doctype html>
@@ -107,7 +119,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
         <tr><td style="padding:12px 38px 0 38px;font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.62;color:#33312e;">${escapeHtml(input.body)}</td></tr>
         <tr><td style="padding:20px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;font-style:italic;color:#9a937f;">${escapeHtml(c.closing)}</td></tr>
         <tr><td style="padding:24px 38px 4px 38px;">
-          <a href="${today}" style="display:inline-block;background:#6f7d5c;color:#fffdf8;text-decoration:none;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:14px;padding:11px 22px;border-radius:9px;">${escapeHtml(c.cta)}</a>
+          <a href="${todayLink}" style="display:inline-block;background:#6f7d5c;color:#fffdf8;text-decoration:none;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:14px;padding:11px 22px;border-radius:9px;">${escapeHtml(c.cta)}</a>
         </td></tr>
         <tr><td style="padding:26px 38px 0 38px;"><div style="border-top:1px solid #ece6d8;"></div></td></tr>
         <tr><td style="padding:16px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;line-height:1.6;color:#6f6a5c;">${escapeHtml(c.disclaimer)}</td></tr>
@@ -115,6 +127,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
       </table>
     </td></tr>
   </table>
+  ${pixel}
 </body>
 </html>`;
 

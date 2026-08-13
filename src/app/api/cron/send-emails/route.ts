@@ -100,6 +100,7 @@ export async function POST(request: Request) {
           unsubscribeUrl: unsubscribeUrl(appUrl, user.id, user.locale),
           // Defesa adicional: a Resend recusa um reenvio com a mesma chave 24h.
           idempotencyKey: `paginas-daily-${user.id}-${dayISO}`,
+          deliveryId: delivery.id,
         });
         sent++;
       } catch (e) {

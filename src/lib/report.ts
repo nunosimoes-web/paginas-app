@@ -41,6 +41,11 @@ export async function buildUsageReport(): Promise<{
     deliveries,
     opened,
     emailed24,
+    mailOpens,
+    mailOpens24,
+    mailClicks,
+    mailClicks24,
+    mailOpenByUser,
     links,
     checkin7,
     journal7,
@@ -57,6 +62,16 @@ export async function buildUsageReport(): Promise<{
     prisma.promptDelivery.count(),
     prisma.promptDelivery.count({ where: { opened: true } }),
     prisma.promptDelivery.count({ where: { emailSentAt: { gte: d1 } } }),
+    prisma.promptDelivery.count({ where: { emailOpenedAt: { not: null } } }),
+    prisma.promptDelivery.count({ where: { emailOpenedAt: { gte: d1 } } }),
+    prisma.promptDelivery.count({ where: { emailClickedAt: { not: null } } }),
+    prisma.promptDelivery.count({ where: { emailClickedAt: { gte: d1 } } }),
+    prisma.promptDelivery.groupBy({
+      by: ["userId"],
+      where: { emailOpenedAt: { not: null } },
+      _count: { _all: true },
+      _max: { emailOpenedAt: true },
+    }),
     prisma.clientLink.count({ where: { status: "active" } }),
     prisma.moodCheckIn.findMany({
       where: { createdAt: { gte: d7 } },
@@ -71,6 +86,7 @@ export async function buildUsageReport(): Promise<{
     prisma.user.findMany({
       orderBy: { createdAt: "asc" },
       select: {
+        id: true,
         email: true,
         displayName: true,
         role: true,
@@ -102,6 +118,14 @@ export async function buildUsageReport(): Promise<{
       .map(([h, n]) => `${String(h).padStart(2, "0")}h: ${n}`)
       .join(" · ") || "—";
 
+  // Aberturas do email por utilizador (medição própria: pixel + clique).
+  const opensByUser = new Map(
+    mailOpenByUser.map((r) => [r.userId, r._count._all]),
+  );
+  const lastOpenByUser = new Map(
+    mailOpenByUser.map((r) => [r.userId, r._max.emailOpenedAt]),
+  );
+
   const active7 = new Set<string>([
     ...checkin7.map((c) => c.userId),
     ...journal7.map((j) => j.userId),
@@ -124,8 +148,10 @@ export async function buildUsageReport(): Promise<{
     ["Ativos nos últimos 7 dias", active7],
     ["Check-ins (total / 24h)", `${checkins} / ${checkins24}`],
     ["Entradas de diário (total / 24h)", `${journals} / ${journals24}`],
-    ["Peças entregues (total / abertas)", `${deliveries} / ${opened}`],
+    ["Peças marcadas como lidas na app (total)", `${opened} de ${deliveries}`],
     ["Emails enviados (24h)", emailed24],
+    ["Emails ABERTOS (total / 24h)", `${mailOpens} / ${mailOpens24}`],
+    ["Cliques no email (total / 24h)", `${mailClicks} / ${mailClicks24}`],
     ["A RECEBER o email diário", receiving.length],
     ["Horários de envio", hourSummary],
     ["Opt-out do email diário", optOut.length],
@@ -152,6 +178,9 @@ export async function buildUsageReport(): Promise<{
           ? "sem onboarding"
           : `✓ ${String(u.promptHour).padStart(2, "0")}h`;
       const mailColor = mail.startsWith("✓") ? "#2f6d4f" : "#a1602f";
+      const opens = opensByUser.get(u.id) ?? 0;
+      const lastOpen = lastOpenByUser.get(u.id) ?? null;
+      const opensCell = opens === 0 ? "—" : `${opens} (${fmtDate(lastOpen)})`;
       return `<tr>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#2f2b26;">${esc(name)}${role}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:${mailColor};text-align:center;font-weight:600;white-space:nowrap;">${esc(mail)}</td>
@@ -160,6 +189,7 @@ export async function buildUsageReport(): Promise<{
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${u._count.checkIns}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${u._count.journalEntries}</td>
 <td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;">${u._count.deliveries}</td>
+<td style="padding:6px 8px;border-bottom:1px solid #ece6d8;font-size:13px;color:#6d675d;text-align:center;white-space:nowrap;">${esc(opensCell)}</td>
 </tr>`;
     })
     .join("");
@@ -209,6 +239,7 @@ ${
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Check-ins</th>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Diário</th>
 <th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Peças</th>
+<th style="padding:6px 8px;border-bottom:2px solid #e6e0d2;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#a79f88;">Aberturas email</th>
 </tr>
 ${userRows}
 </table>
@@ -223,7 +254,7 @@ ${userRows}
   const textUsers = perUser
     .map(
       (u) =>
-        `  ${u.displayName || u.email}${u.role === "THERAPIST" ? " (terapeuta)" : ""} — registo ${fmtDate(u.createdAt)}, onboarding ${u.onboardedAt ? "sim" : "nao"}, check-ins ${u._count.checkIns}, diario ${u._count.journalEntries}, pecas ${u._count.deliveries}`,
+        `  ${u.displayName || u.email}${u.role === "THERAPIST" ? " (terapeuta)" : ""} — registo ${fmtDate(u.createdAt)}, onboarding ${u.onboardedAt ? "sim" : "nao"}, check-ins ${u._count.checkIns}, diario ${u._count.journalEntries}, pecas ${u._count.deliveries}, aberturas email ${opensByUser.get(u.id) ?? 0}`,
     )
     .join("\n");
   const textReceiving =
