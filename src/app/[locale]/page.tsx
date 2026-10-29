@@ -24,7 +24,7 @@ export default async function HomePage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <PublicHeader />
-      {!user ? <MarketingConsent containerId={validGtmId(process.env.MARKETING_GTM_ID)} /> : null}
+      <MarketingConsent containerId={validGtmId(process.env.MARKETING_GTM_ID)} allowTags={!user} />
 
       <main className="flex-1">
         {/* ---- Hero ---- */}

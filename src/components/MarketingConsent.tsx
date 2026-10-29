@@ -20,7 +20,7 @@ function subscribe(callback: () => void) {
 }
 
 // Mounted only on the anonymous landing page. No container ID means no tags.
-export function MarketingConsent({ containerId }: { containerId: string | null }) {
+export function MarketingConsent({ containerId, allowTags = true }: { containerId: string | null; allowTags?: boolean }) {
   const t = useTranslations("cookies");
   const locale = useLocale();
   const raw = useSyncExternalStore(subscribe, snapshot, () => null);
@@ -37,7 +37,7 @@ export function MarketingConsent({ containerId }: { containerId: string | null }
 
   useEffect(() => {
     const stored = readConsent(raw);
-    if (!containerId || !stored || (!stored.analytics && !stored.marketing) ||
+    if (!allowTags || !containerId || !stored || (!stored.analytics && !stored.marketing) ||
       !eligiblePublicLocation(location.pathname, location.search, location.hash)) return;
     window.dataLayer = window.dataLayer || [];
     const gtag: (...args: unknown[]) => void = function () {
@@ -64,7 +64,7 @@ export function MarketingConsent({ containerId }: { containerId: string | null }
     // Schedule the render after consent commands and navigation protection exist.
     const ready = window.setTimeout(() => setLoadTags(true), 0);
     return () => { clearTimeout(ready); document.removeEventListener("click", leave, true); };
-  }, [containerId, raw]);
+  }, [allowTags, containerId, raw]);
 
   function open() {
     setAnalytics(consent?.analytics ?? false);
@@ -88,7 +88,7 @@ export function MarketingConsent({ containerId }: { containerId: string | null }
           onLoad={() => window.dataLayer?.push({ event: "mw_public_page_view", product: "mindwink", locale, page_path: location.pathname, page_location: location.origin + location.pathname })} />
       ) : null}
       <button type="button" onClick={open} className="fixed bottom-3 left-3 z-40 rounded-full border border-line bg-paper px-3 py-2 text-xs text-muted shadow-sm hover:text-ink">{t("preferences")}</button>
-      {containerId && !consent ? (
+      {allowTags && containerId && !consent ? (
         <section aria-label={t("title")} className="fixed inset-x-3 bottom-16 z-40 mx-auto max-w-2xl rounded-2xl border border-line bg-paper p-5 shadow-lg">
           <p className="font-serif text-lg">{t("title")}</p><p className="mt-2 text-sm text-muted">{t("description")}</p>
           <div className="mt-4 flex flex-wrap gap-2">

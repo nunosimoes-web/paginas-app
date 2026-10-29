@@ -40,8 +40,12 @@ keep any future promotional email permission separate.
 
 ## Consent and marketing tags
 
-`MARKETING_GTM_ID` is a server-side optional environment variable (GTM-...).
-The anonymous landing page alone mounts the consent manager. Authenticated users,
+`MARKETING_GTM_ID` is a server-side optional environment variable.
+Current container: GTM-WBZS8WQJ, account CognixHub (6400945586), container
+284226241, initial published version 2. Owner: nuno.simoes@paginasemetaforas.pt.
+The consent manager is available on the landing and legal pages, including for
+signed-in visitors who want to withdraw earlier permission. Only the anonymous
+landing may load tags. Authenticated users,
 account forms, support, signed links, journals, check-ins and therapist pages do
 not load GTM. Consent is denied by default (basic mode: no Google requests before
 a positive choice). Analytics and advertising permissions are separate; choices
@@ -62,3 +66,6 @@ advertising audiences. Each network needs its own account and pixel/dataset ID.
 Conversions API is network-specific, still requires consent and has no automatic
 retroactive history. Use the same event_id for browser/server deduplication if
 server delivery is added later; never include private product data.
+
+When adding new advertising recipients, update privacy disclosures and increment
+the consent schema/key to ask for fresh permission before activating those tags.

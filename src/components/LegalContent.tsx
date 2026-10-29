@@ -1,4 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import { MarketingConsent } from "./MarketingConsent";
+import { validGtmId } from "@/lib/marketing-consent";
 import { Card } from "./ui";
 
 /** Secções legais partilhadas por /privacy e /terms.
@@ -20,6 +22,7 @@ export async function LegalContent() {
 
   return (
     <div className="space-y-4">
+      <MarketingConsent containerId={validGtmId(process.env.MARKETING_GTM_ID)} allowTags={false} />
       <Card className="space-y-2 border-clay/40 bg-clay/5 p-5">
         <h2 className="font-serif text-lg text-ink">{t("crisisHeading")}</h2>
         <p className="text-sm leading-relaxed text-ink">{t("crisisBody")}</p>
