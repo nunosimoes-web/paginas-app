@@ -1,5 +1,5 @@
 // =============================================================================
-//  src/lib/engine.ts — Motor de personalização "Páginas"
+//  src/lib/engine.ts — Motor de personalização "Mindwink"
 // -----------------------------------------------------------------------------
 //  Núcleo (pickPiece) puro e determinístico, desacoplado de Prisma e testável.
 //  Wrapper (selectDailyPiece) que vai à base de dados, regista a entrega e

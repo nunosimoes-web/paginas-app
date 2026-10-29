@@ -30,7 +30,7 @@ export function AppNav({ isTherapist }: { isTherapist: boolean }) {
           href="/today"
           className="font-serif text-lg font-medium text-accent-strong"
         >
-          Páginas
+          Mindwink
         </Link>
         <ul className="flex flex-1 flex-wrap items-center gap-x-3.5 gap-y-1 text-sm">
           {items.map((item) => {

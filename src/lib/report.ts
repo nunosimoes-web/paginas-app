@@ -1,5 +1,5 @@
 // =============================================================================
-//  src/lib/report.ts — Relatório diário de utilização da Páginas.
+//  src/lib/report.ts — Relatório diário de utilização do Mindwink.
 // -----------------------------------------------------------------------------
 //  Reúne números de utilização (utilizadores, onboarding, check-ins, diário,
 //  entregas) e produz o HTML/texto de um email de relatório interno.
@@ -138,7 +138,7 @@ export async function buildUsageReport(): Promise<{
     year: "numeric",
   }).format(now);
 
-  const subject = `Páginas — relatório diário (${today}): ${users} utilizadores, ${active7} ativos`;
+  const subject = `Mindwink — relatório diário (${today}): ${users} utilizadores, ${active7} ativos`;
 
   // --- Métricas principais ---
   const stats: [string, string | number][] = [
@@ -200,7 +200,7 @@ export async function buildUsageReport(): Promise<{
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3efe6;">
 <tr><td align="center" style="padding:28px 16px;">
 <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#fffdf8;border:1px solid #e6e0d2;border-radius:14px;">
-<tr><td style="padding:30px 34px 0 34px;font-family:Georgia,serif;font-size:17px;color:#9a937f;">Páginas — relatório diário</td></tr>
+<tr><td style="padding:30px 34px 0 34px;font-family:Georgia,serif;font-size:17px;color:#9a937f;">Mindwink — relatório diário</td></tr>
 <tr><td style="padding:4px 34px 0 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a937f;">${esc(today)}</td></tr>
 <tr><td style="padding:20px 34px 0 34px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${statRows}</table>
@@ -244,7 +244,7 @@ ${
 ${userRows}
 </table>
 </td></tr>
-<tr><td style="padding:24px 34px 30px 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;color:#bdb6a2;">Relatório automático da Páginas. Gerado todos os dias.</td></tr>
+<tr><td style="padding:24px 34px 30px 34px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;color:#bdb6a2;">Relatório automático do Mindwink. Gerado todos os dias.</td></tr>
 </table>
 </td></tr>
 </table>
@@ -274,7 +274,7 @@ ${userRows}
     optOut.length > 0
       ? `\nOpt-out:\n${optOut.map((u) => `  ${u.email}`).join("\n")}\n`
       : "";
-  const text = `Páginas — relatório diário (${today})\n\n${textStats}\n\nQuem recebe o email diário (${receiving.length}):\n${textReceiving}\n${textPending}${textOptOut}\nPor utilizador:\n${textUsers}\n`;
+  const text = `Mindwink — relatório diário (${today})\n\n${textStats}\n\nQuem recebe o email diário (${receiving.length}):\n${textReceiving}\n${textPending}${textOptOut}\nPor utilizador:\n${textUsers}\n`;
 
   return { subject, html, text };
 }

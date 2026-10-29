@@ -15,17 +15,17 @@ export const dynamic = "force-dynamic";
 
 const COPY = {
   "pt-PT": {
-    subject: "Recuperar a palavra-passe · Páginas",
+    subject: "Recuperar a palavra-passe · Mindwink",
     heading: "Recuperar a palavra-passe",
-    body: "Recebemos um pedido para repor a tua palavra-passe na Páginas. Carrega no botão abaixo — o link é válido durante 1 hora.",
+    body: "Recebemos um pedido para repor a tua palavra-passe no Mindwink. Carrega no botão abaixo — o link é válido durante 1 hora.",
     cta: "Definir nova palavra-passe",
     ignore:
       "Se não foste tu a pedir, podes ignorar este email — a tua palavra-passe não muda.",
   },
   en: {
-    subject: "Reset your password · Páginas",
+    subject: "Reset your password · Mindwink",
     heading: "Reset your password",
-    body: "We received a request to reset your Páginas password. Tap the button below — the link is valid for 1 hour.",
+    body: "We received a request to reset your Mindwink password. Tap the button below — the link is valid for 1 hour.",
     cta: "Set a new password",
     ignore:
       "If you didn't request this, you can ignore this email — your password stays the same.",
@@ -61,13 +61,13 @@ export async function POST(request: Request) {
           to: user.email,
           subject: c.subject,
           html: `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#33312e;">
-<p style="font-family:Georgia,serif;font-size:17px;color:#9a937f;">Páginas</p>
+<p style="font-family:Georgia,serif;font-size:17px;color:#9a937f;">Mindwink</p>
 <h1 style="font-size:19px;color:#33312e;">${c.heading}</h1>
 <p style="font-size:14px;line-height:1.6;color:#6d675d;">${c.body}</p>
 <p style="margin:22px 0;"><a href="${link}" style="display:inline-block;background:#6f7d5c;color:#fffdf8;text-decoration:none;font-size:14px;padding:11px 22px;border-radius:9px;">${c.cta}</a></p>
 <p style="font-size:12px;line-height:1.6;color:#a79f88;">${c.ignore}</p>
 </div>`,
-          text: `Páginas — ${c.heading}\n\n${c.body}\n\n${link}\n\n${c.ignore}`,
+          text: `Mindwink — ${c.heading}\n\n${c.body}\n\n${link}\n\n${c.ignore}`,
         });
       } catch {
         // Falha de envio não deve revelar nada ao cliente.

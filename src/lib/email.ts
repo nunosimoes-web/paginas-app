@@ -25,7 +25,7 @@ interface Copy {
 
 const COPY: Record<"pt-PT" | "en", Copy> = {
   "pt-PT": {
-    subject: "A tua peça de hoje · Páginas",
+    subject: "A tua peça de hoje · Mindwink",
     greeting: (name) => (name ? `Olá, ${name}.` : "Olá."),
     intro: "A tua peça de hoje.",
     pieceType: {
@@ -35,16 +35,16 @@ const COPY: Record<"pt-PT" | "en", Copy> = {
       REFLECTION: "Reflexão",
     },
     themeLabel: "Tema",
-    cta: "Abrir a Páginas",
+    cta: "Abrir o Mindwink",
     closing: "Quando te servir. Sem pressa.",
     disclaimer:
-      "Conteúdo de bem-estar em revisão por profissionais. A Páginas é um apoio de reflexão e não substitui acompanhamento clínico.",
+      "Conteúdo de bem-estar em revisão por profissionais. O Mindwink é um apoio de reflexão e não substitui acompanhamento clínico.",
     footer:
-      "Recebes este email porque escolheste uma hora para a tua peça diária nas definições da Páginas.",
+      "Recebes este email porque escolheste uma hora para a tua peça diária nas definições do Mindwink.",
     unsubscribe: "Cancelar a subscrição",
   },
   en: {
-    subject: "Your piece for today · Páginas",
+    subject: "Your piece for today · Mindwink",
     greeting: (name) => (name ? `Hello, ${name}.` : "Hello."),
     intro: "Your piece for today.",
     pieceType: {
@@ -54,12 +54,12 @@ const COPY: Record<"pt-PT" | "en", Copy> = {
       REFLECTION: "Reflection",
     },
     themeLabel: "Theme",
-    cta: "Open Páginas",
+    cta: "Open Mindwink",
     closing: "Whenever it serves you. No rush.",
     disclaimer:
-      "Wellbeing content under review by professionals. Páginas is a reflective companion and not a substitute for clinical care.",
+      "Wellbeing content under review by professionals. Mindwink is a reflective companion and not a substitute for clinical care.",
     footer:
-      "You receive this email because you chose a time for your daily piece in Páginas settings.",
+      "You receive this email because you chose a time for your daily piece in Mindwink settings.",
     unsubscribe: "Unsubscribe",
   },
 };
@@ -112,7 +112,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3efe6;">
     <tr><td align="center" style="padding:32px 16px;">
       <table role="presentation" width="520" cellpadding="0" cellspacing="0" style="max-width:520px;width:100%;background:#fffdf8;border:1px solid #e6e0d2;border-radius:14px;">
-        <tr><td style="padding:34px 38px 8px 38px;font-family:Georgia,'Times New Roman',serif;font-size:18px;letter-spacing:.5px;color:#9a937f;">Páginas</td></tr>
+        <tr><td style="padding:34px 38px 8px 38px;font-family:Georgia,'Times New Roman',serif;font-size:18px;letter-spacing:.5px;color:#9a937f;">Mindwink</td></tr>
         <tr><td style="padding:14px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#33312e;">${escapeHtml(greeting)}</td></tr>
         <tr><td style="padding:4px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a937f;">${escapeHtml(c.intro)}</td></tr>
         <tr><td style="padding:22px 38px 0 38px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#a79f88;">${escapeHtml(kicker)}</td></tr>
@@ -132,7 +132,7 @@ function render(c: Copy, input: DailyEmailInput): { html: string; text: string }
 </html>`;
 
   const text = [
-    "Páginas",
+    "Mindwink",
     "",
     greeting,
     c.intro,
@@ -166,7 +166,7 @@ export async function sendEmail(opts: {
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY em falta");
-  const from = process.env.EMAIL_FROM || "Páginas <onboarding@resend.dev>";
+  const from = process.env.EMAIL_FROM || "Mindwink <onboarding@resend.dev>";
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -178,6 +178,7 @@ export async function sendEmail(opts: {
     body: JSON.stringify({
       from,
       to: opts.to,
+      ...(process.env.EMAIL_REPLY_TO ? { reply_to: process.env.EMAIL_REPLY_TO } : {}),
       subject: opts.subject,
       html: opts.html,
       text: opts.text,

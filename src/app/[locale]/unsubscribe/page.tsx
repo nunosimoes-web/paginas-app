@@ -32,7 +32,7 @@ export default async function UnsubscribePage({
     <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-6 py-12">
       <div className={`${styles.card} space-y-4 p-7`}>
         <p className="font-serif text-sm tracking-wide text-accent-strong">
-          Páginas
+          Mindwink
         </p>
         <h1 className="font-serif text-2xl text-ink">{t("title")}</h1>
 

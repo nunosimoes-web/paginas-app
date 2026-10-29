@@ -16,7 +16,7 @@ export default function Error({
 
   useEffect(() => {
     // Regista no console do browser; o servidor já regista o stack nos logs.
-    console.error("Páginas — erro de render:", error);
+    console.error("Mindwink — erro de render:", error);
   }, [error]);
 
   const supportHref = `${locale === "en" ? "/en" : ""}/support`;
