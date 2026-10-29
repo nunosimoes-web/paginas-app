@@ -15,11 +15,14 @@ for the rename. Existing startup performs its usual idempotent content seed.
 - NEXTAUTH_SECRET and the existing `paginas-daily-<user>-<day>` idempotency key
   must remain unchanged. Changing them can invalidate old links or duplicate mail.
 - Resend remains the sender. Display name: Mindwink. The authenticated sender
-  address remains paginas@paginasemetaforas.pt; replies go to the existing monitored
-  nuno.simoes@paginasemetaforas.pt mailbox through EMAIL_REPLY_TO.
+  address is hello@mindwink.cognixhub.com; replies and SUPPORT_EMAIL go to that
+  monitored Hostinger mailbox. SPF, DKIM and DMARC verified.
 - Do not run the daily-send or daily-report endpoints as deployment smoke tests:
   they send real messages. Test rendering and signed-link verification without sending.
-- The participant announcement is a separate draft; do not send automatically.
+- The approved one-time service announcement was delivered to all 8 existing
+  accounts on 2026-10-29, using their saved locale (all pt-PT). Do not resend.
+  Existing daily-mail choices were left unchanged (7 enabled, 1 disabled).
+  A private per-recipient ledger and stable Resend idempotency keys prevent duplicates.
 
 ## Rollback
 
@@ -34,3 +37,28 @@ The existing emailDaily preferences are preserved. The inherited signup defaults
 emailDaily to true and has no dedicated consent-event history. Before promoting
 public registrations, implement explicit daily-email choice and consent evidence;
 keep any future promotional email permission separate.
+
+## Consent and marketing tags
+
+`MARKETING_GTM_ID` is a server-side optional environment variable (GTM-...).
+The anonymous landing page alone mounts the consent manager. Authenticated users,
+account forms, support, signed links, journals, check-ins and therapist pages do
+not load GTM. Consent is denied by default (basic mode: no Google requests before
+a positive choice). Analytics and advertising permissions are separate; choices
+expire after 180 days. Withdrawal reloads the document to stop loaded scripts,
+including across tabs. Consent does not change daily-email preferences.
+
+The GTM container must contain only reviewed, purpose-gated tags. Meta/TikTok
+tags require explicit additional advertising consent checks in GTM. No all-pages
+or history triggers, form/DOM scraping, automatic advanced matching, user IDs,
+emails, journal content, mood values or health-related audience segments.
+The only event emitted is `mw_public_page_view` with product, locale and clean
+public path/URL. Landing URLs with queries or fragments are not tagged. When tags
+are active, links away from the landing page force a new document so listeners
+cannot survive a client-side transition into private pages.
+
+GTM is a dispatcher, not an audience store. An empty container does not create
+advertising audiences. Each network needs its own account and pixel/dataset ID.
+Conversions API is network-specific, still requires consent and has no automatic
+retroactive history. Use the same event_id for browser/server deduplication if
+server delivery is added later; never include private product data.

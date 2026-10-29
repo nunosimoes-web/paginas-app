@@ -3,6 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { styles } from "@/components/ui";
+import { getCurrentUser } from "@/lib/session";
+import { MarketingConsent } from "@/components/MarketingConsent";
+import { validGtmId } from "@/lib/marketing-consent";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("landing");
@@ -10,8 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const t = await getTranslations("landing");
-  const c = await getTranslations("common");
+  const [t, c, user] = await Promise.all([getTranslations("landing"), getTranslations("common"), getCurrentUser()]);
 
   const features = [
     { n: "01", title: t("feature1Title"), body: t("feature1Body") },
@@ -22,6 +24,7 @@ export default async function HomePage() {
   return (
     <div className="flex min-h-dvh flex-col">
       <PublicHeader />
+      {!user ? <MarketingConsent containerId={validGtmId(process.env.MARKETING_GTM_ID)} /> : null}
 
       <main className="flex-1">
         {/* ---- Hero ---- */}

@@ -281,7 +281,10 @@
     "emailTrackingHeading": "Daily email measurement",
     "emailTrackingBody": "In the daily email we record whether it was opened and whether you clicked the button to open Mindwink, so we can tell whether the email is useful. We do not read your email content and we do not share this data. If you would rather not be measured, you can block images in your email client or turn off the daily email in settings.",
     "contactHeading": "Contact",
-    "contactBody": "For any question about privacy or your data, contact the Mindwink team."
+    "contactBody": "For privacy questions or to access, correct or delete your data, email hello@mindwink.cognixhub.com.",
+    "siteTrackingHeading": "Cookies and measurement on public pages",
+    "siteTrackingBody": "Session cookies are needed to use your account. Optional analytics and advertising tools on public pages require your permission and load only after you grant it. You can accept or refuse each purpose separately, withdraw permission in cookie preferences and choose again after 180 days. Journals, check-ins, account areas and forms do not load these tools. We do not send personal content, emotional states or email addresses for advertising. Cookie choices do not change your daily email subscription.",
+    "cookiePreferences": "Cookie preferences"
   },
   "errors": {
     "notFoundTitle": "Page not found",
@@ -290,5 +293,22 @@
     "genericTitle": "Something went wrong",
     "genericBody": "Please try again in a moment.",
     "retry": "Try again"
+  },
+  "cookies": {
+    "preferences": "Cookie preferences",
+    "title": "Your privacy",
+    "description": "We use only the cookies needed to run the app until you choose otherwise. You can separately allow visitor analytics and advertising on public pages. Refusing does not limit Mindwink.",
+    "inactive": "No optional analytics or advertising tools are active at the moment. You can keep using Mindwink with essential cookies only.",
+    "essential": "Essential: needed to sign in and remember your choices.",
+    "analytics": "Allow analytics of visits to public pages.",
+    "marketing": "Allow advertising measurement and audience creation on advertising platforms.",
+    "privateExcluded": "Your journal, check-ins, settings and account forms are excluded from this measurement. We do not send this content or your email for advertising.",
+    "privacy": "Read the privacy information",
+    "essentialOnly": "Essential only",
+    "acceptAll": "Accept all",
+    "customize": "Customize",
+    "save": "Save choices",
+    "close": "Close",
+    "error": "Your choice could not be saved in this browser. Optional tools remain blocked."
   }
 }

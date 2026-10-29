@@ -6,6 +6,7 @@
 // =============================================================================
 
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { sendEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     try {
       await sendEmail({
         to,
+        replyTo: z.email().safeParse(fromEmail).success ? fromEmail : undefined,
         subject: "Mindwink — mensagem de suporte",
         html: `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px;color:#33312e;">
 <p style="font-size:13px;color:#9a937f;">Mensagem de suporte do Mindwink</p>

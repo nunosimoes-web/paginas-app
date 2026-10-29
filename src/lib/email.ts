@@ -161,6 +161,7 @@ export async function sendEmail(opts: {
   html: string;
   text: string;
   headers?: Record<string, string>;
+  replyTo?: string;
   /** Header `Idempotency-Key` da Resend: bloqueia reenvios do mesmo email 24h. */
   idempotencyKey?: string;
 }): Promise<void> {
@@ -178,7 +179,7 @@ export async function sendEmail(opts: {
     body: JSON.stringify({
       from,
       to: opts.to,
-      ...(process.env.EMAIL_REPLY_TO ? { reply_to: process.env.EMAIL_REPLY_TO } : {}),
+      ...((opts.replyTo || process.env.EMAIL_REPLY_TO) ? { reply_to: opts.replyTo || process.env.EMAIL_REPLY_TO } : {}),
       subject: opts.subject,
       html: opts.html,
       text: opts.text,

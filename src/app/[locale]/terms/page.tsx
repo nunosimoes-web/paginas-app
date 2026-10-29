@@ -4,7 +4,7 @@ import { formatDate } from "@/lib/format";
 import { PublicHeader } from "@/components/PublicHeader";
 import { LegalContent } from "@/components/LegalContent";
 
-const LAST_UPDATED = new Date("2026-05-21");
+const LAST_UPDATED = new Date("2026-10-29");
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("legal");

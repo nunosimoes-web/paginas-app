@@ -281,7 +281,10 @@
     "emailTrackingHeading": "Medição do email diário",
     "emailTrackingBody": "No email diário registamos se foi aberto e se clicaste no botão para abrir o Mindwink, para percebermos se o envio está a ser útil. Não lemos o conteúdo do teu email nem partilhamos estes dados. Se preferires não ser medido, podes desligar as imagens no teu cliente de email ou cancelar a subscrição do email diário nas definições.",
     "contactHeading": "Contacto",
-    "contactBody": "Para qualquer questão sobre privacidade ou os teus dados, contacta a equipa do Mindwink."
+    "contactBody": "Para questões de privacidade, acesso, correção ou apagamento dos teus dados, escreve para hello@mindwink.cognixhub.com.",
+    "siteTrackingHeading": "Cookies e medição das páginas públicas",
+    "siteTrackingBody": "Os cookies de sessão são necessários para usar a conta. As ferramentas opcionais de análise e publicidade nas páginas públicas dependem da tua autorização e só carregam depois de a dares. Podes aceitar ou recusar separadamente, retirar a autorização nas preferências de cookies e voltar a escolher ao fim de 180 dias. O diário, os check-ins, as áreas de conta e os formulários não carregam estas ferramentas. Não enviamos conteúdo pessoal, estados emocionais ou endereços de email para publicidade. As tuas preferências de cookies não alteram a subscrição do email diário.",
+    "cookiePreferences": "Preferências de cookies"
   },
   "errors": {
     "notFoundTitle": "Página não encontrada",
@@ -290,5 +293,22 @@
     "genericTitle": "Algo correu menos bem",
     "genericBody": "Tenta novamente dentro de momentos.",
     "retry": "Tentar de novo"
+  },
+  "cookies": {
+    "preferences": "Preferências de cookies",
+    "title": "A tua privacidade",
+    "description": "Usamos apenas os cookies necessários para a aplicação funcionar até escolheres. Podes permitir, em separado, análise de visitas e publicidade nas páginas públicas. Recusar não limita o Mindwink.",
+    "inactive": "Neste momento, não há ferramentas opcionais de análise ou publicidade ativas. Podes continuar a usar o Mindwink apenas com os cookies essenciais.",
+    "essential": "Essenciais: necessários para iniciar sessão e guardar as tuas escolhas.",
+    "analytics": "Permitir análise de visitas às páginas públicas.",
+    "marketing": "Permitir medição publicitária e criação de audiências nas plataformas de publicidade.",
+    "privateExcluded": "O diário, os check-ins, as definições e os formulários de conta ficam fora desta medição. Não enviamos estes conteúdos nem o teu email para publicidade.",
+    "privacy": "Ler a informação de privacidade",
+    "essentialOnly": "Só essenciais",
+    "acceptAll": "Aceitar todos",
+    "customize": "Personalizar",
+    "save": "Guardar escolhas",
+    "close": "Fechar",
+    "error": "Não foi possível guardar a escolha neste navegador. As ferramentas opcionais continuam bloqueadas."
   }
 }
