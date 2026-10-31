@@ -1,0 +1,29 @@
+{
+  "name": "cognixhub-public-metrics",
+  "account_id": "6557c80ce116e6b15e064bf7e9a11e3c",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-31",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "metrics.cognixhub.com",
+      "custom_domain": true
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cognixhub-public-metrics",
+      "database_id": "ac70416a-e98d-4ebc-9b90-e2ba4a9b6da3"
+    }
+  ],
+  "observability": {
+    "enabled": false
+  },
+  "triggers": {
+    "crons": [
+      "29 3 * * *"
+    ]
+  }
+}

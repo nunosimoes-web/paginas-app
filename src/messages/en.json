@@ -283,7 +283,7 @@
     "contactHeading": "Contact",
     "contactBody": "For privacy questions or to access, correct or delete your data, email hello@mindwink.cognixhub.com.",
     "siteTrackingHeading": "Cookies and measurement on public pages",
-    "siteTrackingBody": "Session cookies are needed to use your account. Optional analytics and advertising tools on public pages require your permission and load only after you grant it. You can accept or refuse each purpose separately, withdraw permission in cookie preferences and choose again after 180 days. Journals, check-ins, account areas and forms do not load these tools. We do not send personal content, emotional states or email addresses for advertising. Cookie choices do not change your daily email subscription.",
+    "siteTrackingBody": "Session cookies are needed to use your account. Optional analytics and advertising tools on public pages require your permission and load only after you grant it. You can accept or refuse each purpose separately, withdraw permission in cookie preferences and choose again after 180 days. Journals, check-ins, account areas and forms do not load these tools. We do not send personal content, emotional states or email addresses for advertising. Cookie choices do not change your daily email subscription. Our public visit and click counts run automatically and are aggregated by day, without cookies or stored visitor identifiers, IPs, individual URLs or referrers; totals are retained up to 400 days. You can disable them in preferences. Meta Pixel (Facebook and Instagram) receives only public PageView after advertising consent; Global Privacy Control prevents that transmission.",
     "cookiePreferences": "Cookie preferences"
   },
   "errors": {
