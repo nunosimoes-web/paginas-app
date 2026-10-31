@@ -96,7 +96,7 @@
   const dialog = document.createElement('dialog'); dialog.id='cx-cookie-dialog'; dialog.setAttribute('aria-label',w[0]);
   const title = document.createElement('h2');title.textContent=w[0];dialog.appendChild(title);
   const description=document.createElement('p');description.textContent=ownCopy[0]+' '+w[2];dialog.appendChild(description);
-  const metaLink=document.createElement('a');metaLink.href='https://www.facebook.com/privacy/policy/';metaLink.textContent=w[12];metaLink.rel='noreferrer noopener';metaLink.target='_blank';dialog.appendChild(metaLink);
+  const metaLink=document.createElement('a');metaLink.href='https://www.facebook.com/privacy/policy/';metaLink.textContent=w[11];metaLink.rel='noreferrer noopener';metaLink.target='_blank';dialog.appendChild(metaLink);
   const adLabel=document.createElement('label');const ads=document.createElement('input');ads.type='checkbox';adLabel.append(ads,' '+w[6]);dialog.appendChild(adLabel);
   if(navigator.globalPrivacyControl===true)ads.disabled=true;
   const ownLabel=document.createElement('label');const own=document.createElement('input');own.type='checkbox';own.checked=ownAllowed();ownLabel.append(own,' '+ownCopy[1]);dialog.appendChild(ownLabel);
@@ -110,7 +110,7 @@
     if(window.gtag)window.gtag('consent','update',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
     if(!a)cleanCookies();
     try { localStorage.setItem(ownKey,m?'0':'1');localStorage.setItem(key,JSON.stringify({version:1,pixel:cfg.pixel,ads:a,analytics:n,at:Date.now()})); }
-    catch {error.textContent=w[11];return;}
+    catch {error.textContent=w[10];return;}
     if(window.fbq)window.fbq('consent','revoke');
     if(!a)cleanCookies();
     // A fresh document removes third-party listeners after any changed choice.
