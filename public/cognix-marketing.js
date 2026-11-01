@@ -71,8 +71,10 @@
       const q = function () { q.callMethod ? q.callMethod.apply(q, arguments) : q.queue.push(arguments); };
       q.queue = []; q.loaded = true; q.version = '2.0'; q.push = q;
       window.fbq = window._fbq = q;
-      q('consent', 'revoke'); q('set', 'autoConfig', false, cfg.pixel); q('init', cfg.pixel);
-      q('consent', 'grant'); q('trackSingle', cfg.pixel, 'PageView');
+      // The SDK is created only after explicit advertising consent.
+      // Grant before init: a queued revoke locks subsequent commands, including grant.
+      q('consent', 'grant'); q('set', 'autoConfig', false, cfg.pixel); q('init', cfg.pixel);
+      q('trackSingle', cfg.pixel, 'PageView');
       addScript('https://connect.facebook.net/en_US/fbevents.js', 'cx-meta-sdk');
     }
     if (c.analytics && (cfg.ga || cfg.gtm)) {

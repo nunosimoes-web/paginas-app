@@ -7,3 +7,9 @@ Contagens próprias automáticas apenas de visitas e cliques de entrada público
 Mindwink: homes anónimas PT/EN. Parenting: landing principal de cada idioma; nenhum SDK nas páginas de formulário, compra, confirmação ou downloads. Foco, Lê Comigo e Saldo: página autónoma `/sobre/`, destinada à divulgação; a aplicação mantém-se sem píxel. Os links para a aplicação fazem navegação de documento completo, sem referrer. A retirada revoga o consentimento, remove cookies acessíveis e recarrega o documento. Falha de armazenamento mantém terceiros desligados.
 
 Os identificadores de cada píxel são públicos e estão no atributo data-pixel. Dataset criado no portefólio CognixHub 355092597116478 e associado apenas à conta CognixHub 1927346598642064. LeadShortcut e MeuCurso (cliente Santander) não são alterados.
+
+## 01/11/2026 — Ordem do consentimento Meta
+
+A verificação posterior detetou que o SDK carregava sem enviar PageView: `revoke` colocado antes de `init` bloqueava a fila que continha o próprio `grant`. A concessão passa a anteceder a inicialização, apenas dentro do ramo que já exige escolha publicitária explícita e ausência de GPC. A retirada continua a revogar e recarregar o documento. Não há carregamento nem concessão antes da escolha. A versão do URL do script força a atualização de cópias em cache.
+
+Regressão reproduzida com o SDK e configuração públicos oficiais da Meta num DOM isolado, intercetando todos os pedidos: antes, fila bloqueada com 4 comandos e nenhum PageView; depois, fila vazia e pedido PageView a /tr/. Testes de ausência de consentimento, GPC, exclusão de áreas privadas e retirada preservados.
