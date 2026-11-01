@@ -13,7 +13,7 @@ function browser({url='https://foco.cognixhub.com/sobre/',consent=null,optout=fa
  vm.runInNewContext(source,ctx);return{ctx,network,elements,store};
 }
 let b=browser();assert.equal(b.network.length,1);assert.deepEqual(JSON.parse(b.network[0].body),{project:'foco',event:'view'});assert.equal(b.ctx.window.fbq,undefined);
-b=browser({consent:{ads:true}});assert(b.elements.has('cx-meta-sdk'));assert.equal(b.ctx.window.fbq.queue.filter(a=>a[0]==='trackSingle').length,1);assert.equal(b.ctx.window.fbq.queue.find(a=>a[0]==='init').length,2);
+b=browser({consent:{ads:true}});assert(b.elements.has('cx-meta-sdk'));assert.equal(b.ctx.window.fbq.queue[0][0],'consent');assert.equal(b.ctx.window.fbq.queue[0][1],'grant');assert(!b.ctx.window.fbq.queue.some(a=>a[0]==='consent'&&a[1]==='revoke')); assert.equal(b.ctx.window.fbq.queue.filter(a=>a[0]==='trackSingle').length,1);assert.equal(b.ctx.window.fbq.queue.find(a=>a[0]==='init').length,2);
 b=browser({consent:{analytics:true}});assert(!b.elements.has('cx-meta-sdk'));assert(b.elements.has('cx-google-analytics'));
 b=browser({consent:{ads:true},gpc:true});assert(!b.elements.has('cx-meta-sdk'));
 for(const url of ['https://foco.cognixhub.com/','https://foco.cognixhub.com/sobre/?email=x','https://foco.cognixhub.com/sobre/#private','https://client.test/sobre/']){b=browser({url,consent:{ads:true}});assert.equal(b.network.length,0);assert(!b.elements.has('cx-meta-sdk'));}
