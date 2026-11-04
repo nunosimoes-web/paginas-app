@@ -137,6 +137,9 @@ export interface UiStrings {
   welcomeBack: string; // "Olá, {name}! ..."
   pickStyleVoice: string;
   lessonDoneVoice: string; // "... Ganhaste {stars}!"
+  lessonDone1: string;
+  lessonDone2: string;
+  lessonDone3: string;
   oneStar: string;
   nStars: string; // "{n} estrelas"
   freezeIntroVoice: string;

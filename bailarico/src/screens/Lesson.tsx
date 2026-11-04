@@ -115,7 +115,7 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
     progress.addEnergy(mean * 100);
     sfx.fanfare();
     confettiBurst({ colors: [style.colors.main, style.colors.glow, "#facc15", "#fff"] });
-    void speak(f(t.lessonDoneVoice, { stars: s === 1 ? t.oneStar : f(t.nStars, { n: s }) }));
+    void speak(s === 1 ? t.lessonDone1 : s === 2 ? t.lessonDone2 : t.lessonDone3);
   };
 
   const begin = () => {

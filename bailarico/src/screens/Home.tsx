@@ -58,7 +58,7 @@ export function Home() {
     const key = "bailarico.welcomed." + locale;
     if (sessionStorage.getItem(key) !== "1") {
       sessionStorage.setItem(key, "1");
-      void speak(p.name ? f(t.welcomeBack, { name: p.name }) : t.welcome);
+      void speak(p.name ? t.welcomeBack : t.welcome);
     }
     warmup([t.pickStyleVoice, t.watch, t.yourTurn]);
   }, [p.name, t, f, locale]);
