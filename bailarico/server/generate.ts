@@ -96,16 +96,21 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
   };
   const fail = (label: string, e: unknown) => progress.errors.push(`${label}: ${(e as Error).message}`);
 
-  const voices = pool(voiceJobs, 3, async ({ locale, line }) => {
-      try {
-        const r = await synthesize(line, locale, "background");
-        manifest.voice[locale]![textKey(line)] = r.url;
-        await save();
-      } catch (e) {
-        fail(`voz ${locale} "${line.slice(0, 30)}"`, e);
-      }
-      step(`voz ${locale}: ${line.slice(0, 40)}`);
-    });
+  // Uma fila por língua (fornecedores diferentes), todas em paralelo.
+  const voices = Promise.all(
+    locales.map((loc) =>
+      pool(voiceJobs.filter((j) => j.locale === loc), 2, async ({ locale, line }) => {
+        try {
+          const r = await synthesize(line, locale, "background");
+          manifest.voice[locale]![textKey(line)] = r.url;
+          await save();
+        } catch (e) {
+          fail(`voz ${locale} "${line.slice(0, 30)}"`, e);
+        }
+        step(`voz ${locale}: ${line.slice(0, 40)}`);
+      }),
+    ),
+  );
 
   const visuals = (async () => {
     // imagens dos mascotes (precisas antes dos clips)
