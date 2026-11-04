@@ -125,6 +125,20 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
       step(`mascote ${s.id}`);
     });
 
+    // capa com os cinco juntos (precisa das imagens individuais num URL público)
+    if (heroJob) {
+      const urls = STYLE_DEFS.map((s) => manifest.mascots[s.id]?.image).filter((u): u is string => !!u);
+      if (urls.length === STYLE_DEFS.length && publicBase && !/localhost|127\.0\.0\.1/.test(publicBase)) {
+        try {
+          manifest.hero = await heroImage(urls.map((u) => publicBase + u), ART_VERSION);
+          await save();
+        } catch (e) {
+          fail("capa", e);
+        }
+      }
+      step("capa");
+    }
+
     // 3) música instrumental por estilo
     await pool(musicJobs, 2, async (s) => {
       try {
