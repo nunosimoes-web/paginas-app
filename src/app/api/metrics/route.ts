@@ -2,7 +2,7 @@
 //  GET /api/metrics — utilização diária agregada, para o painel de tração.
 // -----------------------------------------------------------------------------
 //  Devolve, por dia (UTC, últimos 60 dias): utilizadores ativos (abriram a peça
-//  do dia, fizeram check-in ou escreveram no diário), registos novos e peças
+//  do dia na app, fizeram check-in ou escreveram no diário; receber o email não conta), registos novos e peças
 //  enviadas por email. Só números agregados — sem emails nem conteúdo.
 //
 //  Autenticação: `?k=` ou header `x-cron-secret` == env `CRON_SECRET`
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
   const [deliveries, checkIns, journals, users] = await Promise.all([
     prisma.promptDelivery.findMany({
       where: { date: { gte: from } },
-      select: { userId: true, date: true, emailSentAt: true },
+      select: { userId: true, date: true, opened: true, emailSentAt: true },
     }),
     prisma.moodCheckIn.findMany({
       where: { createdAt: { gte: from } },
@@ -55,7 +55,8 @@ export async function GET(request: Request) {
   };
   const emailed = new Map<string, number>();
   for (const d of deliveries) {
-    touch(d.date, d.userId);
+    // A entrega é criada pelo cron do email; só conta como atividade se a peça foi aberta.
+    if (d.opened) touch(d.date, d.userId);
     if (d.emailSentAt) {
       const k = day(d.emailSentAt);
       emailed.set(k, (emailed.get(k) ?? 0) + 1);
