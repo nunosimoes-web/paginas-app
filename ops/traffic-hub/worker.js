@@ -196,11 +196,13 @@ async function collectEdge(env, s) {
   const ids = await zoneIds(env);
   const zrows = [], prows = [];
   for (const [zone, id] of Object.entries(ids)) {
+    // hosting-panel hostnames (cPanel/Hostinger) are not sites of ours; scanners hitting them produce 525s
+    const panel = JSON.stringify(['phpmyadmin', 'webmail', 'cpanel', 'ftp', 'autoconfig', 'autodiscover'].map(h => `${h}.${zone}`));
     const v = await gql(env, `{viewer{zones(filter:{zoneTag:"${id}"}){
-      mix: httpRequestsAdaptiveGroups(limit:2000,filter:{date_geq:"${s}",userAgent_notlike:"%early hints%"}){count dimensions{date edgeResponseStatus}}
+      mix: httpRequestsAdaptiveGroups(limit:2000,filter:{date_geq:"${s}",userAgent_notlike:"%early hints%",clientRequestHTTPHost_notin:${panel}}){count dimensions{date edgeResponseStatus}}
       html: httpRequestsAdaptiveGroups(limit:400,filter:{date_geq:"${s}",requestSource:"eyeball",edgeResponseStatus:200,edgeResponseContentTypeName:"html"}){count dimensions{date} sum{visits}}
       pages: httpRequestsAdaptiveGroups(limit:800,filter:{date_geq:"${dayAgo(7)}",requestSource:"eyeball",edgeResponseStatus:200,edgeResponseContentTypeName:"html"},orderBy:[count_DESC]){count dimensions{date clientRequestHTTPHost clientRequestPath} sum{visits}}
-      errs: httpRequestsAdaptiveGroups(limit:300,filter:{date_geq:"${dayAgo(1)}",requestSource:"eyeball",edgeResponseStatus_geq:400,userAgent_notlike:"%early hints%"},orderBy:[count_DESC]){count dimensions{date clientRequestHTTPHost clientRequestPath edgeResponseStatus clientCountryName}}
+      errs: httpRequestsAdaptiveGroups(limit:300,filter:{date_geq:"${dayAgo(1)}",requestSource:"eyeball",edgeResponseStatus_geq:400,userAgent_notlike:"%early hints%",clientRequestHTTPHost_notin:${panel}},orderBy:[count_DESC]){count dimensions{date clientRequestHTTPHost clientRequestPath edgeResponseStatus clientCountryName}}
     }}}`);
     const z = v.zones[0], m = {};
     for (const g of z.mix) { const k = g.dimensions.date + '|' + cls(g.dimensions.edgeResponseStatus); m[k] = (m[k] || 0) + g.count; }
