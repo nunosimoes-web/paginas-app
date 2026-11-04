@@ -42,11 +42,20 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 async function geminiGenerate(model: string, body: unknown): Promise<Response> {
   let delay = 4000;
   for (let attempt = 0; attempt < 6; attempt++) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.geminiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    let r: Response;
+    try {
+      r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.geminiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(90_000), // nunca deixar a fila presa num pedido pendurado
+      });
+    } catch (e) {
+      if (attempt === 5) throw e;
+      await sleep(delay);
+      delay = Math.min(delay * 2, 60_000);
+      continue;
+    }
     if (r.status !== 429 && r.status !== 503) return r;
     const text = await r.text();
     const retry = /"retryDelay":\s*"(\d+)s"/.exec(text);
