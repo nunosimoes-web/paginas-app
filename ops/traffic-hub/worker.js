@@ -272,7 +272,8 @@ function flags(zoneRows, pathRows, rumBySite) {
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = (n) => new Intl.NumberFormat('pt-PT').format(Math.round(n));
 const pct = (now, prev) => prev ? Math.round((now - prev) / prev * 100) : (now ? null : 0);
-const deltaCell = (d) => d == null ? '<td class="mu">novo</td>' : `<td class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'mu'}">${d > 0 ? '+' : ''}${d}%</td>`;
+const deltaCell = (d) => d == null ? '<td class="mu" data-v="-1e9">novo</td>' : `<td class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'mu'}" data-v="${d}">${d > 0 ? '+' : ''}${d}%</td>`;
+const num = (n, extra = '') => `<td data-v="${Math.round(n)}">${fmt(n)}${extra}</td>`;
 
 async function page(env) {
   const from = dayAgo(60);
@@ -302,33 +303,45 @@ async function page(env) {
   };
   const kind = (site) => { const s = srcOf[site]; if (!s) return 'sem fonte ligada'; return KIND[[...s].sort((a, b) => (RANK[a] ?? 9) - (RANK[b] ?? 9))[0]] || '—'; };
   const fresh = (site) => {
-    if (!last[site]) return '<td class="mu">—</td>';
+    if (!last[site]) return '<td class="mu" data-v="-1e9">—</td>';
     const age = Math.round((Date.parse(today) - Date.parse(last[site])) / 864e5);
-    return `<td class="${age >= 7 ? 'dn' : age >= 3 ? 'wn' : 'mu'}">${age === 0 ? 'hoje' : age === 1 ? 'ontem' : `há ${age} dias`}</td>`;
+    return `<td class="${age >= 7 ? 'dn' : age >= 3 ? 'wn' : 'mu'}" data-v="${-age}">${age === 0 ? 'hoje' : age === 1 ? 'ontem' : `há ${age} dias`}</td>`;
   };
+  const groupRows = (group) => Object.entries(SITES).filter(([, s]) => s.group === group).map(([id, s]) => ({ id, s, d0: val(id, 0), d1: val(id, 1), w: sum(id, 1, 8), wp: sum(id, 8, 15), m: sum(id, 1, 31) })).sort((a, b) => b.w - a.w || b.m - a.m);
+  const ROWS = { tools: groupRows('tools'), landings: groupRows('landings') };
   const section = (group, title, sub) => {
-    const list = Object.entries(SITES).filter(([, s]) => s.group === group).map(([id, s]) => ({ id, s, d0: val(id, 0), d1: val(id, 1), w: sum(id, 1, 8), wp: sum(id, 8, 15), m: sum(id, 1, 31) })).sort((a, b) => b.w - a.w || b.m - a.m);
+    const list = ROWS[group];
     const tot = (k) => list.reduce((t, x) => t + x[k], 0);
-    const body = list.map(x => `<tr><th scope="row">${esc(x.s.label)}<small>${esc(kind(x.id))}</small></th><td>${fmt(x.d0)}</td><td>${fmt(x.d1)}</td><td><b>${fmt(x.w)}</b></td>${deltaCell(pct(x.w, x.wp))}<td>${fmt(x.m)}</td>${fresh(x.id)}<td class="sp">${spark(x.id)}</td></tr>`).join('');
-    return `<section><h2>${title}</h2><p class="sub">${sub}</p><div class="tw"><table><thead><tr><th>Projeto</th><th>Hoje</th><th>Ontem</th><th>7 dias</th><th>vs 7 ant.</th><th>30 dias</th><th>Último registo</th><th>30 dias</th></tr></thead><tbody>${body}</tbody><tfoot><tr><th>Total</th><td>${fmt(tot('d0'))}</td><td>${fmt(tot('d1'))}</td><td>${fmt(tot('w'))}</td>${deltaCell(pct(tot('w'), tot('wp')))}<td>${fmt(tot('m'))}</td><td></td><td></td></tr></tfoot></table></div></section>`;
+    const body = list.map(x => `<tr><th scope="row">${esc(x.s.label)}<small>${esc(kind(x.id))}</small></th>${num(x.d0)}${num(x.d1)}<td data-v="${x.w}"><b>${fmt(x.w)}</b></td>${deltaCell(pct(x.w, x.wp))}${num(x.m)}${fresh(x.id)}<td class="sp">${spark(x.id)}</td></tr>`).join('');
+    return `<section id="${group}"><h2>${title}</h2><p class="sub">${sub} Clica num cabeçalho para ordenar.</p><div class="tw"><table class="sortable"><thead><tr><th>Projeto</th><th>Hoje</th><th>Ontem</th><th class="sorted-desc">7 dias</th><th>vs 7 ant.</th><th>30 dias</th><th>Último registo</th><th class="nosort">30 dias</th></tr></thead><tbody>${body}</tbody><tfoot><tr><th>Total</th><td>${fmt(tot('d0'))}</td><td>${fmt(tot('d1'))}</td><td>${fmt(tot('w'))}</td>${deltaCell(pct(tot('w'), tot('wp')))}<td>${fmt(tot('m'))}</td><td></td><td></td></tr></tfoot></table></div></section>`;
   };
-  const kpi = (group) => { const ids = Object.keys(SITES).filter(k => SITES[k].group === group); const w = ids.reduce((t, i) => t + sum(i, 1, 8), 0), wp = ids.reduce((t, i) => t + sum(i, 8, 15), 0); return { w, wp }; };
+  const kpi = (group) => ({ w: ROWS[group].reduce((t, x) => t + x.w, 0), wp: ROWS[group].reduce((t, x) => t + x.wp, 0) });
   const L = kpi('landings'), Tl = kpi('tools');
-  const kpiCard = (n, label, d) => `<div class="kpi"><b>${fmt(n)}</b><span>${label}</span>${d == null ? '' : `<em class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'mu'}">${d > 0 ? '+' : ''}${d}% vs 7 dias anteriores</em>`}</div>`;
+  const kpiCard = (id, n, label, d) => `<button type="button" class="kpi" data-panel="${id}" aria-expanded="false" aria-controls="panel-${id}"><b>${fmt(n)}</b><span>${label}</span>${d == null ? '' : `<em class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'mu'}">${d > 0 ? '+' : ''}${d}% vs 7 dias anteriores</em>`}<i>detalhe ▾</i></button>`;
+  // KPI breakdowns: where each aggregate comes from, biggest first, with share of the total
+  const breakdown = (group, total, prev) => {
+    const list = ROWS[group].filter(x => x.w || x.wp);
+    const rows = list.map(x => { const d = x.w - x.wp; return `<tr><th scope="row">${esc(x.s.label)}<small>${esc(kind(x.id))}</small></th><td data-v="${x.w}">${fmt(x.w)}</td><td data-v="${total ? x.w / total : 0}"><span class="bar" style="--w:${total ? (100 * x.w / total).toFixed(1) : 0}%"></span>${total ? Math.round(100 * x.w / total) : 0}%</td><td data-v="${x.wp}">${fmt(x.wp)}</td><td class="${d > 0 ? 'up' : d < 0 ? 'dn' : 'mu'}" data-v="${d}">${d > 0 ? '+' : ''}${fmt(d)}</td>${deltaCell(pct(x.w, x.wp))}</tr>`; }).join('');
+    const d = total - prev;
+    return `<p class="sub">Soma dos últimos 7 dias completos (${dayAgo(7)} a ${dayAgo(1)}): ${fmt(total)}, contra ${fmt(prev)} nos 7 anteriores (${d >= 0 ? '+' : ''}${fmt(d)}). A coluna "Δ abs." diz quem fez o total mexer.</p><div class="tw"><table class="sortable"><thead><tr><th>Projeto</th><th class="sorted-desc">7 dias</th><th>Quota</th><th>7 ant.</th><th>Δ abs.</th><th>Δ %</th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="mu">sem dados</td></tr>'}</tbody></table></div>`;
+  };
+  const sevLabel = { high: 'Grave', med: 'Atenção', low: 'Ruído', info: 'Pico' };
+  const alertPanel = () => { const a = alerts.filter(x => x.sev === 'high' || x.sev === 'med'); return a.length ? `<ul class="plain">${a.map(x => `<li><b class="${x.sev}">${sevLabel[x.sev]}</b> ${esc(x.title)}${x.zone ? ` <span class="mu">· ${esc(x.zone)}</span>` : ''}</li>`).join('')}</ul><p class="sub"><a href="#alertas">Ver os detalhes na secção de alertas</a>.</p>` : '<p class="sub">Nenhum alerta grave ou de atenção nas últimas 48 h.</p>'; };
+  const noSourcePanel = () => { const ids = Object.keys(SITES).filter(k => !srcOf[k]); return ids.length ? `<ul class="plain">${ids.map(k => `<li>${esc(SITES[k].label)} <span class="mu">· ${SITES[k].group === 'tools' ? 'ferramenta' : 'landing'}</span></li>`).join('')}</ul><p class="sub">Sem contador próprio nem beacon, por isso ainda não aparecem com números.</p>` : '<p class="sub">Todos os projetos têm pelo menos uma fonte ligada.</p>'; };
+  const panels = `<div id="panel-landings" class="panel" hidden><h3>Pessoas nas landings · de onde vêm</h3>${breakdown('landings', L.w, L.wp)}</div><div id="panel-tools" class="panel" hidden><h3>Utilizadores das ferramentas · de onde vêm</h3>${breakdown('tools', Tl.w, Tl.wp)}</div><div id="panel-alerts" class="panel" hidden><h3>Alertas a precisar de olhar</h3>${alertPanel()}</div><div id="panel-nosource" class="panel" hidden><h3>Projetos sem fonte ligada</h3>${noSourcePanel()}</div>`;
   const errs = (run?.note || '').split(' ').filter(n => n.includes('ERR'));
 
   // top pages: yesterday vs each page's own 6-day average, our zones only
   const pg = {};
   for (const p of pathRows) if (p.cls === 'page' && p.day < today) { const k = p.host + p.path; (pg[k] ||= { host: p.host, path: p.path, days: {} }).days[p.day] = (pg[k].days[p.day] || 0) + p.visits; }
   const pages = Object.values(pg).map(p => { const y = p.days[dayAgo(1)] || 0; const prev = [2, 3, 4, 5, 6, 7].map(i => p.days[dayAgo(i)] || 0); return { ...p, y, avg: prev.reduce((a, b) => a + b, 0) / 6 }; }).filter(p => p.y >= 10).sort((a, b) => b.y - a.y).slice(0, 15);
-  const pagesHtml = pages.map(p => `<tr><th scope="row"><span class="h">${esc(p.host)}</span>${esc(p.path)}</th><td>${fmt(p.y)}</td><td>${fmt(p.avg)}</td>${deltaCell(p.avg ? Math.round((p.y - p.avg) / p.avg * 100) : null)}</tr>`).join('');
+  const pagesHtml = pages.map(p => `<tr><th scope="row"><span class="h">${esc(p.host)}</span>${esc(p.path)}</th>${num(p.y)}${num(p.avg)}${deltaCell(p.avg ? Math.round((p.y - p.avg) / p.avg * 100) : null)}</tr>`).join('');
 
   // infra mix per zone, last 7 full days
   const zm = {};
   for (const r of zoneRows) if (r.day >= dayAgo(7) && r.day < today) { const o = (zm[r.zone] ||= { '2xx': 0, '3xx': 0, '4xx': 0, '5xx': 0, html: 0 }); o[r.cls] += r.cls === 'html' ? r.visits : r.requests; }
-  const infra = ZONES.filter(z => zm[z]).map(z => { const o = zm[z], tot = o['2xx'] + o['3xx'] + o['4xx'] + o['5xx'], rum = rumBySite[z]; return `<tr><th scope="row">${z}</th><td>${fmt(tot)}</td><td>${fmt(o['4xx'])} <span class="mu">(${Math.round(100 * o['4xx'] / Math.max(1, tot))}%)</span></td><td class="${o['5xx'] > 0.03 * tot ? 'dn' : ''}">${fmt(o['5xx'])} <span class="mu">(${Math.round(100 * o['5xx'] / Math.max(1, tot))}%)</span></td><td>${fmt(o.html)}</td><td>${rum == null ? '<span class="mu">sem beacon</span>' : `${fmt(rum)} <span class="mu">(≈ ${Math.round(100 - 100 * Math.min(1, rum / Math.max(1, o.html)))}% bots)</span>`}</td></tr>`; }).join('');
+  const infra = ZONES.filter(z => zm[z]).map(z => { const o = zm[z], tot = o['2xx'] + o['3xx'] + o['4xx'] + o['5xx'], rum = rumBySite[z]; return `<tr><th scope="row">${z}</th>${num(tot)}${num(o['4xx'], ` <span class="mu">(${Math.round(100 * o['4xx'] / Math.max(1, tot))}%)</span>`)}<td class="${o['5xx'] > 0.03 * tot ? 'dn' : ''}" data-v="${o['5xx']}">${fmt(o['5xx'])} <span class="mu">(${Math.round(100 * o['5xx'] / Math.max(1, tot))}%)</span></td>${num(o.html)}<td data-v="${rum == null ? -1 : rum}">${rum == null ? '<span class="mu">sem beacon</span>' : `${fmt(rum)} <span class="mu">(≈ ${Math.round(100 - 100 * Math.min(1, rum / Math.max(1, o.html)))}% bots)</span>`}</td></tr>`; }).join('');
 
-  const sevLabel = { high: 'Grave', med: 'Atenção', low: 'Ruído', info: 'Pico' };
   const alertsHtml = alerts.length ? alerts.map(a => `<li class="al ${a.sev}"><b>${sevLabel[a.sev]}</b><div><strong>${esc(a.title)}</strong><p>${esc(a.detail)}</p>${a.paths.length ? `<ul>${a.paths.map(p => `<li><code>${esc(p.host)}${esc(p.path)}</code> ${fmt(p.visits || p.requests)}${p.country ? ` <span class="mu">${esc(p.country)}</span>` : ''}</li>`).join('')}</ul>` : ''}</div></li>`).join('') : '<li class="al ok"><b>OK</b><div><strong>Sem alertas nas últimas 48 h</strong><p>Nenhum pico anormal de pedidos, erros ou sondagens nos domínios próprios.</p></div></li>';
 
   return `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Tração</title><style>
@@ -344,16 +357,46 @@ tfoot th,tfoot td{font-weight:700;border-bottom:0}tr:last-child td,tr:last-child
 ol.alerts{list-style:none;padding:0;margin:0;display:grid;gap:8px}.al{display:grid;grid-template-columns:76px 1fr;gap:10px;border:1px solid var(--ln);border-radius:10px;padding:10px 12px;background:var(--card)}.al>b{font-size:12px;align-self:start;padding:2px 6px;border-radius:6px;text-align:center}
 .al.high>b{background:var(--hi);color:var(--dn)}.al.med>b{background:var(--me);color:var(--wn)}.al.low>b{background:var(--lo);color:var(--mu)}.al.info>b{background:var(--in);color:var(--ac)}.al.ok>b{background:var(--okc);color:var(--up)}
 .al p{margin:2px 0 0;font-size:13px;color:var(--mu)}.al ul{margin:6px 0 0;padding-left:16px;font-size:12px}.al code{font-size:12px}
+button.kpi{font:inherit;color:inherit;text-align:left;cursor:pointer;position:relative}button.kpi:hover,button.kpi[aria-expanded=true]{border-color:var(--ac)}button.kpi i{position:absolute;right:12px;top:10px;font-style:normal;font-size:11px;color:var(--ac)}button.kpi[aria-expanded=true] i::after{content:' (fechar)'}
+.panel{background:var(--card);border:1px solid var(--ac);border-radius:10px;padding:12px 14px;margin:-6px 0 16px}.panel h3{margin:0 0 4px;font-size:15px}.panel .tw{border:0}.panel table{min-width:560px}
+.bar{display:inline-block;width:72px;height:8px;border-radius:4px;background:var(--ln);vertical-align:middle;margin-right:8px;position:relative;overflow:hidden}.bar::after{content:'';position:absolute;inset:0;width:var(--w);background:var(--ac)}
+ul.plain{list-style:none;padding:0;margin:0;display:grid;gap:4px;font-size:14px}ul.plain b{font-size:11px;padding:1px 6px;border-radius:6px;margin-right:6px}ul.plain b.high{background:var(--hi);color:var(--dn)}ul.plain b.med{background:var(--me);color:var(--wn)}
+table.sortable thead th:not(.nosort){cursor:pointer;user-select:none}table.sortable thead th:not(.nosort):hover{color:var(--fg)}table.sortable thead th.sorted-desc::after{content:' ↓'}table.sortable thead th.sorted-asc::after{content:' ↑'}
 </style></head><body><main>
 <h1>Tração dos projetos</h1><p class="foot">Pessoas por dia (UTC). Recolha diária às 05:17 UTC; última: ${run ? esc(run.at.slice(0, 16).replace('T', ' ')) + ' UTC' : 'ainda sem recolha'}.${errs.length ? ` <span class="dn">Fontes com erro: ${esc(errs.join(', '))}</span>` : ''}</p>
-<div class="kpis">${kpiCard(L.w, 'pessoas nas landings · 7 dias', pct(L.w, L.wp))}${kpiCard(Tl.w, 'utilizadores das ferramentas · 7 dias', pct(Tl.w, Tl.wp))}${kpiCard(alerts.filter(a => a.sev === 'high' || a.sev === 'med').length, 'alertas a precisar de olhar', null)}${kpiCard(Object.keys(SITES).filter(k => !srcOf[k]).length, 'projetos ainda sem fonte ligada', null)}</div>
-<section><h2>Alertas · últimas 48 h</h2><p class="sub">Comparado com a mediana dos 7 dias anteriores. "Hoje" é um dia parcial, já corrigido pela hora.</p><ol class="alerts">${alertsHtml}</ol></section>
+<div class="kpis">${kpiCard('landings', L.w, 'pessoas nas landings · 7 dias', pct(L.w, L.wp))}${kpiCard('tools', Tl.w, 'utilizadores das ferramentas · 7 dias', pct(Tl.w, Tl.wp))}${kpiCard('alerts', alerts.filter(a => a.sev === 'high' || a.sev === 'med').length, 'alertas a precisar de olhar', null)}${kpiCard('nosource', Object.keys(SITES).filter(k => !srcOf[k]).length, 'projetos ainda sem fonte ligada', null)}</div>
+${panels}
+<section id="alertas"><h2>Alertas · últimas 48 h</h2><p class="sub">Comparado com a mediana dos 7 dias anteriores. "Hoje" é um dia parcial, já corrigido pela hora.</p><ol class="alerts">${alertsHtml}</ol></section>
 ${section('tools', 'Ferramentas e dashboards', 'Quem abriu ou usou: dashboards SOA, ANFT e Tan, SHEQ One e as aplicações.')}
 ${section('landings', 'Landing pages e sites', 'Visitantes únicos onde há contador próprio; "Web Analytics" é o contador da Cloudflare em browsers reais (amostrado, sem robôs).')}
-<section><h2>Páginas mais vistas · ontem</h2><p class="sub">Visitas HTML servidas pela Cloudflare (inclui alguns robôs), comparadas com a média dos 6 dias anteriores dessa página.</p><div class="tw"><table><thead><tr><th>Página</th><th>Ontem</th><th>Média 6 d</th><th>Δ</th></tr></thead><tbody>${pagesHtml || '<tr><td colspan="4" class="mu">ainda sem dados</td></tr>'}</tbody></table></div></section>
-<section><h2>Saúde dos domínios · 7 dias</h2><p class="sub">Todos os pedidos que chegaram à Cloudflare. Erros 5xx vêm do nosso servidor; 4xx em massa são normalmente scanners.</p><div class="tw"><table><thead><tr><th>Domínio</th><th>Pedidos</th><th>4xx</th><th>5xx</th><th>Visitas HTML</th><th>Browsers reais</th></tr></thead><tbody>${infra || '<tr><td colspan="6" class="mu">ainda sem dados</td></tr>'}</tbody></table></div></section>
+<section><h2>Páginas mais vistas · ontem</h2><p class="sub">Visitas HTML servidas pela Cloudflare (inclui alguns robôs), comparadas com a média dos 6 dias anteriores dessa página.</p><div class="tw"><table class="sortable"><thead><tr><th>Página</th><th class="sorted-desc">Ontem</th><th>Média 6 d</th><th>Δ</th></tr></thead><tbody>${pagesHtml || '<tr><td colspan="4" class="mu">ainda sem dados</td></tr>'}</tbody></table></div></section>
+<section><h2>Saúde dos domínios · 7 dias</h2><p class="sub">Todos os pedidos que chegaram à Cloudflare. Erros 5xx vêm do nosso servidor; 4xx em massa são normalmente scanners.</p><div class="tw"><table class="sortable"><thead><tr><th>Domínio</th><th class="sorted-desc">Pedidos</th><th>4xx</th><th>5xx</th><th>Visitas HTML</th><th>Browsers reais</th></tr></thead><tbody>${infra || '<tr><td colspan="6" class="mu">ainda sem dados</td></tr>'}</tbody></table></div></section>
 <p class="foot">Sem cookies nem IPs guardados nesta página. Regras de firewall/WAF não estão acessíveis à API neste plano, por isso os alertas baseiam-se em estados HTTP e caminhos pedidos.</p>
-</main></body></html>`;
+</main><script>
+(function(){
+  var val=function(c){if(!c)return{n:-Infinity,t:''};var v=c.getAttribute('data-v');return v!==null?{n:parseFloat(v),t:''}:{n:NaN,t:(c.textContent||'').trim().toLowerCase()};};
+  document.querySelectorAll('table.sortable').forEach(function(tb){
+    var ths=tb.querySelectorAll('thead th');
+    ths.forEach(function(th,i){ if(th.classList.contains('nosort'))return;
+      th.addEventListener('click',function(){
+        var desc=!th.classList.contains('sorted-desc');
+        ths.forEach(function(x){x.classList.remove('sorted-desc','sorted-asc');});
+        th.classList.add(desc?'sorted-desc':'sorted-asc');
+        var body=tb.tBodies[0], rows=Array.prototype.slice.call(body.rows);
+        rows.sort(function(a,b){var A=val(a.cells[i]),B=val(b.cells[i]);var r=isNaN(A.n)||isNaN(B.n)?A.t.localeCompare(B.t):A.n-B.n;return desc?-r:r;});
+        rows.forEach(function(r){body.appendChild(r);});
+      });
+    });
+  });
+  var btns=document.querySelectorAll('button.kpi');
+  btns.forEach(function(b){ b.addEventListener('click',function(){
+    var id='panel-'+b.getAttribute('data-panel'), open=b.getAttribute('aria-expanded')==='true';
+    btns.forEach(function(x){x.setAttribute('aria-expanded','false');});
+    document.querySelectorAll('.panel').forEach(function(p){p.hidden=true;});
+    if(!open){ b.setAttribute('aria-expanded','true'); var p=document.getElementById(id); p.hidden=false; p.scrollIntoView({block:'nearest',behavior:'smooth'}); }
+  });});
+})();
+</script></body></html>`;
 }
 
 export default {
