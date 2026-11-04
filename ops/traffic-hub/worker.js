@@ -25,6 +25,8 @@ export const SITES = {
   ls_radar:     { label: 'LeadShortcut Radar',    group: 'tools' },
   ls_leaks:     { label: 'Revenue Leak Radar',    group: 'tools' },
   playlab_aulas:{ label: 'Playlab (aulas)',       group: 'tools' },
+  dance:        { label: 'DanceLab',              group: 'tools' },
+  missao_brilho:{ label: 'Missão Brilho',         group: 'tools' },
   leadshortcut: { label: 'LeadShortcut',          group: 'landings' },
   ls_lps:       { label: 'LeadShortcut (lps)',    group: 'landings' },
   pam:          { label: 'paginasemetaforas.pt',  group: 'landings' },
@@ -43,9 +45,9 @@ export const SITES = {
   'letsprout.co':       { label: 'letsprout.co',          group: 'landings' },
 };
 const PUB_MAP = { mindwink: 'mindwink', foco: 'foco_lp', ler: 'ler_lp', saldo: 'saldo_lp', parenting: 'parenting' };
-const HOST_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano', 'app.letsprout.co': 'sprout_app', 'studio.letsprout.co': 'sprout_studio', 'radar.leadshortcut.com': 'ls_radar', 'leaks.leadshortcut.com': 'ls_leaks', 'lps.leadshortcut.com': 'ls_lps', 'aulas.playlabacademy.com': 'playlab_aulas', 'blog.playlabacademy.com': 'playlab_blog' };
+const HOST_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano', 'app.letsprout.co': 'sprout_app', 'studio.letsprout.co': 'sprout_studio', 'radar.leadshortcut.com': 'ls_radar', 'leaks.leadshortcut.com': 'ls_leaks', 'lps.leadshortcut.com': 'ls_lps', 'aulas.playlabacademy.com': 'playlab_aulas', 'blog.playlabacademy.com': 'playlab_blog', 'dance.playlabacademy.com': 'dance', 'missao-brilho.playlabacademy.com': 'missao_brilho' };
 const RUM_ZONES = ['gymboreeclasses.pt', 'playlabacademy.com', 'letsprout.co', 'parentclasses.org'];
-const EDGE_HOSTS = { 'cognixhub.com': ['soa.cognixhub.com', 'anft.cognixhub.com'], 'leadshortcut.com': ['radar.leadshortcut.com', 'leaks.leadshortcut.com', 'lps.leadshortcut.com'], 'letsprout.co': ['studio.letsprout.co'] };
+const EDGE_HOSTS = { 'cognixhub.com': ['soa.cognixhub.com', 'anft.cognixhub.com'], 'leadshortcut.com': ['radar.leadshortcut.com', 'leaks.leadshortcut.com', 'lps.leadshortcut.com'], 'letsprout.co': ['studio.letsprout.co'], 'playlabacademy.com': ['dance.playlabacademy.com', 'missao-brilho.playlabacademy.com'] };
 const KEYED = new Set(['soa.cognixhub.com', 'anft.cognixhub.com']);
 const NOISE = /\/(favicon\.ico|robots\.txt|sitemap[^/]*\.xml|ads\.txt|manifest\.json|sw\.js)$|\.(xml|txt|json|js|css|png|jpg|svg|ico|webmanifest)$/i;
 // Source quality, best first. One row per site/day wins.
