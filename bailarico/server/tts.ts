@@ -18,11 +18,17 @@ type Job = { fn: () => Promise<unknown>; resolve: (v: unknown) => void; reject: 
 const live: Job[] = [];
 const background: Job[] = [];
 let draining = false;
+let lastStart = 0;
+/** Espaçamento mínimo entre pedidos ao Gemini (o limite por minuto do TTS é baixo). */
+const GEMINI_MIN_GAP_MS = Number(process.env.GEMINI_MIN_GAP_MS ?? 7000);
 async function drain() {
   if (draining) return;
   draining = true;
   while (live.length || background.length) {
     const job = (live.shift() ?? background.shift())!;
+    const wait = lastStart + GEMINI_MIN_GAP_MS - Date.now();
+    if (wait > 0) await sleep(wait);
+    lastStart = Date.now();
     try {
       job.resolve(await job.fn());
     } catch (e) {
@@ -40,8 +46,8 @@ function geminiQueue<T>(fn: () => Promise<T>, priority: "live" | "background" = 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function geminiGenerate(model: string, body: unknown): Promise<Response> {
-  let delay = 4000;
-  for (let attempt = 0; attempt < 6; attempt++) {
+  let delay = 8000;
+  for (let attempt = 0; attempt < 4; attempt++) {
     let r: Response;
     try {
       r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.geminiKey}`, {
@@ -51,7 +57,7 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
         signal: AbortSignal.timeout(90_000), // nunca deixar a fila presa num pedido pendurado
       });
     } catch (e) {
-      if (attempt === 5) throw e;
+      if (attempt === 3) throw e;
       await sleep(delay);
       delay = Math.min(delay * 2, 60_000);
       continue;
@@ -59,8 +65,8 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
     if (r.status !== 429 && r.status !== 503) return r;
     const text = await r.text();
     const retry = /"retryDelay":\s*"(\d+)s"/.exec(text);
-    const wait = retry ? Number(retry[1]) * 1000 + 500 : delay;
-    if (attempt === 5) return new Response(text, { status: r.status });
+    const wait = Math.min(retry ? Number(retry[1]) * 1000 + 500 : delay, 70_000);
+    if (attempt === 3) return new Response(text, { status: r.status });
     await sleep(wait);
     delay = Math.min(delay * 2, 60_000);
   }
