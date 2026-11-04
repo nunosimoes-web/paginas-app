@@ -1,4 +1,5 @@
 import { execFile } from "node:child_process";
+import dns from "node:dns";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -7,6 +8,8 @@ import { config } from "./config.js";
 import { hashKey, findCached, mediaDir, store } from "./cache.js";
 import type { Locale, MediaResult } from "../shared/types.js";
 
+// Em alguns containers o IPv6 para o Google fica pendurado; força IPv4 primeiro.
+dns.setDefaultResultOrder("ipv4first");
 const exec = promisify(execFile);
 let falConfigured = false;
 
@@ -46,18 +49,18 @@ function geminiQueue<T>(fn: () => Promise<T>, priority: "live" | "background" = 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function geminiGenerate(model: string, body: unknown): Promise<Response> {
-  let delay = 8000;
-  for (let attempt = 0; attempt < 4; attempt++) {
+  let delay = 5000;
+  for (let attempt = 0; attempt < 3; attempt++) {
     let r: Response;
     try {
       r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.geminiKey}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Connection: "close" }, // ligação nova por pedido: evita sockets keep-alive pendurados
         body: JSON.stringify(body),
-        signal: AbortSignal.timeout(90_000), // nunca deixar a fila presa num pedido pendurado
+        signal: AbortSignal.timeout(40_000), // o TTS demora 3-6 s; nunca deixar a fila presa
       });
     } catch (e) {
-      if (attempt === 3) throw e;
+      if (attempt === 2) throw e;
       await sleep(delay);
       delay = Math.min(delay * 2, 60_000);
       continue;
@@ -66,7 +69,7 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
     const text = await r.text();
     const retry = /"retryDelay":\s*"(\d+)s"/.exec(text);
     const wait = Math.min(retry ? Number(retry[1]) * 1000 + 500 : delay, 70_000);
-    if (attempt === 3) return new Response(text, { status: r.status });
+    if (attempt === 2) return new Response(text, { status: r.status });
     await sleep(wait);
     delay = Math.min(delay * 2, 60_000);
   }
