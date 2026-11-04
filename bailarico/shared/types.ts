@@ -37,6 +37,8 @@ export interface GeneratedManifest {
   /** versão do estilo visual; muda quando os prompts mudam para forçar regeneração */
   artVersion: number;
   mascots: Partial<Record<StyleId, { image?: string; idle?: string }>>;
+  /** imagem de capa com os cinco professores juntos */
+  hero?: string;
   /** clips de vídeo por estilo e por passo */
   clips: Partial<Record<StyleId, Record<string, string>>>;
   music: Partial<Record<StyleId, string>>;

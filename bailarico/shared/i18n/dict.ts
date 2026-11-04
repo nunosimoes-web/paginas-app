@@ -8,7 +8,7 @@ export interface Dict {
   /** BCP-47 usado para a voz do browser (fallback) */
   speechLang: string;
   styles: Record<StyleId, { name: string; tagline: string; mascotName: string; greeting: string }>;
-  moves: Record<string, { name: string; instruction: string; tip: string }>;
+  moves: Record<string, { name: string; instruction: string; tip: string; howTo: string }>;
   lessons: Record<string, { title: string; sticker: string }>;
   praise: string[];
   encourage: string[];
@@ -132,6 +132,38 @@ export interface UiStrings {
   dedication: string; // "Esta música é para {name}! Um, dois, três, quatro!"
   songNote: string;
   ideas: string[];
+  // contagem e treino
+  counts: string[]; // "Um!", "Dois!", "Três!", "Quatro!"
+  onBeat: string;
+  nearBeat: string;
+  offBeat: string;
+  rhythmScore: string; // "Ritmo {pct}%"
+  movementScore: string; // "Movimento {pct}%"
+  howItWorksTitle: string;
+  howItWorks1: string;
+  howItWorks2: string;
+  howItWorks3: string;
+  modeTitle: string;
+  modeCamera: string;
+  modeCameraDesc: string;
+  modeDrum: string;
+  modeDrumDesc: string;
+  modeFree: string;
+  modeFreeDesc: string;
+  drumHint: string;
+  cameraHint: string;
+  freeHint: string;
+  starsCamera: string;
+  starsDrum: string;
+  starsFree: string;
+  noWrongMoves: string;
+  demoLabel: string; // "A {name} mostra"
+  lessonIntroVoice: string;
+  demoVoice: string; // "Olha para a {name}. Primeiro vê, depois é a tua vez."
+  choreoReadyVoice: string;
+  goodRhythmVoice: string;
+  keepTryingVoice: string;
+  bigMovesVoice: string;
   // frases faladas
   welcome: string;
   welcomeBack: string; // "Olá, {name}! ..."

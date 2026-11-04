@@ -40,15 +40,22 @@ export function allVoiceLines(locale: Locale): string[] {
   const d = getDict(locale);
   const u = d.ui;
   const lines = new Set<string>();
-  Object.values(d.styles).forEach((s) => lines.add(s.greeting));
+  // Ordem = prioridade de geração (a quota diária da voz pt-PT é limitada).
+  u.counts.forEach((c) => lines.add(c));
+  [u.onBeat, u.nearBeat, u.offBeat, u.watch, u.yourTurn, u.choreo, u.demoVoice, u.lessonIntroVoice, u.choreoReadyVoice].forEach((p) => lines.add(p));
   Object.values(d.moves).forEach((m) => {
     lines.add(m.name);
+    lines.add(m.howTo);
+  });
+  Object.values(d.styles).forEach((s) => lines.add(s.greeting));
+  [u.lessonDone1, u.lessonDone2, u.lessonDone3, u.goodRhythmVoice, u.keepTryingVoice, u.bigMovesVoice].forEach((p) => lines.add(p));
+  Object.values(d.moves).forEach((m) => {
     lines.add(`${m.name}. ${m.instruction}`);
     lines.add(m.tip);
   });
   [...d.praise, ...d.encourage, ...d.freezeOk, ...d.freezeFail].forEach((p) => lines.add(p));
-  [u.welcome, u.pickStyleVoice, u.watch, u.yourTurn, u.choreo, u.freezeIntroVoice, u.dance, u.freeze, u.simonIntroVoice, u.simonYourTurnVoice,
-    u.stageIntroVoice, u.stickersVoice, u.studioIntroVoice, u.championVoice, u.filmingVoice, u.aliveVoice, u.barFull, u.welcomeBack, u.lessonDone1, u.lessonDone2,
-    u.lessonDone3, u.heldVoice, u.levelUpVoice, u.createdVoice, u.almostWas, u.askName].forEach((p) => lines.add(p));
+  [u.welcome, u.welcomeBack, u.pickStyleVoice, u.freezeIntroVoice, u.dance, u.freeze, u.simonIntroVoice, u.simonYourTurnVoice, u.stageIntroVoice,
+    u.stickersVoice, u.studioIntroVoice, u.championVoice, u.filmingVoice, u.aliveVoice, u.barFull, u.heldVoice, u.levelUpVoice, u.createdVoice,
+    u.almostWas, u.askName].forEach((p) => lines.add(p));
   return [...lines];
 }

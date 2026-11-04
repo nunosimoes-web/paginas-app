@@ -95,6 +95,28 @@ export async function mascotClip(styleId: string, moveId: string, imagePath: str
   return video(id, imagePath, `The character ${motionPrompt}. ${CLIP_STYLE}`, publicBase);
 }
 
+/** Capa: os cinco professores juntos, a partir das imagens individuais (referências). */
+export async function heroImage(imageUrls: string[], artVersion: number): Promise<string> {
+  const id = "hero-" + hashKey([config.models.image, artVersion, imageUrls]);
+  const cached = await findCached(id);
+  if (cached) return cached;
+  const data = await run<{ images: FalFile[] }>(config.models.image, {
+    prompt:
+      "Key art for a children's dance app: these five characters (a robot girl, a hip-hop hippo, a flamingo ballerina, a carnival parrot and a disco T-rex) " +
+      "dancing together as a joyful crew on a bright, colourful dance stage with soft spotlights, confetti and a glossy floor reflection. " +
+      "Keep each character exactly as in the reference images (same design, outfit, colours). Cinematic 3D animated feature film render, " +
+      "wide 16:9 composition with the characters centred and space above for a title, no text, no watermark, child-friendly.",
+    context: imageUrls.map((u) => ({ type: "image", image_url: u })),
+    num_images: 1,
+    aspect_ratio: "16:9",
+    resolution: "1K",
+    output_format: "png",
+  });
+  const img = data.images?.[0];
+  if (!img) throw new Error("O modelo não devolveu a capa.");
+  return store(id, img.url, img.content_type);
+}
+
 export async function instrumental(styleId: string, musicPrompt: string): Promise<string> {
   const id = "song-" + hashKey([config.models.instrumental, styleId, musicPrompt]);
   const cached = await findCached(id);
