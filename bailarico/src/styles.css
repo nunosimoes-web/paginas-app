@@ -330,6 +330,8 @@ h2 { font-size: 1.7rem; margin: 0 0 10px; }
 .lights {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  mix-blend-mode: screen;
   pointer-events: none;
   background: radial-gradient(120px 120px at 20% 20%, color-mix(in srgb, var(--pink) 35%, transparent), transparent 70%),
     radial-gradient(140px 140px at 80% 30%, color-mix(in srgb, var(--teal) 35%, transparent), transparent 70%),
@@ -340,6 +342,7 @@ h2 { font-size: 1.7rem; margin: 0 0 10px; }
 
 .count {
   position: absolute;
+  z-index: 3;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
@@ -422,6 +425,7 @@ h2 { font-size: 1.7rem; margin: 0 0 10px; }
 /* vídeo da câmara */
 .cam {
   position: absolute;
+  z-index: 3;
   right: 12px;
   bottom: 12px;
   width: 120px;
