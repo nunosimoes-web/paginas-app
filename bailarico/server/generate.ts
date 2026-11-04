@@ -96,11 +96,9 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
   };
   const fail = (label: string, e: unknown) => progress.errors.push(`${label}: ${(e as Error).message}`);
 
-  try {
-    // 1) vozes (rápidas, 3 em paralelo)
-    await pool(voiceJobs, 3, async ({ locale, line }) => {
+  const voices = pool(voiceJobs, 3, async ({ locale, line }) => {
       try {
-        const r = await synthesize(line, locale);
+        const r = await synthesize(line, locale, "background");
         manifest.voice[locale]![textKey(line)] = r.url;
         await save();
       } catch (e) {
@@ -109,7 +107,8 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
       step(`voz ${locale}: ${line.slice(0, 40)}`);
     });
 
-    // 2) imagens dos mascotes (precisas antes dos clips)
+  const visuals = (async () => {
+    // imagens dos mascotes (precisas antes dos clips)
     await pool(imageJobs, 3, async (s) => {
       try {
         (manifest.mascots[s.id] ??= {}).image = await mascotImage(s.id, s.mascotPrompt, ART_VERSION);
@@ -152,6 +151,11 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
       }
       step(`clip ${styleId}/${moveId}`);
     });
+  })();
+
+  try {
+    // vozes (Gemini em fila própria) e visuais (fal.ai) correm ao mesmo tempo
+    await Promise.all([voices, visuals]);
     await save();
   } finally {
     progress.running = false;

@@ -10,12 +10,32 @@ import type { Locale, MediaResult } from "../shared/types.js";
 const exec = promisify(execFile);
 let falConfigured = false;
 
-/** Fila série para o Gemini (limites de pedidos por minuto apertados) com repetição em 429/503. */
-let geminiChain: Promise<unknown> = Promise.resolve();
-function geminiQueue<T>(fn: () => Promise<T>): Promise<T> {
-  const run = geminiChain.then(fn, fn);
-  geminiChain = run.catch(() => undefined);
-  return run;
+/**
+ * Fila série para o Gemini (limites de pedidos por minuto apertados) com repetição em 429/503.
+ * Pedidos "ao vivo" (uma criança à espera) passam à frente da pré-geração.
+ */
+type Job = { fn: () => Promise<unknown>; resolve: (v: unknown) => void; reject: (e: unknown) => void };
+const live: Job[] = [];
+const background: Job[] = [];
+let draining = false;
+async function drain() {
+  if (draining) return;
+  draining = true;
+  while (live.length || background.length) {
+    const job = (live.shift() ?? background.shift())!;
+    try {
+      job.resolve(await job.fn());
+    } catch (e) {
+      job.reject(e);
+    }
+  }
+  draining = false;
+}
+function geminiQueue<T>(fn: () => Promise<T>, priority: "live" | "background" = "live"): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    (priority === "live" ? live : background).push({ fn, resolve: resolve as (v: unknown) => void, reject });
+    void drain();
+  });
 }
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -45,7 +65,7 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
  * - en: ElevenLabs (via fal.ai).
  * O áudio fica em cache em disco; o mesmo texto nunca é pedido duas vezes.
  */
-export async function synthesize(text: string, locale: Locale): Promise<MediaResult> {
+export async function synthesize(text: string, locale: Locale, priority: "live" | "background" = "live"): Promise<MediaResult> {
   const p = config.tts[locale];
   if (!p) throw new Error(`Sem voz para ${locale}`);
   const id = `tts-${locale}-` + hashKey([p.kind, p.model, p.voice, text]);
@@ -60,7 +80,7 @@ export async function synthesize(text: string, locale: Locale): Promise<MediaRes
         speechConfig: { languageCode: p.languageCode, voiceConfig: { prebuiltVoiceConfig: { voiceName: p.voice } } },
       },
     };
-    const r = await geminiQueue(() => geminiGenerate(p.model, body));
+    const r = await geminiQueue(() => geminiGenerate(p.model, body), priority);
     if (!r.ok) throw new Error(`Gemini TTS ${r.status}: ${(await r.text()).slice(0, 200)}`);
     const data = (await r.json()) as { candidates?: { content?: { parts?: { inlineData?: { mimeType: string; data: string } }[] } }[] };
     const part = data.candidates?.[0]?.content?.parts?.find((x) => x.inlineData);

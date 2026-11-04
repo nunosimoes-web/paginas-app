@@ -113,10 +113,12 @@ export async function speak(text: string): Promise<void> {
   const pre = generatedVoice(locale, text);
   if (pre) return playUrl(pre);
   if (ai.status?.features.tts?.[locale]) {
+    // Há voz de qualidade no servidor: esperamos por ela e, se falhar, ficamos em silêncio.
+    // Nunca trocamos por uma voz sintética do browser.
     try {
-      return await playUrl(await fetchVoiceUrl(text, 12_000));
+      return await playUrl(await fetchVoiceUrl(text, 20_000));
     } catch {
-      /* cai para o browser */
+      return;
     }
   }
   return speakBrowser(text);
