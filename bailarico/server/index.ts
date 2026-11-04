@@ -10,7 +10,7 @@ import * as falApi from "./fal.js";
 import { left, consume } from "./quota.js";
 import { generateAll, progress as genProgress } from "./generate.js";
 import { LOCALES, type AiStatus, type ApiError, type Locale } from "../shared/types.js";
-import { synthesize } from "./tts.js";
+import { synthesize, probeGemini } from "./tts.js";
 import { isLocale } from "../shared/i18n/index.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -160,6 +160,7 @@ app.post("/api/admin/generate", requireAdmin, (req, res) => {
   res.status(202).json({ started: true });
 });
 app.get("/api/admin/generate/status", requireAdmin, (_req, res) => res.json({ ...genProgress }));
+app.get("/api/admin/tts-probe", requireAdmin, wrap(async (_req, res) => { res.json(await probeGemini()); }));
 
 // Ficheiros gerados (cache persistente) e manifesto.
 app.use("/media", express.static(mediaDir(), { maxAge: "365d", immutable: true }));
