@@ -4,7 +4,7 @@ import { allVoiceLines } from "../shared/i18n/index.js";
 import { LOCALES, type GeneratedManifest, type Locale } from "../shared/types.js";
 import { generatedDir, readJson, writeJson, textKey } from "./cache.js";
 import { synthesize } from "./tts.js";
-import { mascotImage, mascotClip, instrumental } from "./fal.js";
+import { mascotImage, mascotClip, instrumental, heroImage } from "./fal.js";
 import { config } from "./config.js";
 
 /**
@@ -72,6 +72,7 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
     }
   }
   const imageJobs = images ? STYLE_DEFS.filter((s) => !manifest.mascots[s.id]?.image) : [];
+  const heroJob = images && !manifest.hero ? 1 : 0;
   const musicJobs = music ? STYLE_DEFS.filter((s) => !manifest.music[s.id]) : [];
   const clipJobs: { styleId: (typeof STYLE_DEFS)[number]["id"]; moveId: string }[] = [];
   if (clips) {
@@ -86,7 +87,7 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
     startedAt: new Date().toISOString(),
     finishedAt: undefined,
     done: 0,
-    total: voiceJobs.length + imageJobs.length + musicJobs.length + clipJobs.length,
+    total: voiceJobs.length + imageJobs.length + heroJob + musicJobs.length + clipJobs.length,
     errors: [],
   });
   const step = (label: string) => {

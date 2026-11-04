@@ -29,6 +29,7 @@ export function textKey(text: string): string {
 
 export const generatedVoice = (locale: Locale, text: string) => manifest?.voice?.[locale]?.[textKey(text)];
 export const mascotImage = (style: StyleId) => manifest?.mascots?.[style]?.image;
+export const heroImage = () => manifest?.hero;
 export const mascotIdle = (style: StyleId) => manifest?.mascots?.[style]?.idle;
 export const moveClip = (style: StyleId, moveId: string) => manifest?.clips?.[style]?.[moveId];
 export const styleMusic = (style: StyleId) => manifest?.music?.[style];

@@ -120,7 +120,25 @@ export class BeatEngine {
   private noiseBuffer: AudioBuffer | null = null;
   private drumsOn = true;
   private musicOn = true;
+  /** tempos (AudioContext) dos últimos beats agendados, para medir a pontaria dos toques */
+  private beatTimes: number[] = [];
   playing = false;
+
+  /** Distância (ms) de agora ao beat mais próximo, e o índice desse beat. null se não está a tocar. */
+  tapAccuracy(): { offsetMs: number; beat: number } | null {
+    if (!this.playing || !this.beatTimes.length) return null;
+    const now = audioContext().currentTime;
+    let best = Infinity;
+    let beat = 0;
+    this.beatTimes.forEach((t, i) => {
+      const d = Math.abs(now - t) * 1000;
+      if (d < best) {
+        best = d;
+        beat = i;
+      }
+    });
+    return { offsetMs: best, beat };
+  }
 
   constructor(style: DanceStyle) {
     this.style = style;
@@ -162,6 +180,7 @@ export class BeatEngine {
     this.playing = true;
     this.step = 0;
     this.bar = 0;
+    this.beatTimes = [];
     this.nextStepTime = ctx.currentTime + 0.1;
     this.schedule();
   }
@@ -181,6 +200,8 @@ export class BeatEngine {
     while (this.nextStepTime < ctx.currentTime + lookahead) {
       this.playStep(this.step, this.nextStepTime);
       if (this.step % 4 === 0) {
+        this.beatTimes.push(this.nextStepTime);
+        if (this.beatTimes.length > 8) this.beatTimes.shift();
         const ev: BeatEvent = { beat: this.step / 4, bar: this.bar, time: this.nextStepTime };
         const delay = Math.max(0, (this.nextStepTime - ctx.currentTime) * 1000);
         window.setTimeout(() => this.listeners.forEach((l) => l(ev)), delay);

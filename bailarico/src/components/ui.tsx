@@ -5,6 +5,7 @@ import { useProgress, totalStars } from "../lib/progress";
 import { isVoiceMuted, setVoiceMuted, stopVoice } from "../audio/voice";
 import { useI18n } from "../lib/i18n";
 import { DICTS } from "../../shared/i18n/index.js";
+import { LogoMark, Wordmark } from "./Logo";
 
 export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
   const p = useProgress();
@@ -25,8 +26,8 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
           ←
         </button>
       ) : (
-        <a className="brand" href="#/">
-          <span className="logo">💃</span> {t.appName}
+        <a className="brand" href="#/" aria-label={t.appName}>
+          <LogoMark size={38} /> <Wordmark />
         </a>
       )}
       <div className="row">

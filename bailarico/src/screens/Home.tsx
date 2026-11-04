@@ -5,7 +5,8 @@ import { progress, useProgress, totalStars } from "../lib/progress";
 import { sfx } from "../audio/sfx";
 import { speak, warmup } from "../audio/voice";
 import { ai } from "../lib/ai";
-import { mascotImage } from "../lib/assets";
+import { heroImage, mascotImage } from "../lib/assets";
+import { LogoMark, Wordmark } from "../components/Logo";
 import { useI18n } from "../lib/i18n";
 
 const AVATARS = ["⭐", "🦄", "🐯", "🐸", "🦊", "🐼", "🐙", "🦋", "🐨", "🚀", "🌈", "🍉"];
@@ -139,13 +140,22 @@ export function Home() {
 }
 
 export function Splash({ onStart }: { onStart: () => void }) {
-  const { t } = useI18n();
+  const { t, styles } = useI18n();
+  const hero = heroImage();
   return (
-    <div className="splash">
-      <div>
-        <div className="logo-big">💃</div>
-        <h1>{t.appName}</h1>
-        <p>{t.tagline}</p>
+    <div className={`splash ${hero ? "has-hero" : ""}`}>
+      {hero && <img className="hero-bg" src={hero} alt="" />}
+      <div className="splash-inner">
+        <div className="splash-brand">
+          <LogoMark size={72} />
+          <Wordmark light />
+        </div>
+        <p className="splash-tag">{t.tagline}</p>
+        {!hero && (
+          <div className="hero-mascots" aria-hidden="true">
+            {styles.map((s) => (mascotImage(s.id) ? <img key={s.id} className="b" src={mascotImage(s.id)} alt="" /> : <span key={s.id} className="emo b">{s.emoji}</span>))}
+          </div>
+        )}
         <button
           className="btn huge white"
           onClick={() => {
