@@ -1,0 +1,34 @@
+{
+  "name": "bailarico",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bailarico — a escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos",
+  "scripts": {
+    "dev": "concurrently -k -n web,api -c magenta,cyan \"vite\" \"tsx watch server/index.ts\"",
+    "build": "vite build && tsc -p tsconfig.server.json",
+    "start": "node dist-server/server/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "generate-assets": "tsx scripts/generate-assets.ts",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.1.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tsx": "^4.20.0",
+    "typescript": "^5",
+    "vite": "^7.1.0"
+  }
+}
