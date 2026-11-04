@@ -9,7 +9,7 @@ RUN npm run build && npm prune --omit=dev
 FROM node:22-alpine AS runner
 ENV NODE_ENV=production PORT=3000 CACHE_DIR=/app/cache
 WORKDIR /app
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl ffmpeg
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/dist-server ./dist-server

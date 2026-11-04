@@ -1,4 +1,4 @@
-import type { AiStatus, MediaResult, StyleId } from "../../shared/types";
+import type { AiStatus, Locale, MediaResult } from "../../shared/types.js";
 
 /** Cliente do servidor /api (fal.ai por trás). Falha com elegância quando não há servidor. */
 class AiClient {
@@ -30,17 +30,14 @@ class AiClient {
     return data;
   }
 
-  tts(text: string) {
-    return this.post<MediaResult>("tts", { text });
+  tts(text: string, locale: Locale) {
+    return this.post<MediaResult>("tts", { text, locale });
   }
   dancer(description: string) {
     return this.post<MediaResult>("dancer", { description });
   }
   animate(imageId: string) {
     return this.post<MediaResult>("animate", { imageId });
-  }
-  song(name: string, style: StyleId, instrumental = false) {
-    return this.post<MediaResult>("song", { name, style, instrumental });
   }
   async refreshStatus() {
     this.status = null;

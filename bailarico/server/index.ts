@@ -5,11 +5,13 @@ import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { config } from "./config.js";
 import { ensureDirs, mediaDir, generatedDir } from "./cache.js";
-import { sanitizeKidText, sanitizeName } from "./safety.js";
+import { sanitizeKidText } from "./safety.js";
 import * as falApi from "./fal.js";
 import { left, consume } from "./quota.js";
 import { generateAll, progress as genProgress } from "./generate.js";
-import type { AiStatus, ApiError } from "../shared/types.js";
+import { LOCALES, type AiStatus, type ApiError, type Locale } from "../shared/types.js";
+import { synthesize } from "./tts.js";
+import { isLocale } from "../shared/i18n/index.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 // Em produção: dist-server/server/index.js -> dist/ fica dois níveis acima.
@@ -49,7 +51,7 @@ function rateLimit(max: number, windowMs: number) {
 
 const err = (error: string, friendly: string): ApiError => ({ error, friendly });
 
-app.get("/health", (_req, res) => res.json({ ok: true, ai: config.aiEnabled }));
+app.get("/health", (_req, res) => res.json({ ok: true, ai: config.aiEnabled, tts: Object.fromEntries(LOCALES.map((l) => [l, config.ttsEnabled(l)])) }));
 
 app.get("/api/ai/status", (_req, res) => {
   const status: AiStatus = {
@@ -57,10 +59,10 @@ app.get("/api/ai/status", (_req, res) => {
     features: {
       image: config.aiEnabled,
       video: config.aiEnabled,
-      tts: config.aiEnabled,
+      tts: Object.fromEntries(LOCALES.map((l) => [l, config.ttsEnabled(l)])) as Partial<Record<Locale, boolean>>,
       music: config.aiEnabled,
     },
-    quotas: { imagesLeft: left("images"), videosLeft: left("videos"), songsLeft: left("songs") },
+    quotas: { imagesLeft: left("images"), videosLeft: left("videos") },
   };
   res.json(status);
 });
@@ -81,15 +83,19 @@ const wrap = (fn: (req: Request, res: Response) => Promise<void>) => (req: Reque
 
 app.post(
   "/api/ai/tts",
-  requireAi,
   rateLimit(60, 60_000),
   wrap(async (req, res) => {
-    const body = z.object({ text: z.string().min(1).max(300) }).safeParse(req.body);
+    const body = z.object({ text: z.string().min(1).max(300), locale: z.string().optional() }).safeParse(req.body);
     if (!body.success) {
       res.status(400).json(err("bad_request", "Texto inválido."));
       return;
     }
-    res.json(await falApi.tts(body.data.text.trim()));
+    const locale: Locale = isLocale(body.data.locale) ? body.data.locale : "pt-PT";
+    if (!config.ttsEnabled(locale)) {
+      res.status(503).json(err("tts_disabled", "Voz indisponível nesta língua."));
+      return;
+    }
+    res.json(await synthesize(body.data.text.trim(), locale));
   }),
 );
 
@@ -130,30 +136,6 @@ app.post(
   }),
 );
 
-app.post(
-  "/api/ai/song",
-  requireAi,
-  rateLimit(6, 60_000),
-  wrap(async (req, res) => {
-    const body = z
-      .object({
-        name: z.string().max(30),
-        style: z.enum(["robo", "hiphop", "ballet", "festa", "disco"]),
-        instrumental: z.boolean().optional(),
-      })
-      .safeParse(req.body);
-    if (!body.success) {
-      res.status(400).json(err("bad_request", "Pedido inválido."));
-      return;
-    }
-    if (!consume("songs")) {
-      res.status(429).json(err("quota", "A banda já tocou muito hoje. Volta amanhã!"));
-      return;
-    }
-    res.json(await falApi.song(sanitizeName(body.data.name), body.data.style, body.data.instrumental ?? false));
-  }),
-);
-
 // Administração: pré-gerar mascotes/músicas/vozes. Protegido por ADMIN_KEY.
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
   const key = (req.query.key as string) || req.get("x-admin-key") || "";
@@ -163,15 +145,16 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
   }
   next();
 }
-app.post("/api/admin/generate", requireAdmin, requireAi, (req, res) => {
+app.post("/api/admin/generate", requireAdmin, (req, res) => {
   if (genProgress.running) {
     res.status(409).json({ ...genProgress });
     return;
   }
   const q = req.query;
   const base = `${req.protocol}://${req.get("host")}`;
+  const locales = typeof q.locales === "string" ? (q.locales.split(",").filter(isLocale) as Locale[]) : undefined;
   generateAll(
-    { images: q.images !== "0", music: q.music !== "0", voice: q.voice !== "0", videos: q.videos === "1" },
+    { images: q.images !== "0", music: q.music !== "0", voice: q.voice !== "0", clips: q.clips !== "0", locales },
     base,
   ).catch((e) => console.error("generate:", e));
   res.status(202).json({ started: true });

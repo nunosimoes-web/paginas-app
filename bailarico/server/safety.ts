@@ -52,11 +52,23 @@ export function sanitizeName(input: unknown): string {
   return s.length >= 2 ? s : "amigo";
 }
 
+/** Estilo visual comum: render de filme de animação 3D, sofisticado e amigável. */
+const FILM_STYLE =
+  "High-end 3D animated feature film character render (Pixar / DreamWorks quality), full body visible head to toe, centered, " +
+  "expressive big eyes, confident playful smile, cinematic soft studio lighting, subtle rim light, soft floor reflection, " +
+  "1:1, no text, no watermark, child-friendly.";
+
+/** Dançarino criado por uma criança (Estúdio). */
 export const KID_IMAGE_STYLE =
-  "Adorable friendly cartoon character for a children's dance app: {desc}. Full body, mid-dance pose, big happy smile, " +
-  "bright cheerful colours, soft rounded shapes, clean flat vector illustration, simple plain pastel background, " +
-  "kid-friendly, no text, no watermark.";
+  "A charming, stylish dancer character for a children's dance app: {desc}. Elegant dancer proportions, caught mid-dance in a dynamic graceful pose, " +
+  "clean minimal pastel dance-studio background softly blurred. " + FILM_STYLE;
+
+/** Mascotes-professores. */
+export const MASCOT_IMAGE_STYLE = "{desc}, elegant dancer proportions, caught mid-dance in a dynamic graceful pose. " + FILM_STYLE;
+
+/** Sufixo comum dos clips de passos (Kling). */
+export const CLIP_STYLE =
+  "Smooth, fluid, high-quality 3D animation, same character and outfit throughout, camera static, full body always in frame, background unchanged, no text.";
 
 export const KID_VIDEO_PROMPT =
-  "The character dances happily and energetically to upbeat music: bouncing, waving arms, little jumps and a spin. " +
-  "Keeps the exact same cartoon style, bright colours, playful and joyful, smooth motion, plain background, no text.";
+  "The character dances happily and energetically to upbeat music: bouncing, waving arms, a little jump and a graceful spin, then strikes a pose. " + CLIP_STYLE;

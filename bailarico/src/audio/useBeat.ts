@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BeatEngine, type BeatEvent } from "./beat";
-import type { DanceStyle } from "../../shared/styles.js";
+import type { StyleDef as DanceStyle } from "../../shared/catalog.js";
 
 export function useBeatEngine(style: DanceStyle): BeatEngine {
   const ref = useRef<BeatEngine | null>(null);

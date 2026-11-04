@@ -1,8 +1,8 @@
-import type { GeneratedManifest, StyleId } from "../../shared/types";
+import type { GeneratedManifest, Locale, StyleId } from "../../shared/types.js";
 
 /**
- * Recursos pré-gerados com fal.ai (npm run generate-assets).
- * Se não existirem, a app usa os recursos integrados (SVG, síntese, voz do browser).
+ * Recursos pré-gerados (vozes, mascotes, clips, músicas), servidos em /generated e /media.
+ * Se não existirem, a app usa os recursos integrados.
  */
 let manifest: GeneratedManifest | null = null;
 
@@ -17,7 +17,7 @@ export async function loadManifest(): Promise<GeneratedManifest | null> {
   }
 }
 
-/** Mesmo hash simples (FNV-1a) usado no servidor/script para indexar vozes. */
+/** Mesmo FNV-1a do servidor, para indexar vozes pelo texto. */
 export function textKey(text: string): string {
   let h = 0x811c9dc5;
   for (let i = 0; i < text.length; i++) {
@@ -27,15 +27,19 @@ export function textKey(text: string): string {
   return h.toString(16).padStart(8, "0");
 }
 
-export function generatedVoice(text: string): string | undefined {
-  return manifest?.voice[textKey(text)];
-}
-export function mascotImage(style: StyleId): string | undefined {
-  return manifest?.mascots[style]?.image;
-}
-export function mascotVideo(style: StyleId): string | undefined {
-  return manifest?.mascots[style]?.video;
-}
-export function styleMusic(style: StyleId): string | undefined {
-  return manifest?.music[style];
+export const generatedVoice = (locale: Locale, text: string) => manifest?.voice?.[locale]?.[textKey(text)];
+export const mascotImage = (style: StyleId) => manifest?.mascots?.[style]?.image;
+export const mascotIdle = (style: StyleId) => manifest?.mascots?.[style]?.idle;
+export const moveClip = (style: StyleId, moveId: string) => manifest?.clips?.[style]?.[moveId];
+export const styleMusic = (style: StyleId) => manifest?.music?.[style];
+export const hasClips = (style: StyleId) => Object.keys(manifest?.clips?.[style] ?? {}).length > 0;
+
+/** Pré-carrega clips de uma lição para não haver esperas. */
+export function preloadClips(urls: (string | undefined)[]) {
+  urls.filter(Boolean).forEach((u) => {
+    const v = document.createElement("video");
+    v.preload = "auto";
+    v.muted = true;
+    v.src = u!;
+  });
 }

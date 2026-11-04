@@ -1,5 +1,5 @@
 import { audioContext } from "./context";
-import type { DanceStyle } from "../../shared/styles.js";
+import type { StyleDef as DanceStyle } from "../../shared/catalog.js";
 
 /**
  * Motor de ritmo sintetizado: bateria + baixo + acordes, agendado com

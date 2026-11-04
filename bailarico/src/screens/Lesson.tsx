@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { lessonById } from "../../shared/lessons.js";
-import { moveById, type Move } from "../../shared/moves.js";
-import { styleById } from "../../shared/styles.js";
-import { PRAISE, ENCOURAGE, UI_PHRASES, pick } from "../../shared/phrases.js";
-import { Dancer } from "../components/Dancer";
+import { MascotView } from "../components/MascotView";
 import { CountDots, Energy, Footer, Mascot, Stars, Topbar } from "../components/ui";
 import { useMeter } from "../components/useMeter";
 import { useBeat, useBeatEngine } from "../audio/useBeat";
@@ -12,26 +8,29 @@ import { sfx } from "../audio/sfx";
 import { progress, useProgress } from "../lib/progress";
 import { confettiBurst } from "../lib/confetti";
 import { go } from "../lib/router";
-import { mascotImage, mascotVideo } from "../lib/assets";
+import { mascotIdle, mascotImage, moveClip, preloadClips } from "../lib/assets";
+import { useI18n } from "../lib/i18n";
+import type { Lesson as LessonT } from "../../shared/i18n/index.js";
 
 type Phase = "intro" | "demo" | "you" | "choreo" | "done";
 
 export function Lesson({ lessonId }: { lessonId: string }) {
+  const { lessonById } = useI18n();
   const lesson = lessonById(lessonId);
   if (!lesson) {
     return (
       <div className="app">
         <Topbar back="/estilos" />
-        <p>Lição não encontrada.</p>
       </div>
     );
   }
   return <LessonInner key={lessonId} lesson={lesson} />;
 }
 
-function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonById>> }) {
+function LessonInner({ lesson }: { lesson: LessonT }) {
+  const { t, f, dict, pick, styleById, moveById, lessons } = useI18n();
   const style = styleById(lesson.style);
-  const moves: Move[] = lesson.moves.map(moveById);
+  const moves = lesson.moves.map(moveById);
   const engine = useBeatEngine(style);
   const meter = useMeter();
   const p = useProgress();
@@ -50,12 +49,12 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
   const demoBeats = bpb * 2;
   const youBeats = bpb * 2;
   const choreoBeatsPerMove = bpb * 2;
-
   const move = moves[Math.min(idx, moves.length - 1)];
 
   useEffect(() => {
-    warmup([...moves.flatMap((m) => [m.name, m.instruction]), UI_PHRASES.yourTurn, UI_PHRASES.watch, UI_PHRASES.choreo]);
-    void speak(style.mascot.greeting);
+    warmup([...moves.map((m) => `${m.name}. ${m.instruction}`), t.yourTurn, t.watch, t.choreo]);
+    preloadClips(moves.map((m) => moveClip(style.id, m.id)));
+    void speak(style.greeting);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -79,38 +78,35 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
       beatsInPhase.current = 0;
       setPhase("you");
       meter.startRecording();
-      void speak(UI_PHRASES.yourTurn);
+      void speak(t.yourTurn);
     } else if (ph === "you") {
-      if (n === Math.floor(youBeats / 2)) void speak(pick(ENCOURAGE));
+      if (n === Math.floor(youBeats / 2)) void speak(pick(dict.encourage));
       if (n >= youBeats) {
-        const avg = meter.stopRecording();
-        scores.current.push(avg);
+        scores.current.push(meter.stopRecording());
         sfx.star();
-        const pr = pick(PRAISE);
+        const pr = pick(dict.praise);
         setPraise(pr);
         void speak(pr);
         if (idx + 1 < moves.length) {
           window.setTimeout(() => startDemo(idx + 1), 1400);
-          beatsInPhase.current = -3; // pequena pausa para o elogio
+          beatsInPhase.current = -3;
         } else {
           beatsInPhase.current = 0;
           setChoreoIdx(0);
           setPhase("choreo");
           meter.startRecording();
-          void speak(UI_PHRASES.choreo);
+          void speak(t.choreo);
         }
       }
     } else if (ph === "choreo") {
-      const total = choreoBeatsPerMove * moves.length;
       setChoreoIdx(Math.min(moves.length - 1, Math.floor(n / choreoBeatsPerMove)));
-      if (n >= total) finish();
+      if (n >= choreoBeatsPerMove * moves.length) finish();
     }
   });
 
   const finish = () => {
     engine.stop();
-    const avg = meter.stopRecording();
-    const all = [...scores.current, avg];
+    const all = [...scores.current, meter.stopRecording()];
     const mean = all.reduce((a, b) => a + b, 0) / all.length;
     const s = mean >= 0.45 ? 3 : mean >= 0.2 ? 2 : 1;
     setStars(s);
@@ -119,7 +115,7 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
     progress.addEnergy(mean * 100);
     sfx.fanfare();
     confettiBurst({ colors: [style.colors.main, style.colors.glow, "#facc15", "#fff"] });
-    void speak(`${UI_PHRASES.lessonDone} Ganhaste ${s === 1 ? "uma estrela" : `${s} estrelas`}!`);
+    void speak(f(t.lessonDoneVoice, { stars: s === 1 ? t.oneStar : f(t.nStars, { n: s }) }));
   };
 
   const begin = () => {
@@ -129,21 +125,19 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
   };
 
   const currentMove = phase === "choreo" ? moves[choreoIdx] : move;
-  const anim = phase === "intro" || phase === "done" ? "bounce" : currentMove.anim;
   const inDance = phase === "demo" || phase === "you" || phase === "choreo";
+  const clip = inDance ? moveClip(style.id, currentMove.id) : mascotIdle(style.id);
+  const anim = inDance ? currentMove.anim : "bounce";
+  const nextLesson = lessons.find((l) => l.style === lesson.style && l.level === lesson.level + 1);
 
   return (
     <div className="app">
       <Topbar back={`/estilo/${style.id}`} />
       <div className="lesson-layout">
-        <div className={`stage ${inDance ? "pulse" : ""}`} style={{ "--stage-c": style.colors.main, "--beat": `${engine.secondsPerBeat}s` } as React.CSSProperties}>
+        <div className={`stage ${clip ? "video" : ""} ${inDance ? "pulse" : ""}`} style={{ "--stage-c": style.colors.main, "--beat": `${engine.secondsPerBeat}s` } as React.CSSProperties}>
           {inDance && <div className="lights" />}
           {inDance && <CountDots beats={bpb} current={beat.beat} />}
-          {phase === "intro" && mascotVideo(style.id) ? (
-            <video className="mascot-video" src={mascotVideo(style.id)} poster={mascotImage(style.id)} autoPlay loop muted playsInline />
-          ) : (
-            <Dancer move={anim} face={style.mascot.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={engine.secondsPerBeat} />
-          )}
+          <MascotView style={style} clip={clip} poster={mascotImage(style.id)} anim={anim} beat={engine.secondsPerBeat} />
           <video ref={meter.videoRef} className={`cam ${meter.camera === "on" ? "" : "hidden"}`} playsInline muted />
         </div>
 
@@ -153,30 +147,27 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
               <h1 className="title" style={{ color: style.colors.dark }}>
                 {lesson.title}
               </h1>
-              <Mascot emoji={style.mascot.emoji} image={mascotImage(style.id)} color={style.colors.main}>
-                Hoje vamos aprender {moves.length} passos: {moves.map((m) => `${m.emoji} ${m.name}`).join(", ")}. Eu mostro primeiro, depois é a tua vez!
+              <Mascot emoji={style.emoji} image={mascotImage(style.id)} color={style.colors.main}>
+                {f(t.todayLearn, { n: moves.length, list: moves.map((m) => `${m.emoji} ${m.name}`).join(", ") })}
               </Mascot>
               <div className="row mt">
                 <button className="btn big pink" onClick={begin}>
-                  Começar! 🎵
+                  {t.start} 🎵
                 </button>
                 {meter.cameraSupported && (
                   <button className="btn white" onClick={meter.toggleCamera}>
-                    {meter.camera === "on" ? "📷 Câmara ligada" : "📷 Ligar câmara"}
+                    {meter.camera === "on" ? t.cameraOn : t.cameraOff}
                   </button>
                 )}
               </div>
-              {meter.camera === "denied" && <p className="tip">Sem câmara não há problema: bate no botão do ritmo enquanto danças!</p>}
-              {meter.camera === "off" && (
-                <p className="tip">A câmara é opcional: serve só para medir o quanto te mexes. A imagem nunca sai do teu aparelho.</p>
-              )}
+              <p className="tip">{meter.camera === "denied" ? t.cameraDenied : meter.camera === "off" ? t.cameraOptional : t.camFreezeInfo}</p>
             </>
           )}
 
           {(phase === "demo" || phase === "you") && (
             <>
               <p className="tip" style={{ marginTop: 0 }}>
-                Passo {idx + 1} de {moves.length} · {phase === "demo" ? "👀 Olha com atenção" : "🙌 Agora tu!"}
+                {f(t.stepOf, { n: idx + 1, total: moves.length })} · {phase === "demo" ? `👀 ${t.watch}` : `🙌 ${t.yourTurn}`}
               </p>
               <h2 className="move-name" key={move.id + phase}>
                 {move.emoji} {move.name}
@@ -193,7 +184,7 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
               </div>
               {meter.camera !== "on" && (
                 <button className="btn huge teal mt" style={{ width: "100%" }} onPointerDown={meter.tap}>
-                  🥁 Bate o ritmo!
+                  {t.beatButton}
                 </button>
               )}
             </>
@@ -202,14 +193,14 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
           {phase === "choreo" && (
             <>
               <p className="tip" style={{ marginTop: 0 }}>
-                🎬 Coreografia completa!
+                🎬 {t.choreo}
               </p>
               <h2 className="move-name" key={choreoIdx}>
                 {currentMove.emoji} {currentMove.name}
               </h2>
               <div className="dots mt">
                 {moves.map((m, i) => (
-                  <span key={m.id} className={i < choreoIdx ? "done" : i === choreoIdx ? "now" : ""} />
+                  <span key={m.id + i} className={i < choreoIdx ? "done" : i === choreoIdx ? "now" : ""} />
                 ))}
               </div>
               <div className="mt">
@@ -217,7 +208,7 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
               </div>
               {meter.camera !== "on" && (
                 <button className="btn huge teal mt" style={{ width: "100%" }} onPointerDown={meter.tap}>
-                  🥁 Bate o ritmo!
+                  {t.beatButton}
                 </button>
               )}
             </>
@@ -225,30 +216,26 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
 
           {phase === "done" && (
             <div className="center">
-              <h1 className="title rainbow">Lição completa!</h1>
+              <h1 className="title rainbow">{t.lessonDone}</h1>
               <Stars n={stars} big />
               <div className="card mt">
-                <div style={{ fontSize: "4rem" }}>{lesson.sticker.emoji}</div>
-                <h2>Autocolante: {lesson.sticker.name}</h2>
+                <div style={{ fontSize: "4rem" }}>{lesson.stickerEmoji}</div>
+                <h2>
+                  {t.stickerLabel}: {lesson.stickerName}
+                </h2>
                 <p className="subtitle" style={{ margin: 0 }}>
-                  {p.stickers.length} de 15 na coleção
+                  {f(t.inCollection, { n: p.stickers.length, total: lessons.length })}
                 </p>
               </div>
               <div className="row center mt">
-                <button
-                  className="btn pink"
-                  onClick={() => {
-                    scores.current = [];
-                    setPhase("intro");
-                  }}
-                >
-                  🔁 Repetir
+                <button className="btn pink" onClick={() => { scores.current = []; setPhase("intro"); }}>
+                  {t.repeat}
                 </button>
-                <button className="btn purple" onClick={() => go(`/estilo/${style.id}`)}>
-                  Próxima lição →
+                <button className="btn purple" onClick={() => go(nextLesson ? `/licao/${nextLesson.id}` : `/estilo/${style.id}`)}>
+                  {t.nextLesson}
                 </button>
                 <button className="btn white" onClick={() => go("/autocolantes")}>
-                  🏅 Autocolantes
+                  🏅 {t.stickersTitle}
                 </button>
               </div>
             </div>

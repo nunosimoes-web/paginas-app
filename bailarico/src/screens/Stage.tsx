@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { STYLES, styleById } from "../../shared/styles.js";
-import { movesForStyle, type MoveAnim } from "../../shared/moves.js";
-import { UI_PHRASES, PRAISE, pick } from "../../shared/phrases.js";
 import type { StyleId } from "../../shared/types.js";
-import { Dancer } from "../components/Dancer";
+import { MascotView } from "../components/MascotView";
 import { CountDots, Energy, Footer, Topbar } from "../components/ui";
 import { useMeter } from "../components/useMeter";
 import { useBeat, useBeatEngine } from "../audio/useBeat";
@@ -11,36 +8,36 @@ import { speak } from "../audio/voice";
 import { sfx } from "../audio/sfx";
 import { progress, useProgress } from "../lib/progress";
 import { confettiBurst } from "../lib/confetti";
-import { styleMusic } from "../lib/assets";
+import { mascotImage, moveClip, styleMusic } from "../lib/assets";
 import { loadGallery } from "./Studio";
+import { useI18n } from "../lib/i18n";
+import type { Move } from "../../shared/i18n/index.js";
 
 /** Palco Livre: dança livre com música, luzes e barra de energia. */
 export function Stage() {
+  const { t, f, dict, pick, styles, styleById, movesForStyle } = useI18n();
   const [styleId, setStyleId] = useState<StyleId>("festa");
   const style = styleById(styleId);
   const engine = useBeatEngine(style);
   const meter = useMeter();
   const p = useProgress();
   const [playing, setPlaying] = useState(false);
-  const [anim, setAnim] = useState<MoveAnim>("bounce");
-  const [goal, setGoal] = useState(0); // 0..1
-  const [track, setTrack] = useState<string | null>(null);
+  const pool = movesForStyle(styleId).filter((m) => m.id !== "estatua");
+  const [move, setMove] = useState<Move>(pool[0]);
+  const [goal, setGoal] = useState(0);
+  const [usingTrack, setUsingTrack] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const goalRef = useRef(0);
   const customSongs = loadGallery().songs;
 
   useEffect(() => {
-    void speak(UI_PHRASES.stageIntro);
-  }, []);
+    void speak(t.stageIntroVoice);
+  }, [t]);
 
   const beat = useBeat(engine, (e) => {
-    if (e.beat === 0 && e.bar % 2 === 0) {
-      const pool = movesForStyle(styleId).filter((m) => m.anim !== "estatua");
-      setAnim(pick(pool).anim);
-    }
+    if (e.beat === 0 && e.bar % 2 === 0) setMove(pick(pool));
   });
 
-  // energia -> objetivo
   useEffect(() => {
     if (!playing) return;
     goalRef.current = Math.min(1, goalRef.current + meter.value * 0.012);
@@ -50,20 +47,20 @@ export function Stage() {
       progress.addEnergy(50);
       confettiBurst({ colors: [style.colors.main, style.colors.glow, "#fff"] });
       sfx.fanfare();
-      void speak(`${pick(PRAISE)} Barra cheia! Mais 50 de energia!`);
+      void speak(`${pick(dict.praise)} ${t.barFull}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meter.value, playing]);
 
-  const start = (customUrl?: string) => {
+  const start = async (dedicationName?: string) => {
     sfx.whoosh();
-    const url = customUrl ?? styleMusic(styleId) ?? null;
-    setTrack(url);
-    if (url) {
-      engine.setLayers({ drums: false, music: false }); // só marca o tempo para a animação
-    } else engine.setLayers({ drums: true, music: true });
-    engine.start();
+    const url = styleMusic(styleId) ?? null;
+    setUsingTrack(!!url);
+    engine.setLayers({ drums: !url, music: !url });
     setPlaying(true);
+    setMove(pick(pool));
+    if (dedicationName) await speak(f(t.dedication, { name: dedicationName }));
+    engine.start();
     if (url) {
       const a = (audioRef.current ??= new Audio());
       a.src = url;
@@ -80,47 +77,49 @@ export function Stage() {
   };
   useEffect(() => () => audioRef.current?.pause(), []);
 
+  const clip = playing ? moveClip(styleId, move.id) : moveClip(styleId, pool[0].id);
+
   return (
     <div className="app">
       <Topbar back="/" right={<span className="pill">⚡ {p.energy}</span>} />
       <div className="lesson-layout">
-        <div className={`stage ${playing ? "pulse" : ""}`} style={{ "--stage-c": style.colors.main, "--beat": `${engine.secondsPerBeat}s` } as React.CSSProperties}>
+        <div className={`stage ${clip ? "video" : ""} ${playing ? "pulse" : ""}`} style={{ "--stage-c": style.colors.main, "--beat": `${engine.secondsPerBeat}s` } as React.CSSProperties}>
           {playing && <div className="lights" />}
-          {playing && !track && <CountDots beats={style.beatsPerBar} current={beat.beat} />}
-          <Dancer move={playing ? anim : "idle"} face={p.avatar || "⭐"} color={style.colors.main} colorDark={style.colors.dark} beat={engine.secondsPerBeat} />
+          {playing && !usingTrack && <CountDots beats={style.beatsPerBar} current={beat.beat} />}
+          <MascotView style={style} clip={clip} poster={mascotImage(styleId)} anim={playing ? move.anim : "idle"} beat={engine.secondsPerBeat} face={p.avatar || "⭐"} />
           <video ref={meter.videoRef} className={`cam ${meter.camera === "on" ? "" : "hidden"}`} playsInline muted />
         </div>
         <div>
           <h1 className="title" style={{ color: style.colors.dark }}>
-            Palco Livre 🎤
+            {t.stageIntro} 🎤
           </h1>
           {!playing ? (
             <>
-              <p className="subtitle">Escolhe a música e dança como quiseres. Quanto mais te mexes, mais depressa a barra enche!</p>
+              <p className="subtitle">{t.stageSub}</p>
               <div className="chips">
-                {STYLES.map((s) => (
+                {styles.map((s) => (
                   <button key={s.id} className="chip" style={s.id === styleId ? { background: s.colors.main, color: "#fff" } : undefined} onClick={() => setStyleId(s.id)}>
-                    {s.mascot.emoji} {s.name}
+                    {s.emoji} {s.name}
                   </button>
                 ))}
               </div>
               <div className="row mt">
                 <button className="btn big teal" onClick={() => start()}>
-                  Tocar música! 🎵
+                  {t.playMusic} 🎵
                 </button>
                 {meter.cameraSupported && (
                   <button className="btn white" onClick={meter.toggleCamera}>
-                    {meter.camera === "on" ? "📷 Câmara ligada" : "📷 Ligar câmara"}
+                    {meter.camera === "on" ? t.cameraOn : t.cameraOff}
                   </button>
                 )}
               </div>
               {customSongs.length > 0 && (
                 <div className="mt">
-                  <p className="subtitle">🪄 As tuas músicas mágicas:</p>
+                  <p className="subtitle">{t.mySongs}</p>
                   <div className="chips">
                     {customSongs.map((s) => (
-                      <button key={s.url} className="chip" onClick={() => start(s.url)}>
-                        🎶 {s.title}
+                      <button key={s.style + s.name} className="chip" onClick={() => { setStyleId(s.style); void start(s.name); }}>
+                        🎶 {f(t.songTitle, { style: styleById(s.style).name, name: s.name })}
                       </button>
                     ))}
                   </div>
@@ -129,18 +128,21 @@ export function Stage() {
             </>
           ) : (
             <>
-              <p className="subtitle">Enche a barra para ganhar 50 de energia!</p>
-              <Energy value={goal} label={`Objetivo ${Math.round(goal * 100)}%`} />
+              <p className="instruction">
+                {move.emoji} {move.name}
+              </p>
+              <p className="subtitle">{t.fillBar}</p>
+              <Energy value={goal} label={`${t.goal} ${Math.round(goal * 100)}%`} />
               <div className="mt">
                 <Energy value={meter.value} />
               </div>
               {meter.camera !== "on" && (
                 <button className="btn huge pink mt" style={{ width: "100%" }} onPointerDown={meter.tap}>
-                  🥁 Bate o ritmo!
+                  {t.beatButton}
                 </button>
               )}
               <button className="btn white mt" onClick={stop}>
-                ⏹ Parar
+                {t.stop}
               </button>
             </>
           )}

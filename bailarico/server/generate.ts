@@ -1,26 +1,24 @@
 import path from "node:path";
-import { STYLES } from "../shared/styles.js";
-import { MOVES } from "../shared/moves.js";
-import { PRAISE, ENCOURAGE, FREEZE_OK, FREEZE_FAIL, UI_PHRASES } from "../shared/phrases.js";
-import type { GeneratedManifest, StyleId } from "../shared/types.js";
-import { generatedDir, readJson, writeJson, textKey, hashKey, findCached, store } from "./cache.js";
-import { tts, song } from "./fal.js";
+import { STYLE_DEFS, MOVE_DEFS, ART_VERSION, clipMovesForStyle } from "../shared/catalog.js";
+import { allVoiceLines } from "../shared/i18n/index.js";
+import { LOCALES, type GeneratedManifest, type Locale } from "../shared/types.js";
+import { generatedDir, readJson, writeJson, textKey } from "./cache.js";
+import { synthesize } from "./tts.js";
+import { mascotImage, mascotClip, instrumental } from "./fal.js";
 import { config } from "./config.js";
-import { fal } from "@fal-ai/client";
-import { KID_IMAGE_STYLE, KID_VIDEO_PROMPT } from "./safety.js";
 
 /**
- * Pré-geração de recursos com fal.ai: mascotes (imagem + vídeo), uma música
- * por estilo e todas as frases faladas. Corre uma vez (CLI ou /api/admin/generate)
- * e fica guardado em cache/generated/manifest.json. É idempotente: o que já
- * existe não volta a ser pedido ao fal.
+ * Pré-geração: vozes (por língua), mascotes (imagem + clip de boas-vindas),
+ * clips de cada passo por estilo e uma música instrumental por estilo.
+ * Idempotente: o que já existe no manifesto não volta a ser pedido.
  */
 
 export interface GenerateOptions {
   images?: boolean;
-  videos?: boolean;
+  clips?: boolean;
   music?: boolean;
   voice?: boolean;
+  locales?: Locale[];
 }
 
 export interface GenerateProgress {
@@ -34,150 +32,125 @@ export interface GenerateProgress {
 }
 
 export const progress: GenerateProgress = { running: false, done: 0, total: 0, errors: [] };
-
 export const manifestPath = () => path.join(generatedDir(), "manifest.json");
 
 export async function loadManifest(): Promise<GeneratedManifest> {
-  return (
-    (await readJson<GeneratedManifest>(manifestPath())) ?? {
-      generatedAt: new Date().toISOString(),
-      mascots: {},
-      music: {},
-      voice: {},
-    }
-  );
-}
-
-export function allVoiceLines(): string[] {
-  const lines = new Set<string>();
-  STYLES.forEach((s) => lines.add(s.mascot.greeting));
-  MOVES.forEach((m) => {
-    lines.add(m.name);
-    lines.add(m.instruction);
-    lines.add(m.tip);
-  });
-  [...PRAISE, ...ENCOURAGE, ...FREEZE_OK, ...FREEZE_FAIL, ...Object.values(UI_PHRASES)].forEach((p) => lines.add(p));
-  return [...lines];
-}
-
-async function mascotImage(styleId: StyleId, prompt: string): Promise<string> {
-  const id = "mascot-" + hashKey([config.models.image, styleId, prompt]);
-  const cached = await findCached(id);
-  if (cached) return cached;
-  fal.config({ credentials: config.falKey });
-  const res = await fal.subscribe(config.models.image, {
-    input: {
-      prompt: KID_IMAGE_STYLE.replace("{desc}", prompt),
-      num_images: 1,
-      aspect_ratio: "1:1",
-      resolution: "1K",
-      output_format: "png",
-    },
-  });
-  const img = (res.data as { images: { url: string; content_type?: string }[] }).images[0];
-  return store(id, img.url, img.content_type);
-}
-
-async function mascotVideo(styleId: StyleId, imagePath: string, publicBase: string): Promise<string> {
-  const id = "mascotvid-" + hashKey([config.models.video, styleId, imagePath]);
-  const cached = await findCached(id);
-  if (cached) return cached;
-  fal.config({ credentials: config.falKey });
-  let imageUrl = publicBase ? publicBase + imagePath : "";
-  if (!imageUrl || /localhost|127\.0\.0\.1/.test(imageUrl)) {
-    const fs = await import("node:fs/promises");
-    const buf = await fs.readFile(path.join(config.cacheDir, imagePath.replace(/^\//, "")));
-    imageUrl = await fal.storage.upload(new Blob([buf], { type: "image/png" }));
-  }
-  const res = await fal.subscribe(config.models.video, {
-    input: {
-      start_image_url: imageUrl,
-      prompt: KID_VIDEO_PROMPT,
-      duration: "5",
-      generate_audio: false,
-      negative_prompt: "blur, distort, low quality, scary, text, watermark",
-    },
-  });
-  const v = (res.data as { video: { url: string; content_type?: string } }).video;
-  return store(id, v.url, v.content_type);
+  const m = await readJson<GeneratedManifest>(manifestPath());
+  if (m && m.artVersion === ART_VERSION && m.clips) return m;
+  // versão visual nova: recomeça mascotes/clips mas mantém vozes e músicas
+  return {
+    generatedAt: new Date().toISOString(),
+    artVersion: ART_VERSION,
+    mascots: {},
+    clips: {},
+    music: m?.music ?? {},
+    voice: m?.voice ?? {},
+  };
 }
 
 async function pool<T>(items: T[], limit: number, fn: (t: T) => Promise<void>) {
   let i = 0;
-  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (i < items.length) {
-      const item = items[i++];
-      await fn(item);
-    }
-  });
-  await Promise.all(workers);
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (i < items.length) await fn(items[i++]);
+    }),
+  );
 }
 
 export async function generateAll(opts: GenerateOptions, publicBase = "", log: (s: string) => void = console.log) {
   if (progress.running) throw new Error("Geração já em curso");
-  const { images = true, videos = false, music = true, voice = true } = opts;
+  const { images = true, clips = true, music = true, voice = true, locales = LOCALES } = opts;
   const manifest = await loadManifest();
-  const voiceLines = voice ? allVoiceLines().filter((l) => !manifest.voice[textKey(l)]) : [];
-  const styleJobs = STYLES.filter(
-    (s) => (images && !manifest.mascots[s.id]?.image) || (videos && !manifest.mascots[s.id]?.video) || (music && !manifest.music[s.id]),
-  );
+  const save = () => writeJson(manifestPath(), { ...manifest, generatedAt: new Date().toISOString() });
+
+  const voiceJobs: { locale: Locale; line: string }[] = [];
+  if (voice) {
+    for (const locale of locales) {
+      if (!config.ttsEnabled(locale)) continue;
+      const have = (manifest.voice[locale] ??= {});
+      allVoiceLines(locale).filter((l) => !have[textKey(l)]).forEach((line) => voiceJobs.push({ locale, line }));
+    }
+  }
+  const imageJobs = images ? STYLE_DEFS.filter((s) => !manifest.mascots[s.id]?.image) : [];
+  const musicJobs = music ? STYLE_DEFS.filter((s) => !manifest.music[s.id]) : [];
+  const clipJobs: { styleId: (typeof STYLE_DEFS)[number]["id"]; moveId: string }[] = [];
+  if (clips) {
+    for (const s of STYLE_DEFS) {
+      if (!manifest.mascots[s.id]?.idle) clipJobs.push({ styleId: s.id, moveId: "__idle" });
+      for (const m of clipMovesForStyle(s.id)) if (!manifest.clips[s.id]?.[m]) clipJobs.push({ styleId: s.id, moveId: m });
+    }
+  }
+
   Object.assign(progress, {
     running: true,
     startedAt: new Date().toISOString(),
     finishedAt: undefined,
     done: 0,
-    total: voiceLines.length + styleJobs.length * ((images ? 1 : 0) + (videos ? 1 : 0) + (music ? 1 : 0)),
+    total: voiceJobs.length + imageJobs.length + musicJobs.length + clipJobs.length,
     errors: [],
   });
-  const save = () => writeJson(manifestPath(), { ...manifest, generatedAt: new Date().toISOString() });
   const step = (label: string) => {
     progress.done++;
     progress.current = label;
     log(`[${progress.done}/${progress.total}] ${label}`);
   };
+  const fail = (label: string, e: unknown) => progress.errors.push(`${label}: ${(e as Error).message}`);
 
   try {
-    await pool(voiceLines, 3, async (line) => {
+    // 1) vozes (rápidas, 3 em paralelo)
+    await pool(voiceJobs, 3, async ({ locale, line }) => {
       try {
-        const r = await tts(line);
-        manifest.voice[textKey(line)] = r.url;
+        const r = await synthesize(line, locale);
+        manifest.voice[locale]![textKey(line)] = r.url;
         await save();
       } catch (e) {
-        progress.errors.push(`voz "${line.slice(0, 30)}": ${(e as Error).message}`);
+        fail(`voz ${locale} "${line.slice(0, 30)}"`, e);
       }
-      step(`voz: ${line.slice(0, 40)}`);
+      step(`voz ${locale}: ${line.slice(0, 40)}`);
     });
 
-    await pool(styleJobs, 2, async (s) => {
-      const m = (manifest.mascots[s.id] ??= {});
-      if (images && !m.image) {
-        try {
-          m.image = await mascotImage(s.id, s.mascot.prompt);
-          await save();
-        } catch (e) {
-          progress.errors.push(`imagem ${s.id}: ${(e as Error).message}`);
-        }
-        step(`mascote ${s.mascot.name}`);
+    // 2) imagens dos mascotes (precisas antes dos clips)
+    await pool(imageJobs, 3, async (s) => {
+      try {
+        (manifest.mascots[s.id] ??= {}).image = await mascotImage(s.id, s.mascotPrompt, ART_VERSION);
+        await save();
+      } catch (e) {
+        fail(`imagem ${s.id}`, e);
       }
-      if (music && !manifest.music[s.id]) {
-        try {
-          const r = await song("", s.id, true);
-          manifest.music[s.id] = r.url;
-          await save();
-        } catch (e) {
-          progress.errors.push(`música ${s.id}: ${(e as Error).message}`);
-        }
-        step(`música ${s.name}`);
+      step(`mascote ${s.id}`);
+    });
+
+    // 3) música instrumental por estilo
+    await pool(musicJobs, 2, async (s) => {
+      try {
+        manifest.music[s.id] = await instrumental(s.id, s.musicPrompt);
+        await save();
+      } catch (e) {
+        fail(`música ${s.id}`, e);
       }
-      if (videos && !m.video && m.image) {
-        try {
-          m.video = await mascotVideo(s.id, m.image, publicBase);
-          await save();
-        } catch (e) {
-          progress.errors.push(`vídeo ${s.id}: ${(e as Error).message}`);
-        }
-        step(`vídeo ${s.mascot.name}`);
+      step(`música ${s.id}`);
+    });
+
+    // 4) clips (lentos: 1-3 min cada, 3 em paralelo)
+    await pool(clipJobs, 3, async ({ styleId, moveId }) => {
+      const s = STYLE_DEFS.find((x) => x.id === styleId)!;
+      const img = manifest.mascots[styleId]?.image;
+      if (!img) {
+        step(`clip ${styleId}/${moveId} (sem imagem)`);
+        return;
       }
+      try {
+        if (moveId === "__idle") {
+          (manifest.mascots[styleId] ??= {}).idle = await mascotClip(styleId, moveId, img, s.idlePrompt, publicBase);
+        } else {
+          const mv = MOVE_DEFS.find((m) => m.id === moveId)!;
+          (manifest.clips[styleId] ??= {})[moveId] = await mascotClip(styleId, moveId, img, mv.clipPrompt, publicBase);
+        }
+        await save();
+      } catch (e) {
+        fail(`clip ${styleId}/${moveId}`, e);
+      }
+      step(`clip ${styleId}/${moveId}`);
     });
     await save();
   } finally {

@@ -1,18 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import { moveById, type Move } from "../../shared/moves.js";
-import { UI_PHRASES, PRAISE, pick } from "../../shared/phrases.js";
-import { Dancer } from "../components/Dancer";
+import { MascotView } from "../components/MascotView";
 import { Footer, Mascot, Topbar } from "../components/ui";
 import { speak } from "../audio/voice";
 import { sfx } from "../audio/sfx";
 import { progress, useProgress } from "../lib/progress";
 import { confettiBurst } from "../lib/confetti";
 import { go } from "../lib/router";
+import { useI18n } from "../lib/i18n";
+import { mascotImage, moveClip } from "../lib/assets";
+import type { Move } from "../../shared/i18n/index.js";
+import type { StyleId } from "../../shared/types.js";
 
-const POOL: Move[] = ["bounce", "palmas", "bracos-ar", "salto", "giro", "robo-bracos", "anca", "chuto", "apontar"].map(moveById);
+const POOL_IDS = ["bounce", "palmas", "bracos-ar", "salto", "giro", "robo-bracos", "anca", "chuto", "apontar"];
 type Phase = "intro" | "show" | "input" | "levelup" | "wrong";
 
+/** Escolhe um estilo que tenha clip para o passo, para o mascote o demonstrar em vídeo. */
+function clipFor(m: Move): { style: StyleId; url?: string } {
+  for (const s of m.styles) {
+    const url = moveClip(s, m.id);
+    if (url) return { style: s, url };
+  }
+  return { style: m.styles[0] };
+}
+
 export function SimonGame() {
+  const { t, f, dict, pick, moveById, styleById } = useI18n();
+  const POOL = POOL_IDS.map(moveById);
   const p = useProgress();
   const [phase, setPhase] = useState<Phase>("intro");
   const [level, setLevel] = useState(1);
@@ -25,10 +38,9 @@ export function SimonGame() {
   const timers = useRef<number[]>([]);
   const later = (fn: () => void, ms: number) => timers.current.push(window.setTimeout(fn, ms));
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
-
   useEffect(() => {
-    void speak(UI_PHRASES.simonIntro);
-  }, []);
+    void speak(t.simonIntroVoice);
+  }, [t]);
 
   const startLevel = (lvl: number, prev: Move[]) => {
     const opts = POOL.slice(0, Math.min(POOL.length, 4 + Math.floor(lvl / 2)));
@@ -38,21 +50,22 @@ export function SimonGame() {
     setPhase("show");
     setInputIdx(0);
     setFlash(null);
-    void speak(UI_PHRASES.watch);
+    void speak(t.watch);
+    const per = 2600; // tempo por passo (dá para ver o vídeo)
     next.forEach((m, i) => {
       later(() => {
         setShowIdx(i);
         setLit(m.id);
         sfx.tick(true);
         void speak(m.name);
-      }, 900 + i * 1500);
-      later(() => setLit(null), 900 + i * 1500 + 1100);
+      }, 900 + i * per);
+      later(() => setLit(null), 900 + i * per + per - 300);
     });
     later(() => {
       setShowIdx(-1);
       setPhase("input");
-      void speak(UI_PHRASES.simonYourTurn);
-    }, 900 + next.length * 1500 + 200);
+      void speak(t.simonYourTurnVoice);
+    }, 900 + next.length * per + 200);
   };
 
   const choose = (m: Move) => {
@@ -69,8 +82,7 @@ export function SimonGame() {
         sfx.star();
         progress.update((s) => ({ bestSimon: Math.max(s.bestSimon, level) }));
         progress.addEnergy(5 * level);
-        const pr = pick(PRAISE);
-        void speak(`${pr} Nível ${level + 1}!`);
+        void speak(f(t.levelUpVoice, { praise: pick(dict.praise), n: level + 1 }));
         if (level % 3 === 0) confettiBurst();
         later(() => startLevel(level + 1, seq), 1800);
       }
@@ -78,7 +90,7 @@ export function SimonGame() {
       sfx.oops();
       setFlash({ id: m.id, ok: false });
       setPhase("wrong");
-      void speak(`Quase! Era ${expected.name}. Vê outra vez.`);
+      void speak(f(t.almostWas, { name: expected.name }));
       later(() => {
         setFlash(null);
         startLevel(level, seq);
@@ -87,16 +99,17 @@ export function SimonGame() {
   };
 
   const shown = showIdx >= 0 ? seq[showIdx] : null;
-  const anim = shown ? shown.anim : phase === "input" ? "idle" : "bounce";
+  const shownClip = shown ? clipFor(shown) : null;
+  const stageStyle = styleById(shownClip?.style ?? "festa");
 
   return (
     <div className="app">
       <Topbar back="/" />
       <div className="lesson-layout">
-        <div className="stage" style={{ "--stage-c": "#fb923c", "--beat": "0.6s" } as React.CSSProperties}>
-          <Dancer move={anim} face="🦉" color="#fb923c" colorDark="#c2410c" beat={0.6} />
+        <div className={`stage ${shownClip?.url ? "video" : ""}`} style={{ "--stage-c": "#fb923c", "--beat": "0.6s" } as React.CSSProperties}>
+          <MascotView style={stageStyle} clip={shownClip?.url} poster={mascotImage(stageStyle.id)} anim={shown ? shown.anim : phase === "input" ? "idle" : "bounce"} beat={0.6} face="🦉" />
           {shown && (
-            <div className="banner" style={{ position: "absolute", bottom: 20, fontSize: "1.8rem", color: "#c2410c" }}>
+            <div className="banner" style={{ position: "absolute", bottom: 20, fontSize: "1.8rem", color: "#c2410c", zIndex: 2 }}>
               {shown.emoji} {shown.name}
             </div>
           )}
@@ -105,22 +118,30 @@ export function SimonGame() {
           {phase === "intro" ? (
             <>
               <h1 className="title" style={{ color: "#c2410c" }}>
-                Segue o Mestre 🧠
+                {t.simonTitle} 🧠
               </h1>
               <Mascot emoji="🦉" color="#fb923c">
-                Eu, o Mestre Mocho, mostro uma sequência de passos. Depois tocas nos cartões pela mesma ordem. De cada vez acrescento um passo!
+                {t.simonIntro}
               </Mascot>
               <button className="btn big orange mt" onClick={() => { sfx.whoosh(); startLevel(1, []); }}>
-                Começar! 🎵
+                {t.start} 🎵
               </button>
-              {p.bestSimon > 0 && <p className="tip">O teu recorde: nível {p.bestSimon}</p>}
+              {p.bestSimon > 0 && (
+                <p className="tip">
+                  {t.record}: {t.level.toLowerCase()} {p.bestSimon}
+                </p>
+              )}
             </>
           ) : (
             <>
               <div className="row">
-                <span className="pill">Nível {level}</span>
-                <span className="pill">{seq.length} passos</span>
-                <span className="pill">{phase === "show" ? "👀 Olha" : phase === "input" ? "👆 A tua vez" : phase === "levelup" ? "🎉 Boa!" : "🙈 Quase"}</span>
+                <span className="pill">
+                  {t.level} {level}
+                </span>
+                <span className="pill">
+                  {seq.length} {t.steps}
+                </span>
+                <span className="pill">{phase === "show" ? t.look : phase === "input" ? `👆 ${t.yourTurn}` : phase === "levelup" ? t.good : t.almost}</span>
               </div>
               <div className="dots mt">
                 {seq.map((m, i) => (
@@ -129,19 +150,14 @@ export function SimonGame() {
               </div>
               <div className="simon-grid mt">
                 {options.map((m) => (
-                  <button
-                    key={m.id}
-                    className={`simon-card ${lit === m.id ? "lit" : ""} ${flash?.id === m.id ? (flash.ok ? "good" : "bad") : ""}`}
-                    onClick={() => choose(m)}
-                    disabled={phase !== "input"}
-                  >
+                  <button key={m.id} className={`simon-card ${lit === m.id ? "lit" : ""} ${flash?.id === m.id ? (flash.ok ? "good" : "bad") : ""}`} onClick={() => choose(m)} disabled={phase !== "input"}>
                     <span className="emo">{m.emoji}</span>
                     {m.name}
                   </button>
                 ))}
               </div>
               <button className="btn ghost mt" onClick={() => go("/")}>
-                Sair
+                {t.exit}
               </button>
             </>
           )}
