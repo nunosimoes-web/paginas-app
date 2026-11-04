@@ -10,7 +10,7 @@ import { go } from "../lib/router";
 import { useProgress } from "../lib/progress";
 import { sfx } from "../audio/sfx";
 import { speak } from "../audio/voice";
-import { mascotImage } from "../lib/assets";
+import { mascotImage, mascotVideo } from "../lib/assets";
 
 export function StylePick() {
   useEffect(() => {
@@ -58,7 +58,11 @@ export function StyleDetail({ styleId }: { styleId: StyleId }) {
       <Topbar back="/estilos" />
       <div className="lesson-layout">
         <div className="stage" style={{ "--stage-c": style.colors.main } as React.CSSProperties}>
-          <Dancer move="bounce" face={style.mascot.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={60 / style.bpm} />
+          {mascotVideo(style.id) ? (
+            <video className="mascot-video" src={mascotVideo(style.id)} poster={mascotImage(style.id)} autoPlay loop muted playsInline />
+          ) : (
+            <Dancer move="bounce" face={style.mascot.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={60 / style.bpm} />
+          )}
         </div>
         <div>
           <h1 className="title" style={{ color: style.colors.dark }}>

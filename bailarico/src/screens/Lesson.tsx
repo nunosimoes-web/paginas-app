@@ -12,7 +12,7 @@ import { sfx } from "../audio/sfx";
 import { progress, useProgress } from "../lib/progress";
 import { confettiBurst } from "../lib/confetti";
 import { go } from "../lib/router";
-import { mascotImage } from "../lib/assets";
+import { mascotImage, mascotVideo } from "../lib/assets";
 
 type Phase = "intro" | "demo" | "you" | "choreo" | "done";
 
@@ -139,7 +139,11 @@ function LessonInner({ lesson }: { lesson: NonNullable<ReturnType<typeof lessonB
         <div className={`stage ${inDance ? "pulse" : ""}`} style={{ "--stage-c": style.colors.main, "--beat": `${engine.secondsPerBeat}s` } as React.CSSProperties}>
           {inDance && <div className="lights" />}
           {inDance && <CountDots beats={bpb} current={beat.beat} />}
-          <Dancer move={anim} face={style.mascot.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={engine.secondsPerBeat} />
+          {phase === "intro" && mascotVideo(style.id) ? (
+            <video className="mascot-video" src={mascotVideo(style.id)} poster={mascotImage(style.id)} autoPlay loop muted playsInline />
+          ) : (
+            <Dancer move={anim} face={style.mascot.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={engine.secondsPerBeat} />
+          )}
           <video ref={meter.videoRef} className={`cam ${meter.camera === "on" ? "" : "hidden"}`} playsInline muted />
         </div>
 
