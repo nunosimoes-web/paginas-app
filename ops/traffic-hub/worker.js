@@ -13,9 +13,16 @@ export const SITES = {
   ler:        { label: 'Lê Comigo (ferramenta)',   group: 'tools' },
   foco:       { label: 'Foco (ferramenta)',        group: 'tools' },
   saldo_app:  { label: 'Saldo (app)',              group: 'tools' },
+  sprout_app: { label: 'Sprout (app)',             group: 'tools' },
+  sprout_studio:{label: 'Sprout (studio)',          group: 'tools' },
+  ls_radar:   { label: 'LeadShortcut Radar',       group: 'tools' },
+  ls_leaks:   { label: 'Revenue Leak Radar',       group: 'tools' },
+  playlab_aulas:{label:'Playlab (aulas)',           group: 'tools' },
   tan:        { label: 'Dashboard Tan',            group: 'tools' },
   sheq:       { label: 'SHEQ One',                 group: 'tools' },
   leadshortcut:{label: 'LeadShortcut',             group: 'landings' },
+  ls_lps:     { label: 'LeadShortcut (lps)',       group: 'landings' },
+  playlab_blog:{label:'Playlab (blog)',            group: 'landings' },
   pam:        { label: 'paginasemetaforas.pt',     group: 'landings' },
   mindwink:   { label: 'Mindwink',                 group: 'landings' },
   foco_lp:    { label: 'Foco (landing)',           group: 'landings' },
@@ -31,7 +38,7 @@ export const SITES = {
   'parentclasses.org':  { label: 'parentclasses.org',     group: 'landings' },
 };
 const PUB_MAP = { mindwink: 'mindwink', foco: 'foco_lp', ler: 'ler_lp', saldo: 'saldo_lp', parenting: 'parenting' };
-const EDGE_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano' };
+const EDGE_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano', 'app.letsprout.co': 'sprout_app', 'studio.letsprout.co': 'sprout_studio', 'radar.leadshortcut.com': 'ls_radar', 'leaks.leadshortcut.com': 'ls_leaks', 'lps.leadshortcut.com': 'ls_lps', 'aulas.playlabacademy.com': 'playlab_aulas', 'blog.playlabacademy.com': 'playlab_blog' };
 const RUM_ZONES = ['gymboreeclasses.pt', 'playlabacademy.com', 'letsprout.co', 'parentclasses.org'];
 const CF_ACCOUNT = '6557c80ce116e6b15e064bf7e9a11e3c';
 const TAN = { account: '6bdaa6d2ee4012dc5d0c267b26d491bc', kv: '2b3133c2c24f482ba1c8319f46c3a7b2' };
@@ -51,9 +58,10 @@ const collectors = {
     const r = await all(env.PUB, "SELECT day, project, total FROM daily_counts WHERE event='view' AND day>=?", s);
     return r.filter(x => PUB_MAP[x.project]).map(x => ({ day: x.day, site: PUB_MAP[x.project], source: 'uniq-js', visitors: x.total, views: x.total }));
   },
+  // Same source as ler.cognixhub.com/admin ("Aberturas"): usage_daily page_open. Counts opens, not distinct people.
   async ler(env, s) {
-    const r = await all(env.LER, "SELECT substr(occurred_at,1,10) day, COUNT(DISTINCT visitor_id) v, COUNT(*) n FROM analytics_events WHERE event_type='page_view' AND visitor_id NOT IN (SELECT visitor_id FROM excluded_visitors) AND substr(occurred_at,1,10)>=? GROUP BY day", s);
-    return r.map(x => ({ day: x.day, site: 'ler', source: 'uniq-js', visitors: x.v, views: x.n }));
+    const r = await all(env.LER, "SELECT day, SUM(count) n FROM usage_daily WHERE event_type='page_open' AND day>=? GROUP BY day", s);
+    return r.map(x => ({ day: x.day, site: 'ler', source: 'opens-js', visitors: x.n, views: x.n }));
   },
   async foco(env, s) {
     const r = await all(env.FOCO, "SELECT date(created_at/1000,'unixepoch') day, COUNT(DISTINCT visitor_id) v, COUNT(*) n FROM usage_events WHERE date(created_at/1000,'unixepoch')>=? GROUP BY day", s);
@@ -97,6 +105,7 @@ const collectors = {
     const acc = {};
     for (const g of r.data.viewer.accounts[0].rumPageloadEventsAdaptiveGroups) {
       const host = g.dimensions.requestHost.replace(/^www\./, '');
+      if (host === 'api.letsprout.co') continue;
       const site = EDGE_MAP[host] || RUM_ZONES.find(z => host === z || host.endsWith('.' + z));
       if (!site || !SITES[site]) continue;
       const k = g.dimensions.date + '|' + site;
@@ -158,7 +167,7 @@ export async function collect(env) {
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = (n) => new Intl.NumberFormat('pt-PT').format(Math.round(n));
 // If a site has several sources on one day, prefer first-party JS over edge estimates.
-const RANK = { 'uniq-js': 0, 'views-js': 1, 'visits-log': 1, 'authed-edge': 1, rum: 2, 'clicks-nobot': 3 };
+const RANK = { 'uniq-js': 0, 'opens-js': 0, 'views-js': 1, 'visits-log': 1, 'authed-edge': 1, rum: 2, 'clicks-nobot': 3 };
 
 async function page(env, base) {
   const from = iso(new Date(Date.now() - 59 * 864e5));
@@ -169,7 +178,7 @@ async function page(env, base) {
   const days = [...Array(30)].map((_, i) => iso(new Date(Date.now() - (29 - i) * 864e5)));
   const sum = (site, a, b) => { let t = 0; for (let i = a; i < b; i++) t += best[site + '|' + days[i]]?.visitors || 0; return t; };
   const sumPrev = (site) => { let t = 0; for (let i = 0; i < 30; i++) t += best[site + '|' + iso(new Date(Date.now() - (59 - i) * 864e5))]?.visitors || 0; return t; };
-  const kind = (site) => { const srcs = new Set(Object.values(best).filter(r => r.site === site).map(r => r.source)); return srcs.has('uniq-js') ? 'visitantes únicos' : srcs.has('views-js') ? 'visualizações' : srcs.has('clicks-nobot') ? 'cliques humanos' : srcs.has('authed-edge') ? 'acessos com chave' : srcs.has('visits-log') ? 'visitas registadas' : srcs.has('rum') ? 'Web Analytics (amostrado)' : '—'; };
+  const kind = (site) => { const srcs = new Set(Object.values(best).filter(r => r.site === site).map(r => r.source)); return srcs.has('uniq-js') ? 'visitantes únicos' : srcs.has('opens-js') ? 'aberturas (não pessoas distintas)' : srcs.has('views-js') ? 'visualizações' : srcs.has('clicks-nobot') ? 'cliques humanos' : srcs.has('authed-edge') ? 'acessos com chave' : srcs.has('visits-log') ? 'visitas registadas' : srcs.has('rum') ? 'Web Analytics (amostrado)' : '—'; };
   const spark = (site) => {
     const v = days.map(d => best[site + '|' + d]?.visitors || 0), m = Math.max(1, ...v);
     const pts = v.map((x, i) => `${(i * 120 / 29).toFixed(1)},${(26 - x / m * 24).toFixed(1)}`).join(' ');
@@ -182,7 +191,7 @@ async function page(env, base) {
       const delta = x.p30 ? Math.round((x.d30 - x.p30) / x.p30 * 100) : null;
       return `<tr><th scope="row">${esc(x.s.label)}<small>${kind(x.id)}</small></th><td>${fmt(x.d1)}</td><td>${fmt(x.d7)}</td><td>${fmt(x.d30)}</td><td class="${delta == null ? '' : delta >= 0 ? 'up' : 'dn'}">${delta == null ? '—' : (delta >= 0 ? '+' : '') + delta + '%'}</td><td class="sp">${spark(x.id)}</td></tr>`;
     }).join('');
-    return `<section><h2>${title}</h2><p class="sub">${sub}</p><div class="tw"><table><thead><tr><th>Projeto</th><th>Ontem</th><th>7 dias</th><th>30 dias</th><th>vs 30d ant.</th><th>30 dias</th></tr></thead><tbody>${body}</tbody><tfoot><tr><th>Total</th><td>${fmt(tot('d1'))}</td><td>${fmt(tot('d7'))}</td><td>${fmt(tot('d30'))}</td><td></td><td></td></tr></tfoot></table></div></section>`;
+    return `<section><h2>${title}</h2><p class="sub">${sub}</p><div class="tw"><table><thead><tr><th>Projeto</th><th>Hoje (parcial)</th><th>7 dias</th><th>30 dias</th><th>vs 30d ant.</th><th>30 dias</th></tr></thead><tbody>${body}</tbody><tfoot><tr><th>Total</th><td>${fmt(tot('d1'))}</td><td>${fmt(tot('d7'))}</td><td>${fmt(tot('d30'))}</td><td></td><td></td></tr></tfoot></table></div></section>`;
   };
   return `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Tração</title><style>
 :root{--bg:#f6f5f1;--fg:#1b1b1a;--mu:#6b6a65;--card:#fff;--ln:#e4e2db;--up:#1d7a46;--dn:#b3402a;--ac:#1f4f8f}
