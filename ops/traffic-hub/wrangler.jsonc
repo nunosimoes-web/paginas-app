@@ -1,0 +1,21 @@
+{
+  "name": "traffic-hub",
+  "account_id": "6557c80ce116e6b15e064bf7e9a11e3c",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-31",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "traffic.cognixhub.com", "custom_domain": true }],
+  "d1_databases": [
+    { "binding": "DB",   "database_name": "traffic-hub",               "database_id": "76e307c4-cf26-47a8-85b8-3bcb1e6f5059" },
+    { "binding": "PUB",  "database_name": "cognixhub-public-metrics",  "database_id": "ac70416a-e98d-4ebc-9b90-e2ba4a9b6da3" },
+    { "binding": "LER",  "database_name": "cognixhub-ler-analytics",   "database_id": "fe239127-5826-4c99-809a-0018f4c29b5e" },
+    { "binding": "FOCO", "database_name": "foco-usage",                "database_id": "0c895e06-af25-4831-835a-8a3cf5d39dc8" },
+    { "binding": "LS",   "database_name": "leadshortcut-stats",        "database_id": "1440aa56-7c56-446a-a39c-d191da296155" },
+    { "binding": "PCGO", "database_name": "parentclasses-go",          "database_id": "977bcd10-d00b-4efe-b3d1-06658e8c2de8" },
+    { "binding": "PAM",  "database_name": "playandmusic-podcast-stats","database_id": "dd932866-82ed-4b8e-9f20-14323224bf7d" },
+    { "binding": "FOLGA","database_name": "folga-production",          "database_id": "14f81250-0eee-4412-91ca-10c8c3fabf8e" }
+  ],
+  "triggers": { "crons": ["17 5 * * *"] },
+  "observability": { "enabled": false }
+}
