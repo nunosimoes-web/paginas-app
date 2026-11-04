@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Projeto independente (Vite + Express) com a sua própria configuração.
+    "bailarico/**",
   ]),
 ]);
 

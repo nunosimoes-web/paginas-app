@@ -1,0 +1,89 @@
+import { useEffect, useState } from "react";
+import { useRoute } from "./lib/router";
+import { Home, Onboarding, Splash } from "./screens/Home";
+import { StyleDetail, StylePick } from "./screens/StylePick";
+import { Lesson } from "./screens/Lesson";
+import { FreezeGame } from "./screens/FreezeGame";
+import { SimonGame } from "./screens/SimonGame";
+import { Stage } from "./screens/Stage";
+import { Stickers } from "./screens/Stickers";
+import { Studio } from "./screens/Studio";
+import { useProgress } from "./lib/progress";
+import { ai } from "./lib/ai";
+import { loadManifest } from "./lib/assets";
+import { audioContext } from "./audio/context";
+import type { StyleId } from "../shared/types.js";
+
+const STYLE_IDS: StyleId[] = ["robo", "hiphop", "ballet", "festa", "disco"];
+
+export default function App() {
+  const route = useRoute();
+  const p = useProgress();
+  const [started, setStarted] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    Promise.all([ai.load(), loadManifest()]).finally(() => setReady(true));
+    if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [route]);
+
+  if (!started) {
+    return (
+      <Splash
+        onStart={() => {
+          audioContext();
+          setStarted(true);
+        }}
+      />
+    );
+  }
+  if (!ready) return null;
+  if (!p.name) return <Onboarding onDone={() => undefined} />;
+
+  let screen: React.ReactNode;
+  const parts = route.split("/").filter(Boolean);
+  switch (parts[0]) {
+    case "estilos":
+      screen = <StylePick />;
+      break;
+    case "estilo":
+      screen = STYLE_IDS.includes(parts[1] as StyleId) ? <StyleDetail styleId={parts[1] as StyleId} /> : <StylePick />;
+      break;
+    case "licao":
+      screen = <Lesson lessonId={parts[1] ?? ""} />;
+      break;
+    case "estatua":
+      screen = <FreezeGame />;
+      break;
+    case "mestre":
+      screen = <SimonGame />;
+      break;
+    case "palco":
+      screen = <Stage />;
+      break;
+    case "autocolantes":
+      screen = <Stickers />;
+      break;
+    case "estudio":
+      screen = <Studio />;
+      break;
+    default:
+      screen = <Home />;
+  }
+
+  return (
+    <>
+      <div className="blobs" aria-hidden="true">
+        <span className="blob" />
+        <span className="blob" />
+        <span className="blob" />
+        <span className="blob" />
+      </div>
+      {screen}
+    </>
+  );
+}
