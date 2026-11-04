@@ -83,6 +83,20 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
  * - en: ElevenLabs (via fal.ai).
  * O áudio fica em cache em disco; o mesmo texto nunca é pedido duas vezes.
  */
+/** Diagnóstico: um pedido direto ao Gemini TTS, com o corpo completo da resposta. */
+export async function probeGemini(): Promise<{ status: number; body: string; ms: number }> {
+  const p = config.tts["pt-PT"];
+  const t0 = Date.now();
+  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${p.model}:generateContent?key=${config.geminiKey}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Connection: "close" },
+    body: JSON.stringify({ contents: [{ parts: [{ text: "Olá, teste." }] }], generationConfig: { responseModalities: ["AUDIO"], speechConfig: { languageCode: "pt-PT", voiceConfig: { prebuiltVoiceConfig: { voiceName: p.voice } } } } }),
+    signal: AbortSignal.timeout(40_000),
+  });
+  const body = await r.text();
+  return { status: r.status, body: r.ok ? `ok (${body.length} bytes)` : body.slice(0, 3000), ms: Date.now() - t0 };
+}
+
 export async function synthesize(text: string, locale: Locale, priority: "live" | "background" = "live"): Promise<MediaResult> {
   const p = config.tts[locale];
   if (!p) throw new Error(`Sem voz para ${locale}`);
@@ -99,7 +113,7 @@ export async function synthesize(text: string, locale: Locale, priority: "live" 
       },
     };
     const r = await geminiQueue(() => geminiGenerate(p.model, body), priority);
-    if (!r.ok) throw new Error(`Gemini TTS ${r.status}: ${(await r.text()).slice(0, 200)}`);
+    if (!r.ok) throw new Error(`Gemini TTS ${r.status}: ${(await r.text()).replace(/\s+/g, " ").slice(0, 1500)}`);
     const data = (await r.json()) as { candidates?: { content?: { parts?: { inlineData?: { mimeType: string; data: string } }[] } }[] };
     const part = data.candidates?.[0]?.content?.parts?.find((x) => x.inlineData);
     if (!part?.inlineData) throw new Error("Gemini TTS não devolveu áudio");
