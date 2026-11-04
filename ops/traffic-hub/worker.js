@@ -17,8 +17,7 @@ export const SITES = {
   tan:          { label: 'Dashboard Tan',         group: 'tools' },
   sheq:         { label: 'SHEQ One',              group: 'tools' },
   paginas_app:  { label: 'Mindwink / Páginas (app)', group: 'tools' },
-  sprout_app:   { label: 'Sprout (app)',          group: 'tools' },
-  sprout_studio:{ label: 'Sprout (studio)',       group: 'tools' },
+  sprout_app:   { label: 'Sprout (app + studio)', group: 'tools' },
   ler:          { label: 'Lê Comigo (ferramenta)',group: 'tools' },
   foco:         { label: 'Foco (ferramenta)',     group: 'tools' },
   saldo_app:    { label: 'Saldo (app)',           group: 'tools' },
@@ -45,9 +44,12 @@ export const SITES = {
   'letsprout.co':       { label: 'letsprout.co',          group: 'landings' },
 };
 const PUB_MAP = { mindwink: 'mindwink', foco: 'foco_lp', ler: 'ler_lp', saldo: 'saldo_lp', parenting: 'parenting' };
-const HOST_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano', 'app.letsprout.co': 'sprout_app', 'studio.letsprout.co': 'sprout_studio', 'radar.leadshortcut.com': 'ls_radar', 'leaks.leadshortcut.com': 'ls_leaks', 'lps.leadshortcut.com': 'ls_lps', 'aulas.playlabacademy.com': 'playlab_aulas', 'blog.playlabacademy.com': 'playlab_blog', 'dance.playlabacademy.com': 'dance', 'missao-brilho.playlabacademy.com': 'missao_brilho' };
+const HOST_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano', 'app.letsprout.co': 'sprout_app', 'studio.letsprout.co': 'sprout_app', 'radar.leadshortcut.com': 'ls_radar', 'leaks.leadshortcut.com': 'ls_leaks', 'lps.leadshortcut.com': 'ls_lps', 'aulas.playlabacademy.com': 'playlab_aulas', 'blog.playlabacademy.com': 'playlab_blog', 'dance.playlabacademy.com': 'dance', 'missao-brilho.playlabacademy.com': 'missao_brilho' };
 const RUM_ZONES = ['gymboreeclasses.pt', 'playlabacademy.com', 'letsprout.co', 'parentclasses.org'];
-const EDGE_HOSTS = { 'cognixhub.com': ['soa.cognixhub.com', 'anft.cognixhub.com'], 'leadshortcut.com': ['radar.leadshortcut.com', 'leaks.leadshortcut.com', 'lps.leadshortcut.com'], 'letsprout.co': ['studio.letsprout.co'], 'playlabacademy.com': ['dance.playlabacademy.com', 'missao-brilho.playlabacademy.com'] };
+// Only hosts where an edge HTML 200 means a person: SOA/ANFT sit behind a key (anything else gets 401).
+// Radar, Revenue Leak, LPS and Sprout Studio are single-page apps that answer 200 with index.html on any
+// path, so their edge counts were scanner probes (verified 2026-11-04: 1 request from PT in 14 days).
+const EDGE_HOSTS = { 'cognixhub.com': ['soa.cognixhub.com', 'anft.cognixhub.com'] };
 const KEYED = new Set(['soa.cognixhub.com', 'anft.cognixhub.com']);
 const NOISE = /\/(favicon\.ico|robots\.txt|sitemap[^/]*\.xml|ads\.txt|manifest\.json|sw\.js)$|\.(xml|txt|json|js|css|png|jpg|svg|ico|webmanifest)$/i;
 // Source quality, best first. One row per site/day wins.
