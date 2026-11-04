@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { MoveAnim } from "../../shared/moves.js";
+import type { MoveAnim } from "../../shared/catalog.js";
 
 interface Props {
   move: MoveAnim;

@@ -2,17 +2,21 @@ import { useEffect, useState, type ReactNode } from "react";
 import { go } from "../lib/router";
 import { sfx } from "../audio/sfx";
 import { useProgress, totalStars } from "../lib/progress";
-import { isVoiceMuted, setVoiceMuted } from "../audio/voice";
+import { isVoiceMuted, setVoiceMuted, stopVoice } from "../audio/voice";
+import { useI18n } from "../lib/i18n";
+import { DICTS } from "../../shared/i18n/index.js";
 
 export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
   const p = useProgress();
+  const { t, locale, locales, setLocale } = useI18n();
   const [muted, setMuted] = useState(isVoiceMuted());
+  const nextLocale = locales[(locales.indexOf(locale) + 1) % locales.length];
   return (
     <header className="topbar">
       {back ? (
         <button
           className="iconbtn"
-          aria-label="Voltar"
+          aria-label={t.back}
           onClick={() => {
             sfx.tap();
             go(back);
@@ -22,7 +26,7 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
         </button>
       ) : (
         <a className="brand" href="#/">
-          <span className="logo">💃</span> Bailarico
+          <span className="logo">💃</span> {t.appName}
         </a>
       )}
       <div className="row">
@@ -33,9 +37,21 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
           </span>
         )}
         <button
+          className="iconbtn lang"
+          aria-label={`${t.language}: ${DICTS[nextLocale].name}`}
+          title={DICTS[nextLocale].name}
+          onClick={() => {
+            stopVoice();
+            sfx.tap();
+            setLocale(nextLocale);
+          }}
+        >
+          {DICTS[locale].flag}
+        </button>
+        <button
           className="iconbtn"
-          aria-label={muted ? "Ligar voz" : "Desligar voz"}
-          title={muted ? "Ligar voz" : "Desligar voz"}
+          aria-label={muted ? t.voiceOff : t.voiceOn}
+          title={muted ? t.voiceOff : t.voiceOn}
           onClick={() => {
             setVoiceMuted(!muted);
             setMuted(!muted);
@@ -50,7 +66,7 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
 
 export function Stars({ n, big }: { n: number; big?: boolean }) {
   return (
-    <span className={`stars ${big ? "big" : ""}`} aria-label={`${n} estrelas`}>
+    <span className={`stars ${big ? "big" : ""}`} aria-label={`${n} ★`}>
       {[0, 1, 2].map((i) => (
         <span key={i} className={i < n ? "" : "off"}>
           ⭐
@@ -61,11 +77,12 @@ export function Stars({ n, big }: { n: number; big?: boolean }) {
 }
 
 export function Energy({ value, label }: { value: number; label?: string }) {
+  const { t } = useI18n();
   const pct = Math.round(Math.max(0, Math.min(1, value)) * 100);
   return (
     <div className="energy" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
       <div className="fill" style={{ width: `${pct}%` }} />
-      <div className="label">{label ?? `Energia ${pct}%`}</div>
+      <div className="label">{label ?? `${t.energy} ${pct}%`}</div>
     </div>
   );
 }
@@ -102,7 +119,6 @@ export function CountDots({ beats, current }: { beats: number; current: number }
   );
 }
 
-/** Contagem decrescente 3-2-1 antes de começar. */
 export function useCountdown(active: boolean, onDone: () => void) {
   const [n, setN] = useState(3);
   useEffect(() => {
@@ -128,9 +144,10 @@ export function useCountdown(active: boolean, onDone: () => void) {
 }
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="foot">
-      Feito com 💜 para dançar em família · Sem registo, sem anúncios, sem recolha de dados ·{" "}
+      {t.footer} ·{" "}
       <a href="https://playlabacademy.com" target="_blank" rel="noreferrer">
         PlayLab Academy
       </a>

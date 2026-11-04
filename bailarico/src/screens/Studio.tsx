@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { STYLES } from "../../shared/styles.js";
-import { UI_PHRASES } from "../../shared/phrases.js";
+import { useEffect, useRef, useState } from "react";
 import type { AiStatus, StyleId } from "../../shared/types.js";
 import { Footer, Loading, Mascot, Topbar } from "../components/ui";
 import { ai } from "../lib/ai";
@@ -8,13 +6,15 @@ import { speak } from "../audio/voice";
 import { sfx } from "../audio/sfx";
 import { useProgress } from "../lib/progress";
 import { confettiBurst } from "../lib/confetti";
+import { useI18n } from "../lib/i18n";
+import { mascotImage, styleMusic } from "../lib/assets";
 
 /* ---------- galeria local (só neste aparelho) ---------- */
 export interface Gallery {
   dancers: { id: string; url: string; desc: string; video?: string }[];
-  songs: { url: string; title: string; style: StyleId }[];
+  songs: { style: StyleId; name: string }[];
 }
-const GKEY = "bailarico.gallery.v1";
+const GKEY = "bailarico.gallery.v2";
 export function loadGallery(): Gallery {
   try {
     return { dancers: [], songs: [], ...(JSON.parse(localStorage.getItem(GKEY) || "{}") as Partial<Gallery>) };
@@ -30,60 +30,46 @@ function saveGallery(g: Gallery) {
   }
 }
 
-/* ---------- portão para adultos ---------- */
 function ParentGate({ onPass }: { onPass: () => void }) {
+  const { t } = useI18n();
   const [q] = useState(() => {
     const a = 3 + Math.floor(Math.random() * 6);
     const b = 4 + Math.floor(Math.random() * 6);
     return { a, b, ans: a * b };
   });
-  const options = [q.ans, q.ans + 3, q.ans - 4, q.ans + 10].sort(() => Math.random() - 0.5);
+  const [options] = useState(() => [q.ans, q.ans + 3, q.ans - 4, q.ans + 10].sort(() => Math.random() - 0.5));
   const [wrong, setWrong] = useState(false);
   return (
     <div className="card gate center">
       <div style={{ fontSize: "3rem" }}>🔒</div>
-      <h2>Zona para adultos</h2>
-      <p className="subtitle">O Estúdio Mágico usa inteligência artificial (fal.ai) e tem um custo por criação. Pede a um adulto para responder:</p>
+      <h2>{t.gateTitle}</h2>
+      <p className="subtitle">{t.gateText}</p>
       <div className="q">
         {q.a} × {q.b} = ?
       </div>
       <div className="answers">
         {options.map((o) => (
-          <button
-            key={o}
-            className="btn white"
-            onClick={() => {
-              if (o === q.ans) {
-                sfx.star();
-                onPass();
-              } else {
-                sfx.oops();
-                setWrong(true);
-              }
-            }}
-          >
+          <button key={o} className="btn white" onClick={() => (o === q.ans ? (sfx.star(), onPass()) : (sfx.oops(), setWrong(true)))}>
             {o}
           </button>
         ))}
       </div>
-      {wrong && <p className="tip">Hmm, não é essa. Tenta outra vez.</p>}
+      {wrong && <p className="tip">{t.gateWrong}</p>}
     </div>
   );
 }
 
-const IDEAS = ["um dragão com ténis dourados", "uma girafa de tutu", "um gato astronauta", "um polvo DJ", "uma abelha bailarina", "um robô de pijama", "um unicórnio surfista", "um tubarão de óculos de sol"];
-
 export function Studio() {
-  const p = useProgress();
+  const { t } = useI18n();
   const [status, setStatus] = useState<AiStatus | null | undefined>(undefined);
   const [open, setOpen] = useState(() => sessionStorage.getItem("bailarico.gate") === "1");
   const [tab, setTab] = useState<"dancer" | "song">("dancer");
   const [gallery, setGallery] = useState<Gallery>(loadGallery);
 
   useEffect(() => {
-    void speak(UI_PHRASES.studioIntro);
+    void speak(t.studioIntroVoice);
     void ai.refreshStatus().then(setStatus);
-  }, []);
+  }, [t]);
 
   const update = (g: Gallery) => {
     setGallery(g);
@@ -94,16 +80,14 @@ export function Studio() {
     <div className="app">
       <Topbar back="/" />
       <h1 className="title center">
-        Estúdio <span className="rainbow">Mágico</span> 🪄
+        <span className="rainbow">{t.studioHeading}</span> 🪄
       </h1>
-      {status === undefined && <Loading text="A acordar a magia..." />}
+      {status === undefined && <Loading text={t.waking} />}
       {status === null || (status && !status.enabled) ? (
         <div className="notice center" style={{ maxWidth: 560, margin: "0 auto" }}>
           <div style={{ fontSize: "3rem" }}>😴</div>
-          <h2>O Estúdio está a dormir</h2>
-          <p>
-            Para criar dançarinos, vídeos e músicas com inteligência artificial, um adulto precisa de ligar a chave <b>fal.ai</b> no servidor (variável <code>FAL_KEY</code>). Tudo o resto no Bailarico funciona na perfeição sem isso!
-          </p>
+          <h2>{t.sleeping}</h2>
+          <p>{t.sleepingText}</p>
         </div>
       ) : null}
       {status?.enabled && !open && (
@@ -116,17 +100,15 @@ export function Studio() {
       )}
       {status?.enabled && open && (
         <>
-          <div className="tabs center" style={{ justifyContent: "center" }}>
+          <div className="tabs" style={{ justifyContent: "center" }}>
             <button className={`tab ${tab === "dancer" ? "on" : ""}`} onClick={() => setTab("dancer")}>
-              🎨 O meu dançarino
+              {t.tabDancer}
             </button>
             <button className={`tab ${tab === "song" ? "on" : ""}`} onClick={() => setTab("song")}>
-              🎶 Música com o meu nome
+              {t.tabSong}
             </button>
           </div>
-          <div className="mt">
-            {tab === "dancer" ? <DancerMaker status={status} gallery={gallery} update={update} /> : <SongMaker status={status} name={p.name} gallery={gallery} update={update} />}
-          </div>
+          <div className="mt">{tab === "dancer" ? <DancerMaker status={status} gallery={gallery} update={update} /> : <SongMaker gallery={gallery} update={update} />}</div>
         </>
       )}
       <Footer />
@@ -135,10 +117,12 @@ export function Studio() {
 }
 
 function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: Gallery; update: (g: Gallery) => void }) {
+  const { t, f, styles } = useI18n();
   const [desc, setDesc] = useState("");
   const [busy, setBusy] = useState<"" | "image" | "video">("");
   const [err, setErr] = useState("");
   const [current, setCurrent] = useState<Gallery["dancers"][number] | null>(gallery.dancers[0] ?? null);
+  const festa = styles.find((s) => s.id === "festa")!;
 
   const create = async () => {
     setErr("");
@@ -151,7 +135,7 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
       update({ ...gallery, dancers: [d, ...gallery.dancers.filter((x) => x.id !== d.id)].slice(0, 24) });
       sfx.star();
       confettiBurst({ count: 80 });
-      void speak(`Uau! Aqui está ${desc}! Queres dar-lhe vida?`);
+      void speak(f(t.createdVoice, { desc }));
       void ai.refreshStatus();
     } catch (e) {
       setErr((e as Error).message);
@@ -165,7 +149,7 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
     if (!current) return;
     setErr("");
     setBusy("video");
-    void speak("A câmara mágica está a filmar. Isto demora um ou dois minutos!");
+    void speak(t.filmingVoice);
     try {
       const r = await ai.animate(current.id);
       const d = { ...current, video: r.url };
@@ -173,7 +157,7 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
       update({ ...gallery, dancers: gallery.dancers.map((x) => (x.id === d.id ? d : x)) });
       sfx.fanfare();
       confettiBurst();
-      void speak("Está vivo! Olha como dança!");
+      void speak(t.aliveVoice);
     } catch (e) {
       setErr((e as Error).message);
       sfx.oops();
@@ -185,12 +169,12 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
   return (
     <div className="grid two">
       <div className="card">
-        <Mascot emoji="🦜" color="#fb923c">
-          Descreve o teu dançarino! Por exemplo: <i>um dragão com ténis dourados</i>.
+        <Mascot emoji={festa.emoji} image={mascotImage("festa")} color={festa.colors.main}>
+          {t.dancerPrompt}
         </Mascot>
-        <input className="input mt" value={desc} maxLength={140} placeholder="O meu dançarino é..." onChange={(e) => setDesc(e.target.value)} onKeyDown={(e) => e.key === "Enter" && desc.trim().length >= 3 && !busy && create()} />
+        <input className="input mt" value={desc} maxLength={140} placeholder={t.dancerPlaceholder} onChange={(e) => setDesc(e.target.value)} onKeyDown={(e) => e.key === "Enter" && desc.trim().length >= 3 && !busy && create()} />
         <div className="chips mt">
-          {IDEAS.map((i) => (
+          {t.ideas.map((i) => (
             <button key={i} className="chip" onClick={() => setDesc(i)}>
               {i}
             </button>
@@ -198,9 +182,11 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
         </div>
         <div className="row mt">
           <button className="btn big pink" disabled={!!busy || desc.trim().length < 3 || status.quotas.imagesLeft <= 0} onClick={create}>
-            {busy === "image" ? <Loading text="A pintar..." /> : "Criar! 🎨"}
+            {busy === "image" ? <Loading text={t.painting} /> : t.create}
           </button>
-          <span className="tip">{status.quotas.imagesLeft} criações hoje</span>
+          <span className="tip">
+            {status.quotas.imagesLeft} {t.creationsToday}
+          </span>
         </div>
         {err && <p className="notice mt">{err}</p>}
       </div>
@@ -211,15 +197,19 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
             <p className="subtitle mt">{current.desc}</p>
             {!current.video && (
               <button className="btn purple" disabled={!!busy || status.quotas.videosLeft <= 0} onClick={animate}>
-                {busy === "video" ? <Loading text="A dar vida (1-2 min)..." /> : "🎬 Dá-lhe vida!"}
+                {busy === "video" ? <Loading text={t.givingLife} /> : t.giveLife}
               </button>
             )}
-            {!current.video && <p className="tip">{status.quotas.videosLeft} vídeos disponíveis hoje</p>}
+            {!current.video && (
+              <p className="tip">
+                {status.quotas.videosLeft} {t.videosToday}
+              </p>
+            )}
           </>
         ) : (
           <div style={{ padding: 30 }}>
             <div style={{ fontSize: "4rem" }}>🖼️</div>
-            <p className="subtitle">O teu dançarino vai aparecer aqui.</p>
+            <p className="subtitle">{t.dancerHere}</p>
           </div>
         )}
         {gallery.dancers.length > 1 && (
@@ -234,76 +224,86 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
   );
 }
 
-function SongMaker({ status, name, gallery, update }: { status: AiStatus; name: string; gallery: Gallery; update: (g: Gallery) => void }) {
+/** Música com o nome: a voz do Bailarico dedica a música à criança e depois toca a faixa do estilo. */
+function SongMaker({ gallery, update }: { gallery: Gallery; update: (g: Gallery) => void }) {
+  const { t, f, styles, styleById } = useI18n();
+  const p = useProgress();
   const [styleId, setStyleId] = useState<StyleId>("festa");
   const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState("");
   const [current, setCurrent] = useState<Gallery["songs"][number] | null>(gallery.songs[0] ?? null);
-  const style = STYLES.find((s) => s.id === styleId)!;
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const style = styleById(styleId);
+  const disco = styles.find((s) => s.id === "disco")!;
+  useEffect(() => () => audio.current?.pause(), []);
+
+  const play = async (s: Gallery["songs"][number]) => {
+    const st = styleById(s.style);
+    setBusy(true);
+    audio.current?.pause();
+    await speak(f(t.dedication, { name: s.name }));
+    const track = styleMusic(s.style);
+    if (track) {
+      const a = (audio.current ??= new Audio());
+      a.src = track;
+      a.loop = false;
+      void a.play().catch(() => undefined);
+    }
+    void st;
+    setBusy(false);
+  };
 
   const create = async () => {
-    setErr("");
-    setBusy(true);
     sfx.whoosh();
-    void speak(`A banda está a compor uma música ${style.name} para ${name}. Demora um bocadinho!`);
-    try {
-      const r = await ai.song(name, styleId);
-      const s = { url: r.url, title: `${style.name} para ${name}`, style: styleId };
-      setCurrent(s);
-      update({ ...gallery, songs: [s, ...gallery.songs.filter((x) => x.url !== s.url)].slice(0, 12) });
-      sfx.fanfare();
-      confettiBurst();
-      void ai.refreshStatus();
-    } catch (e) {
-      setErr((e as Error).message);
-      sfx.oops();
-    } finally {
-      setBusy(false);
-    }
+    confettiBurst({ count: 60 });
+    const s = { style: styleId, name: p.name };
+    setCurrent(s);
+    update({ ...gallery, songs: [s, ...gallery.songs.filter((x) => !(x.style === s.style && x.name === s.name))].slice(0, 12) });
+    await play(s);
   };
 
   return (
     <div className="grid two">
       <div className="card">
-        <Mascot emoji="🦖" color="#facc15">
-          Vamos fazer uma música só para ti, {name}! Escolhe o estilo:
+        <Mascot emoji={disco.emoji} image={mascotImage("disco")} color={disco.colors.main}>
+          {f(t.songPrompt, { name: p.name })}
         </Mascot>
         <div className="chips mt">
-          {STYLES.map((s) => (
+          {styles.map((s) => (
             <button key={s.id} className="chip" style={s.id === styleId ? { background: s.colors.main, color: "#fff" } : undefined} onClick={() => setStyleId(s.id)}>
-              {s.mascot.emoji} {s.name}
+              {s.emoji} {s.name}
             </button>
           ))}
         </div>
-        <div className="row mt">
-          <button className="btn big yellow" disabled={busy || status.quotas.songsLeft <= 0} onClick={create}>
-            {busy ? <Loading text="A compor (1-3 min)..." /> : "Compor a minha música! 🎶"}
-          </button>
-          <span className="tip">{status.quotas.songsLeft} músicas hoje</span>
-        </div>
-        {err && <p className="notice mt">{err}</p>}
+        <button className="btn big yellow mt" disabled={busy} onClick={create}>
+          {busy ? <Loading text={t.composing} /> : t.composeSong}
+        </button>
+        <p className="tip">{t.songNote}</p>
       </div>
       <div className="card center">
         {current ? (
           <>
             <div style={{ fontSize: "4rem" }}>🎶</div>
-            <h2>{current.title}</h2>
-            <audio src={current.url} controls autoPlay style={{ width: "100%" }} />
-            <a className="btn teal mt" href="#/palco">
-              💃 Dançar com esta música
-            </a>
+            <h2>{f(t.songTitle, { style: styleById(current.style).name, name: current.name })}</h2>
+            <div className="row center">
+              <button className="btn white" onClick={() => play(current)}>
+                ▶️
+              </button>
+              <a className="btn teal" href="#/palco">
+                {t.danceWithSong}
+              </a>
+            </div>
           </>
         ) : (
           <div style={{ padding: 30 }}>
             <div style={{ fontSize: "4rem" }}>🎵</div>
-            <p className="subtitle">A tua música vai aparecer aqui.</p>
+            <p className="subtitle">{t.songHere}</p>
           </div>
         )}
         {gallery.songs.length > 1 && (
           <div className="chips mt" style={{ justifyContent: "center" }}>
             {gallery.songs.map((s) => (
-              <button key={s.url} className="chip" onClick={() => setCurrent(s)}>
-                {s.title}
+              <button key={s.style + s.name} className="chip" onClick={() => setCurrent(s)}>
+                {f(t.songTitle, { style: styleById(s.style).name, name: s.name })}
               </button>
             ))}
           </div>
@@ -311,4 +311,5 @@ function SongMaker({ status, name, gallery, update }: { status: AiStatus; name: 
       </div>
     </div>
   );
+  void style;
 }

@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { STYLES } from "../../shared/styles.js";
-import { UI_PHRASES } from "../../shared/phrases.js";
-import { Dancer } from "../components/Dancer";
 import { Footer, Mascot, Topbar } from "../components/ui";
 import { go } from "../lib/router";
 import { progress, useProgress, totalStars } from "../lib/progress";
@@ -9,43 +6,29 @@ import { sfx } from "../audio/sfx";
 import { speak, warmup } from "../audio/voice";
 import { ai } from "../lib/ai";
 import { mascotImage } from "../lib/assets";
+import { useI18n } from "../lib/i18n";
 
 const AVATARS = ["⭐", "🦄", "🐯", "🐸", "🦊", "🐼", "🐙", "🦋", "🐨", "🚀", "🌈", "🍉"];
 
 export function Onboarding({ onDone }: { onDone: () => void }) {
+  const { t } = useI18n();
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("⭐");
   useEffect(() => {
-    void speak(UI_PHRASES.askName);
-  }, []);
+    void speak(t.askName);
+  }, [t]);
   return (
     <div className="app">
       <Topbar />
       <div className="card center" style={{ maxWidth: 560, margin: "20px auto", width: "100%" }}>
         <div style={{ fontSize: "4rem" }}>{avatar}</div>
-        <h1 className="title">Como te chamas?</h1>
-        <p className="subtitle">Para a Rita, o Hugo e os amigos te chamarem pelo nome.</p>
-        <input
-          className="input center"
-          placeholder="O teu nome"
-          maxLength={20}
-          value={name}
-          autoFocus
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && name.trim() && onDone()}
-        />
-        <p className="subtitle mt">Escolhe o teu símbolo:</p>
+        <h1 className="title">{t.askName}</h1>
+        <p className="subtitle">{t.askNameSub}</p>
+        <input className="input center" placeholder={t.namePlaceholder} maxLength={20} value={name} autoFocus onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && name.trim() && onDone()} />
+        <p className="subtitle mt">{t.pickSymbol}</p>
         <div className="avatars">
           {AVATARS.map((a) => (
-            <button
-              key={a}
-              className={a === avatar ? "on" : ""}
-              onClick={() => {
-                sfx.tap();
-                setAvatar(a);
-              }}
-              aria-label={`Símbolo ${a}`}
-            >
+            <button key={a} className={a === avatar ? "on" : ""} onClick={() => { sfx.tap(); setAvatar(a); }} aria-label={a}>
               {a}
             </button>
           ))}
@@ -59,7 +42,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
             onDone();
           }}
         >
-          Vamos dançar! 🎉
+          {t.letsDance} 🎉
         </button>
       </div>
     </div>
@@ -68,86 +51,86 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
 
 export function Home() {
   const p = useProgress();
+  const { t, f, styles, locale } = useI18n();
   const [aiOn, setAiOn] = useState(false);
   useEffect(() => {
     void ai.load().then((s) => setAiOn(!!s?.enabled));
-    const first = sessionStorage.getItem("bailarico.welcomed") !== "1";
-    if (first) {
-      sessionStorage.setItem("bailarico.welcomed", "1");
-      void speak(p.name ? `Olá, ${p.name}! Bem-vindo ao Bailarico! Escolhe o que queres fazer.` : UI_PHRASES.welcome);
+    const key = "bailarico.welcomed." + locale;
+    if (sessionStorage.getItem(key) !== "1") {
+      sessionStorage.setItem(key, "1");
+      void speak(p.name ? f(t.welcomeBack, { name: p.name }) : t.welcome);
     }
-    warmup([UI_PHRASES.pickStyle, UI_PHRASES.watch, UI_PHRASES.yourTurn]);
-  }, [p.name]);
+    warmup([t.pickStyleVoice, t.watch, t.yourTurn]);
+  }, [p.name, t, f, locale]);
 
   const menu = (path: string) => () => {
     sfx.whoosh();
     go(path);
   };
+  const robo = styles[0];
 
   return (
     <div className="app">
       <Topbar />
       <section className="center">
         <h1 className="title">
-          Olá, <span className="rainbow">{p.name || "dançarino"}</span>!
+          {f(t.hello, { name: "" }).replace(/\s*[!,]*\s*$/, "")} <span className="rainbow">{p.name || "…"}</span>!
         </h1>
-        <p className="subtitle">O que vamos dançar hoje?</p>
-        <div className="parade" aria-hidden="true">
-          {STYLES.map((s, i) => (
-            <Dancer
-              key={s.id}
-              move={(["bounce", "robo", "pontas", "anca", "apontar"] as const)[i]}
-              face={s.mascot.emoji}
-              color={s.colors.main}
-              colorDark={s.colors.dark}
-              beat={60 / s.bpm}
-            />
-          ))}
+        <p className="subtitle">{t.whatToday}</p>
+        <div className="hero-mascots" aria-hidden="true">
+          {styles.map((s) => {
+            const img = mascotImage(s.id);
+            return (
+              <button key={s.id} className="b" style={{ border: 0, background: "none", padding: 0, cursor: "pointer" }} onClick={menu(`/estilo/${s.id}`)} title={s.mascotName}>
+                {img ? <img src={img} alt={s.mascotName} /> : <span className="emo">{s.emoji}</span>}
+              </button>
+            );
+          })}
         </div>
       </section>
 
       <div className="grid two mt">
         <button className="menu-card" style={{ "--c": "#a855f7" } as React.CSSProperties} onClick={menu("/estilos")}>
           <span className="emoji">🕺</span>
-          <h3>Aprender a dançar</h3>
-          <p>5 estilos, 15 lições, 20 passos. Com a Rita Robô, o Hugo e os amigos.</p>
+          <h3>{t.learnTitle}</h3>
+          <p>{t.learnDesc}</p>
           <span className="badge">⭐ {totalStars(p)}/45</span>
         </button>
         <button className="menu-card" style={{ "--c": "#60a5fa" } as React.CSSProperties} onClick={menu("/estatua")}>
           <span className="emoji">🗿</span>
-          <h3>Estátua!</h3>
-          <p>Dança quando há música. Quando para... ninguém se mexe!</p>
-          {p.bestFreeze > 0 && <span className="badge">Recorde: {p.bestFreeze}</span>}
+          <h3>{t.freezeTitle}</h3>
+          <p>{t.freezeDesc}</p>
+          {p.bestFreeze > 0 && <span className="badge">{t.record}: {p.bestFreeze}</span>}
         </button>
         <button className="menu-card" style={{ "--c": "#fb923c" } as React.CSSProperties} onClick={menu("/mestre")}>
           <span className="emoji">🧠</span>
-          <h3>Segue o Mestre</h3>
-          <p>Vê os passos e repete-os pela ordem certa. Até onde chegas?</p>
-          {p.bestSimon > 0 && <span className="badge">Nível {p.bestSimon}</span>}
+          <h3>{t.simonTitle}</h3>
+          <p>{t.simonDesc}</p>
+          {p.bestSimon > 0 && <span className="badge">{t.level} {p.bestSimon}</span>}
         </button>
         <button className="menu-card" style={{ "--c": "#2dd4bf" } as React.CSSProperties} onClick={menu("/palco")}>
           <span className="emoji">🎤</span>
-          <h3>Palco Livre</h3>
-          <p>Música a tocar, luzes ligadas. Dança à tua maneira e enche a energia!</p>
+          <h3>{t.stageTitle}</h3>
+          <p>{t.stageDesc}</p>
           <span className="badge">⚡ {p.energy}</span>
         </button>
         <button className="menu-card" style={{ "--c": "#facc15", color: "#422006" } as React.CSSProperties} onClick={menu("/autocolantes")}>
           <span className="emoji">🏅</span>
-          <h3>Autocolantes</h3>
-          <p>A tua coleção de prémios.</p>
+          <h3>{t.stickersTitle}</h3>
+          <p>{t.stickersDesc}</p>
           <span className="badge">{p.stickers.length}/15</span>
         </button>
         <button className="menu-card" style={{ "--c": "#f472b6" } as React.CSSProperties} onClick={menu("/estudio")}>
           <span className="emoji">🪄</span>
-          <h3>Estúdio Mágico</h3>
-          <p>Cria o teu próprio dançarino e uma música com o teu nome.</p>
-          <span className="badge">{aiOn ? "✨ IA ligada" : "com um adulto"}</span>
+          <h3>{t.studioTitle}</h3>
+          <p>{t.studioDesc}</p>
+          <span className="badge">{aiOn ? t.aiOn : t.withAdult}</span>
         </button>
       </div>
 
       <div className="mt">
-        <Mascot emoji="🤖" image={mascotImage("robo")} color="#2dd4bf">
-          Dica da Rita Robô: dança com os sapatos descalços ou com meias antiderrapantes, e afasta as cadeiras. Bip bop!
+        <Mascot emoji={robo.emoji} image={mascotImage("robo")} color={robo.colors.main}>
+          {t.homeTip}
         </Mascot>
       </div>
       <Footer />
@@ -156,12 +139,13 @@ export function Home() {
 }
 
 export function Splash({ onStart }: { onStart: () => void }) {
+  const { t } = useI18n();
   return (
     <div className="splash">
       <div>
         <div className="logo-big">💃</div>
-        <h1>Bailarico</h1>
-        <p>A escola de dança mais divertida do mundo</p>
+        <h1>{t.appName}</h1>
+        <p>{t.tagline}</p>
         <button
           className="btn huge white"
           onClick={() => {
@@ -169,7 +153,7 @@ export function Splash({ onStart }: { onStart: () => void }) {
             onStart();
           }}
         >
-          Toca para começar 🎵
+          {t.tapToStart} 🎵
         </button>
       </div>
     </div>

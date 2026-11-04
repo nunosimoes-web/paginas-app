@@ -1,11 +1,10 @@
 import { config } from "./config.js";
 
 /** Limites diários simples, em memória, para evitar surpresas na fatura do fal.ai. */
-type Kind = "images" | "videos" | "songs";
+type Kind = "images" | "videos";
 const used: Record<Kind, { day: string; n: number }> = {
   images: { day: "", n: 0 },
   videos: { day: "", n: 0 },
-  songs: { day: "", n: 0 },
 };
 
 const today = () => new Date().toISOString().slice(0, 10);

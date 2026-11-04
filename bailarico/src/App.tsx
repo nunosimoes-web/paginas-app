@@ -12,13 +12,15 @@ import { useProgress } from "./lib/progress";
 import { ai } from "./lib/ai";
 import { loadManifest } from "./lib/assets";
 import { audioContext } from "./audio/context";
-import type { StyleId } from "../shared/types.js";
+import { I18nProvider, useI18n } from "./lib/i18n";
+import { LOCALES, type StyleId } from "../shared/types.js";
 
 const STYLE_IDS: StyleId[] = ["robo", "hiphop", "ballet", "festa", "disco"];
 
-export default function App() {
+function Shell() {
   const route = useRoute();
   const p = useProgress();
+  const { locale } = useI18n();
   const [started, setStarted] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -26,7 +28,6 @@ export default function App() {
     Promise.all([ai.load(), loadManifest()]).finally(() => setReady(true));
     if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
   }, []);
-
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [route]);
@@ -76,7 +77,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <div key={locale}>
       <div className="blobs" aria-hidden="true">
         <span className="blob" />
         <span className="blob" />
@@ -84,6 +85,15 @@ export default function App() {
         <span className="blob" />
       </div>
       {screen}
-    </>
+    </div>
+  );
+}
+
+export default function App() {
+  void LOCALES;
+  return (
+    <I18nProvider>
+      <Shell />
+    </I18nProvider>
   );
 }

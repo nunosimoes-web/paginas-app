@@ -1,9 +1,26 @@
 # 💃 Bailarico
 
 **A escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos.**
-Aberta a todos: sem registo, sem anúncios, sem recolha de dados. Em português de Portugal.
+Aberta a todos: sem registo, sem anúncios, sem recolha de dados.
 
-Produção: https://bailarico.playlabacademy.com
+| Versão | URL | Notas |
+|---|---|---|
+| **v2 (atual)** | https://dance.playlabacademy.com | Multilingue (pt-PT por omissão, inglês), voz portuguesa de Portugal, mascotes e passos em vídeo 3D gerados por IA. |
+| v1 (congelada) | https://bailarico.playlabacademy.com | Primeira versão, mantida à parte sem alterações (app Coolify fixada no commit `19fb3d8`). |
+
+## Línguas
+
+Todo o texto e todas as frases faladas vivem em `shared/i18n/<língua>.ts` (`pt-PT`, `en`). Acrescentar uma língua =
+copiar `en.ts`, traduzir, registar em `shared/i18n/index.ts` e escolher um fornecedor de voz em `server/config.ts`.
+A língua é escolhida por `?lang=`, pela preferência guardada ou pelo browser; há um botão de bandeira no topo.
+
+### Voz: porquê Gemini para pt-PT
+Todos os modelos de voz do fal.ai (ElevenLabs, MiniMax, Chatterbox) e todos os modelos de música com letra
+produziram **sotaque brasileiro** em português, confirmado por avaliação fonética automática (Gemini 3.1 Pro a
+transcrever e classificar amostras, com controlo brasileiro). O único que passou foi o **Gemini TTS** com
+`languageCode: "pt-PT"` (voz *Leda*): texto puro, sem instruções no prompt, para não as ler em voz alta.
+Por isso a voz pt-PT usa `GEMINI_API_KEY`; o inglês usa ElevenLabs via fal.ai; imagens, vídeos e música ficam no fal.ai.
+As "músicas com o meu nome" são instrumentais (Lyria 2) dedicadas pela voz do Bailarico, em vez de cantadas em pt-BR.
 
 ## O que tem
 
@@ -20,9 +37,15 @@ Produção: https://bailarico.playlabacademy.com
 Com a câmara ligada, a app mede quanto a criança se mexe comparando frames (sem bibliotecas, sem
 rede: a imagem nunca sai do aparelho). Sem câmara, há um grande botão "Bate o ritmo!".
 
+### Mascotes e passos em vídeo
+Os cinco professores são renders em estilo de filme de animação 3D (Nano Banana 2) e **cada passo de cada estilo tem um
+clip de 5 s** do mascote a executá-lo (Kling v3, imagem→vídeo a partir do render, para manter a personagem), mais um
+clip de boas-vindas por mascote: 45 clips. As lições, a Estátua, o Segue o Mestre e o Palco Livre usam estes vídeos;
+o dançarino SVG animado fica apenas como recurso quando um clip não existe.
+
 ### Música e voz
-- **Sempre:** bateria + baixo + acordes sintetizados em WebAudio, com padrão e BPM por estilo (incluindo valsa em 3 tempos para o ballet), e voz do browser em pt-PT.
-- **Com fal.ai:** vozes ElevenLabs (pt), mascotes ilustrados (Nano Banana 2), vídeos dos mascotes a dançar (Kling v3), músicas por estilo (Lyria 2) e canções personalizadas com letra (MiniMax Music 2.6). Tudo é guardado em cache no servidor; o fal só é chamado uma vez por cada pedido único.
+- **Sempre:** bateria + baixo + acordes sintetizados em WebAudio, com padrão e BPM por estilo (incluindo valsa em 3 tempos para o ballet); voz do browser só se existir uma voz exatamente da língua certa (nunca pt-BR para pt-PT).
+- **Com chaves:** voz Gemini (pt-PT) / ElevenLabs (en), músicas instrumentais por estilo (Lyria 2). Tudo em cache no servidor; cada pedido único só é feito uma vez.
 
 ## Correr localmente
 
@@ -41,36 +64,39 @@ npm run build && npm start   # serve app + API em :3000
 
 ## fal.ai
 
-- `FAL_KEY` liga o Estúdio Mágico e o TTS. Sem chave a app continua 100% funcional em modo offline.
+- `FAL_KEY` liga o Estúdio Mágico, os clips, as mascotes, a música e a voz inglesa. `GEMINI_API_KEY` liga a voz pt-PT. Sem chaves a app continua 100% funcional em modo offline.
 - Modelos e limites diários configuráveis em `.env.example` (`AI_*_MODEL`, `AI_MAX_*_PER_DAY`).
 - Segurança para crianças: as descrições são curtas, passam por uma lista de bloqueio (violência, medo, conteúdo adulto, marcas, pessoas reais) e são sempre embrulhadas num prompt de estilo infantil; os safety checkers dos modelos ficam ligados.
 
 ### Pré-gerar os recursos (vozes, mascotes, músicas)
 
 ```bash
-npm run generate-assets -- [--videos]
+npm run generate-assets -- [--no-clips] [--locales=pt-PT,en]
 ```
 
 ou, com o servidor em produção e `ADMIN_KEY` definida:
 
 ```bash
-curl -X POST "https://bailarico.playlabacademy.com/api/admin/generate?key=ADMIN_KEY&videos=1"
-curl "https://bailarico.playlabacademy.com/api/admin/generate/status?key=ADMIN_KEY"
+curl -X POST "https://dance.playlabacademy.com/api/admin/generate?key=ADMIN_KEY"
+curl "https://dance.playlabacademy.com/api/admin/generate/status?key=ADMIN_KEY"
 ```
+
+Parâmetros opcionais: `images=0`, `clips=0`, `music=0`, `voice=0`, `locales=pt-PT,en`. A geração é idempotente e
+retomável; os 45 clips demoram cerca de 40 minutos. Mudar `ART_VERSION` em `shared/catalog.ts` regenera mascotes e clips.
 
 O resultado fica em `$CACHE_DIR/generated/manifest.json` e a app passa a usá-lo automaticamente.
 
 ## Deploy (Coolify + Cloudflare)
 
 - Aplicação Coolify a partir deste repositório com **Base Directory `/bailarico`** e build pack Dockerfile.
-- Variáveis: `FAL_KEY`, `ADMIN_KEY`, `CACHE_DIR=/app/cache` (volume persistente em `/app/cache`).
-- DNS: `bailarico.playlabacademy.com` → IP do servidor Coolify; TLS Let's Encrypt automático.
+- Variáveis: `FAL_KEY`, `GEMINI_API_KEY`, `ADMIN_KEY`, `CACHE_DIR=/app/cache`; volume persistente (tipo `persistent`) em `/app/cache`.
+- DNS: `dance.playlabacademy.com` → IP do servidor Coolify (Cloudflare proxied, SSL Full); TLS Let's Encrypt automático.
 
 ## Estrutura
 
 ```
 bailarico/
-├─ shared/      tipos + dados (estilos, passos, lições, frases) usados por browser e servidor
+├─ shared/      catálogo neutro (estilos, passos, lições, prompts de IA) + i18n/<língua>.ts, usados por browser e servidor
 ├─ src/         app React (ecrãs, componentes, motor de ritmo, voz, câmara, progresso)
 ├─ server/      Express: /api/ai/* (proxy fal.ai com cache e limites), /media, /generated, SPA
 ├─ scripts/     generate-assets (pré-geração com fal.ai)
