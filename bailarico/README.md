@@ -1,6 +1,6 @@
-# 💃 Bailarico
+# 💃 DanceLab (código: `bailarico/`)
 
-**A escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos.**
+**DanceLab, a escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos.** (A pasta e a v1 mantêm o nome de código "Bailarico".)
 Aberta a todos: sem registo, sem anúncios, sem recolha de dados.
 
 | Versão | URL | Notas |

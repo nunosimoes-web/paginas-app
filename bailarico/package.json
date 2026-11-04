@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Bailarico — a escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos",
+  "description": "DanceLab — a escola de dança mais divertida do mundo, para crianças dos 6 aos 10 anos",
   "scripts": {
     "dev": "concurrently -k -n web,api -c magenta,cyan \"vite\" \"tsx watch server/index.ts\"",
     "build": "vite build && tsc -p tsconfig.server.json",
