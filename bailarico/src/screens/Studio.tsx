@@ -224,7 +224,7 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
   );
 }
 
-/** Música com o nome: a voz do Bailarico dedica a música à criança e depois toca a faixa do estilo. */
+/** Música com o nome: a voz do DanceLab dedica a música à criança e depois toca a faixa do estilo. */
 function SongMaker({ gallery, update }: { gallery: Gallery; update: (g: Gallery) => void }) {
   const { t, f, styles, styleById } = useI18n();
   const p = useProgress();

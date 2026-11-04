@@ -170,9 +170,9 @@ if (distDir) {
   app.use(express.static(distDir, { maxAge: "1h", index: "index.html" }));
   app.get("/{*splat}", (_req, res) => res.sendFile(path.join(distDir, "index.html")));
 } else {
-  app.get("/", (_req, res) => res.send("Bailarico API. Corre `npm run build` para servir a app."));
+  app.get("/", (_req, res) => res.send("DanceLab API. Corre `npm run build` para servir a app."));
 }
 
 app.listen(config.port, () => {
-  console.log(`Bailarico a dançar em http://localhost:${config.port} — fal.ai ${config.aiEnabled ? "LIGADO" : "desligado (modo offline)"}`);
+  console.log(`DanceLab a dançar em http://localhost:${config.port} — fal.ai ${config.aiEnabled ? "LIGADO" : "desligado (modo offline)"}`);
 });

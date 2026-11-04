@@ -36,7 +36,7 @@ export function sanitizeKidText(input: unknown): SafetyResult {
   const lower = ` ${s.toLowerCase()} `;
   for (const w of BLOCKLIST) {
     if (lower.includes(w)) {
-      return { ok: false, cleaned: s, reason: "Hmm, essa ideia não é para o Bailarico. Tenta outra coisa divertida, como um dragão com ténis!" };
+      return { ok: false, cleaned: s, reason: "Hmm, essa ideia não é para o DanceLab. Tenta outra coisa divertida, como um dragão com ténis!" };
     }
   }
   // impede tentativas de dar instruções ao modelo
