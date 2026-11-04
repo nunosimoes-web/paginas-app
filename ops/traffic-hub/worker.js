@@ -6,13 +6,15 @@ const UMAMI = { url: 'https://analytics.paginasemetaforas.pt', site: '876a846b-d
 
 // group: tools = people using our tools/dashboards; landings = people visiting public pages.
 // q: 'uniq' = real distinct visitors from a first-party JS counter; 'views' = page views from a first-party counter;
-// 'edge' = Cloudflare edge request estimate (no JS, includes some automated traffic).
+// 'rum' = Cloudflare Web Analytics (real browsers, sampled).
 export const SITES = {
   soa:        { label: 'Dashboard SOA',            group: 'tools' },
   anft:       { label: 'Dashboard ANFT',           group: 'tools' },
   ler:        { label: 'Lê Comigo (ferramenta)',   group: 'tools' },
   foco:       { label: 'Foco (ferramenta)',        group: 'tools' },
   saldo_app:  { label: 'Saldo (app)',              group: 'tools' },
+  tan:        { label: 'Dashboard Tan',            group: 'tools' },
+  sheq:       { label: 'SHEQ One',                 group: 'tools' },
   leadshortcut:{label: 'LeadShortcut',             group: 'landings' },
   pam:        { label: 'paginasemetaforas.pt',     group: 'landings' },
   mindwink:   { label: 'Mindwink',                 group: 'landings' },
@@ -26,24 +28,13 @@ export const SITES = {
   'gymboreeclasses.pt': { label: 'gymboreeclasses.pt',    group: 'landings' },
   'playlabacademy.com': { label: 'playlabacademy.com',    group: 'landings' },
   'letsprout.co':       { label: 'letsprout.co',          group: 'landings' },
-  'ja-automoveis.pt':   { label: 'ja-automoveis.pt',      group: 'landings' },
-  'atlanticacascais.com': { label: 'atlanticacascais.com', group: 'landings' },
-  'atlanticasurf.com':    { label: 'atlanticasurf.com',    group: 'landings' },
-  'atlanticasurfpark.com':{ label: 'atlanticasurfpark.com',group: 'landings' },
-  'atlanticawave.com':    { label: 'atlanticawave.com',    group: 'landings' },
-  'atlanticawavepool.com':{ label: 'atlanticawavepool.com',group: 'landings' },
-  'obidossurferscove.com':{ label: 'obidossurferscove.com',group: 'landings' },
-  'obidossurferscove.pt': { label: 'obidossurferscove.pt', group: 'landings' },
-  'obidossurfpark.com':   { label: 'obidossurfpark.com',   group: 'landings' },
-  'wavegardencascais.com':{ label: 'wavegardencascais.com',group: 'landings' },
-  'wavegardenlisboa.com': { label: 'wavegardenlisboa.com', group: 'landings' },
-  'wavegardenportugal.com':{label: 'wavegardenportugal.com',group:'landings' },
-  'wavepoolportugal.com': { label: 'wavepoolportugal.com', group: 'landings' },
+  'parentclasses.org':  { label: 'parentclasses.org',     group: 'landings' },
 };
 const PUB_MAP = { mindwink: 'mindwink', foco: 'foco_lp', ler: 'ler_lp', saldo: 'saldo_lp', parenting: 'parenting' };
-// hosts counted by a first-party counter or that are noise: skipped on the edge path
-const EDGE_SKIP = new Set(['cognixhub.com','www.cognixhub.com','go.cognixhub.com','metrics.cognixhub.com','mindwink.cognixhub.com','foco.cognixhub.com','ler.cognixhub.com','folga.cognixhub.com','saldo.cognixhub.com','parentalidade.cognixhub.com','parenting.cognixhub.com','parentalite.cognixhub.com','paternidad.cognixhub.com','elternsein.cognixhub.com','get.parentclasses.org','go.leadshortcut.com','traffic.cognixhub.com']);
 const EDGE_MAP = { 'soa.cognixhub.com': 'soa', 'anft.cognixhub.com': 'anft', 'plano.parentclasses.org': 'parentclasses_plano' };
+const RUM_ZONES = ['gymboreeclasses.pt', 'playlabacademy.com', 'letsprout.co', 'parentclasses.org'];
+const CF_ACCOUNT = '6557c80ce116e6b15e064bf7e9a11e3c';
+const TAN = { account: '6bdaa6d2ee4012dc5d0c267b26d491bc', kv: '2b3133c2c24f482ba1c8319f46c3a7b2' };
 
 const iso = (d) => d.toISOString().slice(0, 10);
 const since = () => iso(new Date(Date.now() - BACKFILL_DAYS * 864e5));
@@ -97,31 +88,60 @@ const collectors = {
     for (const p of j.sessions || []) (m[p.x.slice(0, 10)] ||= {}).v = p.y;
     return Object.entries(m).map(([day, o]) => ({ day, site: 'pam', source: 'uniq-js', visitors: o.v || 0, views: o.n || 0 }));
   },
+  // Cloudflare Web Analytics (browser beacon, bot:0). Sampled, so numbers move in steps of ~10.
   async edge(env, s) {
     if (!env.CF_TOKEN) return [];
-    const H = { authorization: 'Bearer ' + env.CF_TOKEN, 'content-type': 'application/json' };
-    const zones = [];
-    for (let p = 1; ; p++) {
-      const j = await (await fetch(`https://api.cloudflare.com/client/v4/zones?per_page=50&page=${p}`, { headers: H })).json();
-      zones.push(...(j.result || []));
-      if (p >= (j.result_info?.total_pages || 1)) break;
-    }
-    const q = `query($z:String!,$a:Date!){viewer{zones(filter:{zoneTag:$z}){httpRequestsAdaptiveGroups(limit:5000,filter:{date_geq:$a,requestSource:"eyeball",edgeResponseStatus:200,edgeResponseContentTypeName:"html"}){dimensions{date clientRequestHTTPHost} count sum{visits}}}}}`;
+    const q = `{viewer{accounts(filter:{accountTag:"${CF_ACCOUNT}"}){rumPageloadEventsAdaptiveGroups(limit:5000,filter:{date_geq:"${s}",bot:0}){count dimensions{date requestHost} sum{visits}}}}}`;
+    const r = await (await fetch('https://api.cloudflare.com/client/v4/graphql', { method: 'POST', headers: { authorization: 'Bearer ' + env.CF_TOKEN, 'content-type': 'application/json' }, body: JSON.stringify({ query: q }) })).json();
+    if (r.errors?.length) throw new Error('rum ' + r.errors[0].message);
     const acc = {};
-    for (const z of zones) {
-      const r = await (await fetch('https://api.cloudflare.com/client/v4/graphql', { method: 'POST', headers: H, body: JSON.stringify({ query: q, variables: { z: z.id, a: s } }) })).json();
-      for (const g of r.data?.viewer?.zones?.[0]?.httpRequestsAdaptiveGroups || []) {
-        const host = g.dimensions.clientRequestHTTPHost.replace(/:\d+$/, '').replace(/^www\./, '');
-        if (EDGE_SKIP.has(host)) continue;
-        let site = EDGE_MAP[host] || (host === z.name ? z.name : null);
-        if (!site && host.endsWith('.' + z.name)) site = z.name; // other subdomains roll up to the zone
-        if (!site || !SITES[site]) continue;
-        const k = g.dimensions.date + '|' + site;
-        const o = (acc[k] ||= { day: g.dimensions.date, site, source: 'edge-est', visitors: 0, views: 0 });
-        o.visitors += g.sum.visits; o.views += g.count;
-      }
+    for (const g of r.data.viewer.accounts[0].rumPageloadEventsAdaptiveGroups) {
+      const host = g.dimensions.requestHost.replace(/^www\./, '');
+      const site = EDGE_MAP[host] || RUM_ZONES.find(z => host === z || host.endsWith('.' + z));
+      if (!site || !SITES[site]) continue;
+      const k = g.dimensions.date + '|' + site;
+      const o = (acc[k] ||= { day: g.dimensions.date, site, source: 'rum', visitors: 0, views: 0 });
+      o.visitors += g.sum.visits; o.views += g.count;
     }
     return Object.values(acc);
+  },
+  // SOA / ANFT dashboards: no browser beacon, so count authenticated page loads at the edge
+  // (HTTP 200 HTML; 401/403 are scanners). Humans behind the access key only.
+  async dash(env, s) {
+    if (!env.CF_TOKEN) return [];
+    const H = { authorization: 'Bearer ' + env.CF_TOKEN, 'content-type': 'application/json' };
+    const z = (await (await fetch('https://api.cloudflare.com/client/v4/zones?name=cognixhub.com', { headers: H })).json()).result?.[0];
+    if (!z) throw new Error('zone');
+    const q = `{viewer{zones(filter:{zoneTag:"${z.id}"}){httpRequestsAdaptiveGroups(limit:2000,filter:{date_geq:"${s}",requestSource:"eyeball",edgeResponseStatus:200,edgeResponseContentTypeName:"html",clientRequestHTTPHost_in:["soa.cognixhub.com","anft.cognixhub.com"]}){count dimensions{date clientRequestHTTPHost} sum{visits}}}}}`;
+    const r = await (await fetch('https://api.cloudflare.com/client/v4/graphql', { method: 'POST', headers: H, body: JSON.stringify({ query: q }) })).json();
+    if (r.errors?.length) throw new Error('dash ' + r.errors[0].message);
+    return r.data.viewer.zones[0].httpRequestsAdaptiveGroups.map(g => ({ day: g.dimensions.date, site: EDGE_MAP[g.dimensions.clientRequestHTTPHost], source: 'authed-edge', visitors: g.sum.visits, views: g.count }));
+  },
+  // Tan dashboard keeps its own visit log in KV (other account), one key per visit: visit:<ISO>:<id>
+  async tan(env, s) {
+    if (!env.CF_TOKEN) return [];
+    const base = `https://api.cloudflare.com/client/v4/accounts/${TAN.account}/storage/kv/namespaces/${TAN.kv}/keys`, m = {};
+    let cursor = '';
+    do {
+      const j = await (await fetch(`${base}?limit=1000&prefix=visit:${cursor ? '&cursor=' + cursor : ''}`, { headers: { authorization: 'Bearer ' + env.CF_TOKEN } })).json();
+      if (!j.success) throw new Error('tan kv');
+      for (const k of j.result) { const d = k.name.slice(6, 16); if (d >= s) m[d] = (m[d] || 0) + 1; }
+      cursor = j.result_info?.cursor || '';
+    } while (cursor);
+    return Object.entries(m).map(([day, n]) => ({ day, site: 'tan', source: 'visits-log', visitors: n, views: n }));
+  },
+  // SHEQ One logs per-guest events (last ~150). Distinct guests per day; internal test guests excluded.
+  async sheq(env, s) {
+    if (!env.SHEQ_URL) return [];
+    const res = await fetch(env.SHEQ_URL + '&f=json', { headers: { 'user-agent': 'Mozilla/5.0 traffic-hub' } });
+    if (!res.ok) throw new Error('sheq http ' + res.status);
+    const j = await res.json(), m = {};
+    for (const e of j.events || []) {
+      if (/nuno|claude|teste/i.test(e.label || '')) continue;
+      const d = (e.ts || '').slice(0, 10); if (d < s) continue;
+      (m[d] ||= new Set()).add(e.label);
+    }
+    return Object.entries(m).map(([day, set]) => ({ day, site: 'sheq', source: 'uniq-js', visitors: set.size, views: set.size }));
   },
 };
 
@@ -138,7 +158,7 @@ export async function collect(env) {
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmt = (n) => new Intl.NumberFormat('pt-PT').format(Math.round(n));
 // If a site has several sources on one day, prefer first-party JS over edge estimates.
-const RANK = { 'uniq-js': 0, 'views-js': 1, 'clicks-nobot': 2, 'edge-est': 3 };
+const RANK = { 'uniq-js': 0, 'views-js': 1, 'visits-log': 1, 'authed-edge': 1, rum: 2, 'clicks-nobot': 3 };
 
 async function page(env, base) {
   const from = iso(new Date(Date.now() - 59 * 864e5));
@@ -149,7 +169,7 @@ async function page(env, base) {
   const days = [...Array(30)].map((_, i) => iso(new Date(Date.now() - (29 - i) * 864e5)));
   const sum = (site, a, b) => { let t = 0; for (let i = a; i < b; i++) t += best[site + '|' + days[i]]?.visitors || 0; return t; };
   const sumPrev = (site) => { let t = 0; for (let i = 0; i < 30; i++) t += best[site + '|' + iso(new Date(Date.now() - (59 - i) * 864e5))]?.visitors || 0; return t; };
-  const kind = (site) => { const srcs = new Set(Object.values(best).filter(r => r.site === site).map(r => r.source)); return srcs.has('uniq-js') ? 'visitantes únicos' : srcs.has('views-js') ? 'visualizações' : srcs.has('clicks-nobot') ? 'cliques humanos' : srcs.has('edge-est') ? 'estimativa (edge)' : '—'; };
+  const kind = (site) => { const srcs = new Set(Object.values(best).filter(r => r.site === site).map(r => r.source)); return srcs.has('uniq-js') ? 'visitantes únicos' : srcs.has('views-js') ? 'visualizações' : srcs.has('clicks-nobot') ? 'cliques humanos' : srcs.has('authed-edge') ? 'acessos com chave' : srcs.has('visits-log') ? 'visitas registadas' : srcs.has('rum') ? 'Web Analytics (amostrado)' : '—'; };
   const spark = (site) => {
     const v = days.map(d => best[site + '|' + d]?.visitors || 0), m = Math.max(1, ...v);
     const pts = v.map((x, i) => `${(i * 120 / 29).toFixed(1)},${(26 - x / m * 24).toFixed(1)}`).join(' ');
@@ -175,8 +195,8 @@ th:first-child,td:first-child{text-align:left}thead th{font-size:12px;color:var(
 th small{display:block;font-weight:400;color:var(--mu);font-size:12px}tfoot th,tfoot td{font-weight:700;border-bottom:0}
 .up{color:var(--up)}.dn{color:var(--dn)}.sp{color:var(--ac);text-align:left}tr:last-child td,tr:last-child th{border-bottom:0}
 </style></head><body><main><h1>Tração dos projetos</h1><p class="foot">Pessoas por dia (UTC). Atualizado ${run ? esc(run.at.slice(0, 16).replace('T', ' ')) + ' UTC' : 'ainda sem recolha'}${run && !run.ok ? ' — com avisos' : ''}.</p>
-${section('tools', 'Ferramentas e dashboards', 'Quem usou: dashboards SOA e ANFT (acessos com chave) e as aplicações.')}
-${section('landings', 'Landing pages e sites', 'Visitantes únicos onde há contador próprio; "estimativa (edge)" conta pedidos HTML na Cloudflare e pode incluir tráfego automático.')}
+${section('tools', 'Ferramentas e dashboards', 'Quem abriu: dashboards SOA, ANFT e Tan, SHEQ One e as aplicações.')}
+${section('landings', 'Landing pages e sites', 'Visitantes únicos onde há contador próprio; "Web Analytics" é o contador da Cloudflare em browsers reais (amostrado, sem robôs).')}
 <p class="foot">Sem cookies nem IPs guardados nesta página. ${run ? esc(run.note) : ''}</p></main></body></html>`;
 }
 
