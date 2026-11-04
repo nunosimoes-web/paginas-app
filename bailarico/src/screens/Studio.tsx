@@ -117,7 +117,7 @@ export function Studio() {
 }
 
 function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: Gallery; update: (g: Gallery) => void }) {
-  const { t, f, styles } = useI18n();
+  const { t, styles } = useI18n();
   const [desc, setDesc] = useState("");
   const [busy, setBusy] = useState<"" | "image" | "video">("");
   const [err, setErr] = useState("");
@@ -135,7 +135,7 @@ function DancerMaker({ status, gallery, update }: { status: AiStatus; gallery: G
       update({ ...gallery, dancers: [d, ...gallery.dancers.filter((x) => x.id !== d.id)].slice(0, 24) });
       sfx.star();
       confettiBurst({ count: 80 });
-      void speak(f(t.createdVoice, { desc }));
+      void speak(t.createdVoice);
       void ai.refreshStatus();
     } catch (e) {
       setErr((e as Error).message);

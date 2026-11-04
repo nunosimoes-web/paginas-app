@@ -48,6 +48,7 @@ export function allVoiceLines(locale: Locale): string[] {
   });
   [...d.praise, ...d.encourage, ...d.freezeOk, ...d.freezeFail].forEach((p) => lines.add(p));
   [u.welcome, u.pickStyleVoice, u.watch, u.yourTurn, u.choreo, u.freezeIntroVoice, u.dance, u.freeze, u.simonIntroVoice, u.simonYourTurnVoice,
-    u.stageIntroVoice, u.stickersVoice, u.studioIntroVoice, u.championVoice, u.filmingVoice, u.aliveVoice, u.barFull].forEach((p) => lines.add(p));
+    u.stageIntroVoice, u.stickersVoice, u.studioIntroVoice, u.championVoice, u.filmingVoice, u.aliveVoice, u.barFull, u.welcomeBack, u.lessonDone1, u.lessonDone2,
+    u.lessonDone3, u.heldVoice, u.levelUpVoice, u.createdVoice, u.almostWas, u.askName].forEach((p) => lines.add(p));
   return [...lines];
 }

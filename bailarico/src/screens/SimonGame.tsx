@@ -24,7 +24,7 @@ function clipFor(m: Move): { style: StyleId; url?: string } {
 }
 
 export function SimonGame() {
-  const { t, f, dict, pick, moveById, styleById } = useI18n();
+  const { t, dict, pick, moveById, styleById } = useI18n();
   const POOL = POOL_IDS.map(moveById);
   const p = useProgress();
   const [phase, setPhase] = useState<Phase>("intro");
@@ -82,7 +82,7 @@ export function SimonGame() {
         sfx.star();
         progress.update((s) => ({ bestSimon: Math.max(s.bestSimon, level) }));
         progress.addEnergy(5 * level);
-        void speak(f(t.levelUpVoice, { praise: pick(dict.praise), n: level + 1 }));
+        void (async () => { await speak(pick(dict.praise)); await speak(t.levelUpVoice); })();
         if (level % 3 === 0) confettiBurst();
         later(() => startLevel(level + 1, seq), 1800);
       }
@@ -90,7 +90,7 @@ export function SimonGame() {
       sfx.oops();
       setFlash({ id: m.id, ok: false });
       setPhase("wrong");
-      void speak(f(t.almostWas, { name: expected.name }));
+      void speak(t.almostWas);
       later(() => {
         setFlash(null);
         startLevel(level, seq);

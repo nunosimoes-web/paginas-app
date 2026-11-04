@@ -128,7 +128,7 @@ export function FreezeGame() {
     setPhase("over");
     setMsg(f(t.held, { n: rounds }));
     progress.update((s) => ({ bestFreeze: Math.max(s.bestFreeze, rounds) }));
-    void speak(f(t.heldVoice, { n: rounds }));
+    void speak(t.heldVoice);
   };
 
   const tapButton = () => {

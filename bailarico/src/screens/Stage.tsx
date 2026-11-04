@@ -47,7 +47,7 @@ export function Stage() {
       progress.addEnergy(50);
       confettiBurst({ colors: [style.colors.main, style.colors.glow, "#fff"] });
       sfx.fanfare();
-      void speak(`${pick(dict.praise)} ${t.barFull}`);
+      void (async () => { await speak(pick(dict.praise)); await speak(t.barFull); })();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meter.value, playing]);
