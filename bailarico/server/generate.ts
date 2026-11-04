@@ -95,7 +95,11 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
     progress.current = label;
     log(`[${progress.done}/${progress.total}] ${label}`);
   };
-  const fail = (label: string, e: unknown) => progress.errors.push(`${label}: ${(e as Error).message}`);
+  const fail = (label: string, e: unknown) => {
+    const err = e as Error & { body?: unknown };
+    const detail = err.body ? ` ${JSON.stringify(err.body).slice(0, 400)}` : "";
+    progress.errors.push(`${label}: ${err.message}${detail}`);
+  };
 
   // Uma fila por língua (fornecedores diferentes), todas em paralelo.
   const voices = Promise.all(

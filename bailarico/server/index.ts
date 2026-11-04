@@ -51,6 +51,12 @@ function rateLimit(max: number, windowMs: number) {
 
 const err = (error: string, friendly: string): ApiError => ({ error, friendly });
 
+/** URL público do servidor (sempre https fora de localhost). */
+function publicBaseOf(req: Request): string {
+  const host = req.get("host") ?? "localhost";
+  return /localhost|127\.0\.0\.1/.test(host) ? `${req.protocol}://${host}` : `https://${host}`;
+}
+
 app.get("/health", (_req, res) => res.json({ ok: true, ai: config.aiEnabled, tts: Object.fromEntries(LOCALES.map((l) => [l, config.ttsEnabled(l)])) }));
 
 app.get("/api/ai/status", (_req, res) => {
@@ -131,7 +137,7 @@ app.post(
       res.status(429).json(err("quota", "A câmara mágica já fez muitos vídeos hoje. Volta amanhã!"));
       return;
     }
-    const base = `${req.protocol}://${req.get("host")}`;
+    const base = publicBaseOf(req);
     res.json(await falApi.animate(body.data.imageId, base));
   }),
 );
@@ -151,7 +157,7 @@ app.post("/api/admin/generate", requireAdmin, (req, res) => {
     return;
   }
   const q = req.query;
-  const base = `${req.protocol}://${req.get("host")}`;
+  const base = publicBaseOf(req);
   const locales = typeof q.locales === "string" ? (q.locales.split(",").filter(isLocale) as Locale[]) : undefined;
   generateAll(
     { images: q.images !== "0", music: q.music !== "0", voice: q.voice !== "0", clips: q.clips !== "0", locales },
