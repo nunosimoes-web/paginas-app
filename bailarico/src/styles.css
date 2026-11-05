@@ -1015,3 +1015,9 @@ footer.foot a { color: inherit; }
 .game-row { display: flex; gap: 14px; align-items: flex-start; }
 .game-row .game-icon { font-size: 2.2rem; }
 .game-row h3 { margin: 0 0 4px; }
+
+/* tablets na horizontal: vídeo mais baixo para os botões caberem sem deslizar */
+@media (orientation: landscape) and (max-height: 1000px) {
+  .dance-floor .mascot-video { width: min(84vw, 46vh); }
+  .lesson-intro .mascot-video { width: min(84vw, 60vh); }
+}
