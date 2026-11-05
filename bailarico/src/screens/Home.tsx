@@ -134,6 +134,15 @@ export function Home() {
           {t.homeTip}
         </Mascot>
       </div>
+      <a className="adults-banner mt" href="#/pais">
+        <span>👨‍👩‍👧</span>
+        <span>
+          <strong>{t.parents.title}</strong>
+          <br />
+          {t.parents.stepsTitle} · {t.parents.tipsTitle}
+        </span>
+        <span>→</span>
+      </a>
       <Footer />
     </div>
   );
@@ -151,6 +160,7 @@ export function Splash({ onStart }: { onStart: () => void }) {
           <Wordmark light />
         </div>
         <p className="splash-tag">{t.tagline}</p>
+        <p className="sound-hint">{t.soundHint}</p>
         {!hero && (
           <div className="hero-mascots" aria-hidden="true">
             {styles.map((s) => (mascotImage(s.id) ? <img key={s.id} className="b" src={mascotImage(s.id)} alt="" /> : <span key={s.id} className="emo b">{s.emoji}</span>))}

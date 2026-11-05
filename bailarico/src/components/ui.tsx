@@ -32,6 +32,9 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
       )}
       <div className="row">
         {right}
+        <a className="iconbtn adults" href="#/pais" aria-label={t.parents.title} title={t.parents.title}>
+          ℹ️
+        </a>
         {p.name && (
           <span className="pill">
             <span className="avatar">{p.avatar}</span> {p.name} · ⭐ {totalStars(p)}

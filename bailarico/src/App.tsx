@@ -8,11 +8,11 @@ import { SimonGame } from "./screens/SimonGame";
 import { Stage } from "./screens/Stage";
 import { Stickers } from "./screens/Stickers";
 import { Studio } from "./screens/Studio";
+import { Parents } from "./screens/Parents";
 import { useProgress } from "./lib/progress";
 import { ai } from "./lib/ai";
 import { loadManifest } from "./lib/assets";
 import { audioContext } from "./audio/context";
-import { stopVoice } from "./audio/voice";
 import { I18nProvider, useI18n } from "./lib/i18n";
 import { LOCALES, type StyleId } from "../shared/types.js";
 
@@ -31,7 +31,6 @@ function Shell() {
   }, []);
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    stopVoice(); // nada continua a falar depois de sair do ecrã
   }, [route]);
 
   if (!started) {
@@ -73,6 +72,9 @@ function Shell() {
       break;
     case "estudio":
       screen = <Studio />;
+      break;
+    case "pais":
+      screen = <Parents />;
       break;
     default:
       screen = <Home />;

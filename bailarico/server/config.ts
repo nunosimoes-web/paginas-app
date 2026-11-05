@@ -5,7 +5,9 @@ import type { Locale } from "../shared/types.js";
 const env = (k: string, d = "") => (process.env[k] ?? d).trim();
 
 /** Fornecedor de voz por língua. pt-PT usa Gemini TTS (único com sotaque de Portugal verificado). */
-export type TtsProvider = { kind: "gemini"; model: string; voice: string; languageCode: string } | { kind: "elevenlabs"; model: string; voice: string; languageCode: string };
+export type TtsProvider =
+  | { kind: "gemini"; model: string; models: string[]; voice: string; languageCode: string }
+  | { kind: "elevenlabs"; model: string; voice: string; languageCode: string };
 
 export const config = {
   port: Number(env("PORT", "3000")),
@@ -19,7 +21,14 @@ export const config = {
     instrumental: env("AI_INSTRUMENTAL_MODEL", "fal-ai/lyria2"),
   },
   tts: {
-    "pt-PT": { kind: "gemini", model: env("AI_TTS_GEMINI_MODEL", "gemini-3.8-flash-tts"), voice: env("AI_TTS_PT_VOICE", "Leda"), languageCode: "pt-PT" },
+    // Modelos com sotaque de Portugal verificado; cada um tem a sua quota diária, usados por ordem.
+    "pt-PT": {
+      kind: "gemini",
+      model: env("AI_TTS_GEMINI_MODEL", "gemini-3.8-flash-tts"),
+      models: env("AI_TTS_GEMINI_MODELS", "gemini-3.8-flash-tts,gemini-3.8-flash-lite-tts").split(",").map((m) => m.trim()).filter(Boolean),
+      voice: env("AI_TTS_PT_VOICE", "Leda"),
+      languageCode: "pt-PT",
+    },
     en: { kind: "elevenlabs", model: env("AI_TTS_ELEVEN_MODEL", "fal-ai/elevenlabs/tts/multilingual-v2"), voice: env("AI_TTS_EN_VOICE", "Matilda"), languageCode: "en" },
   } as Record<Locale, TtsProvider>,
   quotas: {

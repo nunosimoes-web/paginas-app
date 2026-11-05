@@ -1,32 +1,57 @@
 import { useEffect, useRef } from "react";
-import type { MoveAnim } from "../../shared/catalog.js";
 import type { Style } from "../../shared/i18n/index.js";
-import { Dancer } from "./Dancer";
+import { mascotImage } from "../lib/assets";
 
 interface Props {
   style: Style;
-  /** clip de vídeo do mascote (gerado por IA); sem clip usa o dançarino SVG */
+  /** clip de vídeo do professor */
   clip?: string;
   poster?: string;
-  anim: MoveAnim;
-  beat: number;
+  /** velocidade do vídeo (0.5 = câmara lenta) */
+  rate?: number;
+  /** espelho: a criança imita como num espelho */
+  mirror?: boolean;
   frozen?: boolean;
-  /** emoji alternativo para a cabeça do SVG (ex.: avatar da criança) */
-  face?: string;
 }
 
-/** Palco do mascote: vídeo gerado quando existe, animação SVG como recurso. */
-export function MascotView({ style, clip, poster, anim, beat, frozen, face }: Props) {
+/** O professor no palco: o vídeo do passo, ou a imagem do professor enquanto não há vídeo. */
+export function MascotView({ style, clip, poster, rate = 1, mirror = false, frozen = false }: Props) {
   const ref = useRef<HTMLVideoElement | null>(null);
+  const applyRate = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.defaultPlaybackRate = rate;
+    v.playbackRate = rate;
+  };
   useEffect(() => {
+    applyRate();
     const v = ref.current;
     if (!v) return;
     if (frozen) v.pause();
     else void v.play().catch(() => undefined);
-  }, [frozen, clip]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clip, rate, frozen]);
 
+  const still = poster ?? mascotImage(style.id);
   if (clip) {
-    return <video key={clip} ref={ref} className={`mascot-video ${frozen ? "frozen" : ""}`} src={clip} poster={poster} autoPlay loop muted playsInline />;
+    return (
+      <video
+        key={clip}
+        ref={ref}
+        className={`mascot-video ${mirror ? "mirror" : ""} ${frozen ? "frozen" : ""}`}
+        src={clip}
+        poster={still}
+        autoPlay
+        loop
+        muted
+        playsInline
+        onLoadedMetadata={applyRate}
+      />
+    );
   }
-  return <Dancer move={anim} face={face ?? style.emoji} color={style.colors.main} colorDark={style.colors.dark} beat={beat} frozen={frozen} />;
+  return still ? (
+    <img className={`mascot-video mascot-still ${mirror ? "mirror" : ""}`} src={still} alt="" />
+  ) : (
+    <div className="mascot-video mascot-emoji">{style.emoji}</div>
+  );
 }
