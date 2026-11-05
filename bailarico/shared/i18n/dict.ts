@@ -189,6 +189,10 @@ export interface UiStrings {
   stageFollow: string;
   soundHint: string;
   forAdults: string;
+  whoDances: string;
+  whoDancesVoice: string;
+  newDancer: string;
+  notYou: string;
   parents: {
     title: string;
     intro: string;

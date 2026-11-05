@@ -9,7 +9,9 @@ import { Stage } from "./screens/Stage";
 import { Stickers } from "./screens/Stickers";
 import { Studio } from "./screens/Studio";
 import { Parents } from "./screens/Parents";
-import { useProgress } from "./lib/progress";
+import { Dancers } from "./screens/Dancers";
+import { StarFly } from "./components/StarFly";
+import { progress, useProgress } from "./lib/progress";
 import { ai } from "./lib/ai";
 import { loadManifest } from "./lib/assets";
 import { audioContext } from "./audio/context";
@@ -24,6 +26,7 @@ function Shell() {
   const { locale } = useI18n();
   const [started, setStarted] = useState(false);
   const [ready, setReady] = useState(false);
+  const [adding, setAdding] = useState(false);
 
   useEffect(() => {
     Promise.all([ai.load(), loadManifest()]).finally(() => setReady(true));
@@ -38,13 +41,23 @@ function Shell() {
       <Splash
         onStart={() => {
           audioContext();
+          // tablet partilhado: perguntar quem vai dançar antes de começar
+          if (progress.dancers().length > 1) window.location.hash = "/quem";
           setStarted(true);
         }}
       />
     );
   }
   if (!ready) return null;
-  if (!p.name) return <Onboarding onDone={() => undefined} />;
+  if (!p.name || adding)
+    return (
+      <Onboarding
+        onDone={() => {
+          setAdding(false);
+          window.location.hash = "/";
+        }}
+      />
+    );
 
   let screen: React.ReactNode;
   const parts = route.split("/").filter(Boolean);
@@ -76,6 +89,9 @@ function Shell() {
     case "pais":
       screen = <Parents />;
       break;
+    case "quem":
+      screen = <Dancers onAdd={() => setAdding(true)} />;
+      break;
     default:
       screen = <Home />;
   }
@@ -89,6 +105,7 @@ function Shell() {
         <span className="blob" />
       </div>
       {screen}
+      <StarFly />
     </div>
   );
 }

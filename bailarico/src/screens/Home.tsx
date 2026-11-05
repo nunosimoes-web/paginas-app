@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Footer, Mascot, Topbar } from "../components/ui";
 import { go } from "../lib/router";
-import { progress, useProgress, totalStars } from "../lib/progress";
+import { progress, useProgress } from "../lib/progress";
 import { sfx } from "../audio/sfx";
 import { speak, warmup } from "../audio/voice";
 import { ai } from "../lib/ai";
@@ -38,7 +38,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
           className="btn big pink mt"
           disabled={name.trim().length < 2}
           onClick={() => {
-            progress.update({ name: name.trim(), avatar });
+            progress.addDancer(name.trim(), avatar);
             sfx.fanfare();
             onDone();
           }}
@@ -78,6 +78,9 @@ export function Home() {
           {f(t.hello, { name: "" }).replace(/\s*[!,]*\s*$/, "")} <span className="rainbow">{p.name || "…"}</span>!
         </h1>
         <p className="subtitle">{t.whatToday}</p>
+        <a className="btn ghost not-you" href="#/quem">
+          {p.avatar} {t.notYou}
+        </a>
         <div className="hero-mascots" aria-hidden="true">
           {styles.map((s) => {
             const img = mascotImage(s.id);
@@ -95,7 +98,7 @@ export function Home() {
           <span className="emoji">🕺</span>
           <h3>{t.learnTitle}</h3>
           <p>{t.learnDesc}</p>
-          <span className="badge">⭐ {totalStars(p)}/45</span>
+          <span className="badge">🏅 {p.stickers.length}/15</span>
         </button>
         <button className="menu-card" style={{ "--c": "#60a5fa" } as React.CSSProperties} onClick={menu("/estatua")}>
           <span className="emoji">🗿</span>

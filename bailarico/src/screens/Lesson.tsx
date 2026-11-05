@@ -47,12 +47,16 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
   const meter = useMeter();
   const p = useProgress();
 
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhaseState] = useState<Phase>("intro");
   const [idx, setIdx] = useState(0);
   const [routineIdx, setRoutineIdx] = useState(0);
   const [mirrorCam, setMirrorCam] = useState(false);
   const phaseRef = useRef<Phase>("intro");
-  phaseRef.current = phase;
+  /** muda de etapa e regista-a já (as verificações a seguir a uma frase não podem ver a etapa antiga) */
+  const setPhase = (ph: Phase) => {
+    phaseRef.current = ph;
+    setPhaseState(ph);
+  };
   const beats = useRef(0);
   const timers = useRef<number[]>([]);
   const later = (fn: () => void, ms: number) => timers.current.push(window.setTimeout(fn, ms));
@@ -100,6 +104,8 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
     engine.setStyle(slowStyle);
     engine.setLayers({ drums: true, music: false });
     engine.start();
+    // avança por tempo (não depende do relógio de áudio, que alguns tablets demoram a libertar)
+    later(() => phaseRef.current === "slow" && void startMusic(), barsMs(SLOW_BARS, slowStyle.bpm) + 400);
   };
 
   const startMusic = async () => {
@@ -112,6 +118,7 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
     engine.setStyle(style);
     engine.setLayers({ drums: true, music: true });
     engine.start();
+    later(() => phaseRef.current === "music" && ask(), barsMs(MUSIC_BARS, style.bpm) + 300);
   };
 
   const ask = () => {
@@ -121,7 +128,7 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
   };
 
   const didIt = () => {
-    sfx.star();
+    progress.addStars(1);
     confettiBurst({ count: 60, colors: [style.colors.main, style.colors.glow, "#facc15"] });
     if (idx + 1 < moves.length) {
       void speak(pick(dict.praise)).then(() => {
@@ -141,36 +148,36 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
     engine.setStyle(style);
     engine.setLayers({ drums: true, music: true });
     engine.start();
+    const perMove = barsMs(ROUTINE_BARS_PER_MOVE, style.bpm);
+    moves.forEach((m, i) => {
+      if (i === 0) return;
+      later(() => {
+        if (phaseRef.current !== "routine") return;
+        setRoutineIdx(i);
+        void speak(m.name);
+      }, i * perMove);
+    });
+    later(() => phaseRef.current === "routine" && finish(), moves.length * perMove + 300);
   };
 
   const finish = () => {
     engine.stop();
     setPhase("done");
-    progress.awardStars(lesson.id, 3);
+    progress.completeLesson(lesson.id);
+    progress.addStars(2);
     progress.addEnergy(30);
     sfx.fanfare();
     confettiBurst({ colors: [style.colors.main, style.colors.glow, "#facc15", "#fff"] });
     void speak(t.lessonDone3);
   };
 
-  /* ---------- tempo: a voz conta em cima da música ---------- */
+  /* ---------- a voz conta em cima da música (só contagem; as etapas avançam por tempo) ---------- */
+  const barsMs = (bars: number, bpm: number) => (bars * bpb * 60_000) / bpm;
   const beat = useBeat(engine, (e) => {
     const ph = phaseRef.current;
     if (ph !== "slow" && ph !== "music" && ph !== "routine") return;
     if (!speakAt(counts[e.beat] ?? "", e.time)) sfx.tick(e.beat === 0);
     beats.current++;
-    const n = beats.current;
-    if (ph === "slow" && n >= SLOW_BARS * bpb) later(() => phaseRef.current === "slow" && void startMusic(), 400);
-    if (ph === "music" && n >= MUSIC_BARS * bpb) later(() => phaseRef.current === "music" && ask(), 300);
-    if (ph === "routine") {
-      const per = ROUTINE_BARS_PER_MOVE * bpb;
-      const i = Math.floor(n / per);
-      if (n % per === 0 && i < moves.length) {
-        setRoutineIdx(i);
-        later(() => void speak(moves[i].name), 50);
-      }
-      if (n >= per * moves.length) later(finish, 300);
-    }
   });
 
   const toggleMirror = async () => {
