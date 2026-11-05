@@ -40,22 +40,17 @@ export function allVoiceLines(locale: Locale): string[] {
   const d = getDict(locale);
   const u = d.ui;
   const lines = new Set<string>();
-  // Ordem = prioridade de geração (a quota diária da voz pt-PT é limitada).
+  // Ordem = prioridade de geração (a voz pt-PT tem quota diária): primeiro o que as lições usam.
   u.counts.forEach((c) => lines.add(c));
-  [u.onBeat, u.nearBeat, u.offBeat, u.watch, u.yourTurn, u.choreo, u.demoVoice, u.lessonIntroVoice, u.choreoReadyVoice].forEach((p) => lines.add(p));
-  Object.values(d.moves).forEach((m) => {
-    lines.add(m.name);
-    lines.add(m.howTo);
-  });
+  [u.stepWatchVoice, u.stepSlowVoice, u.stepMusicVoice, u.stepAskVoice, u.lessonIntro3, u.lessonIntro4, u.lessonIntro5, u.choreoReadyVoice].forEach((p) =>
+    lines.add(p),
+  );
+  Object.values(d.moves).forEach((m) => lines.add(`${m.name}. ${m.instruction}`));
+  Object.values(d.moves).forEach((m) => lines.add(m.name));
   Object.values(d.styles).forEach((s) => lines.add(s.greeting));
-  [u.lessonDone1, u.lessonDone2, u.lessonDone3, u.goodRhythmVoice, u.keepTryingVoice, u.bigMovesVoice].forEach((p) => lines.add(p));
-  Object.values(d.moves).forEach((m) => {
-    lines.add(`${m.name}. ${m.instruction}`);
-    lines.add(m.tip);
-  });
-  [...d.praise, ...d.encourage, ...d.freezeOk, ...d.freezeFail].forEach((p) => lines.add(p));
-  [u.welcome, u.welcomeBack, u.pickStyleVoice, u.freezeIntroVoice, u.dance, u.freeze, u.simonIntroVoice, u.simonYourTurnVoice, u.stageIntroVoice,
-    u.stickersVoice, u.studioIntroVoice, u.championVoice, u.filmingVoice, u.aliveVoice, u.barFull, u.heldVoice, u.levelUpVoice, u.createdVoice,
-    u.almostWas, u.askName].forEach((p) => lines.add(p));
+  [u.lessonDone1, u.lessonDone2, u.lessonDone3, u.dance, u.freeze, u.welcome, u.welcomeBack, u.askName, u.pickStyleVoice].forEach((p) => lines.add(p));
+  [...d.praise.slice(0, 10), ...d.freezeOk, ...d.freezeFail].forEach((p) => lines.add(p));
+  [u.freezeIntroVoice, u.simonIntroVoice, u.simonYourTurnVoice, u.watch, u.levelUpVoice, u.almostWas, u.stageIntroVoice, u.stickersVoice,
+    u.studioIntroVoice, u.championVoice, u.heldVoice, u.createdVoice, u.filmingVoice, u.aliveVoice].forEach((p) => lines.add(p));
   return [...lines];
 }

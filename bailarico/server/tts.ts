@@ -12,6 +12,7 @@ import type { Locale, MediaResult } from "../shared/types.js";
 dns.setDefaultResultOrder("ipv4first");
 const exec = promisify(execFile);
 let falConfigured = false;
+const exhaustedUntil = new Map<string, number>();
 
 /**
  * Fila série para o Gemini (limites de pedidos por minuto apertados) com repetição em 429/503.
@@ -69,7 +70,7 @@ async function geminiGenerate(model: string, body: unknown): Promise<Response> {
     const text = await r.text();
     const retry = /"retryDelay":\s*"(\d+)s"/.exec(text);
     const wait = Math.min(retry ? Number(retry[1]) * 1000 + 500 : delay, 70_000);
-    if (attempt === 2) return new Response(text, { status: r.status });
+    if (attempt === 2 || /PerDay/i.test(text)) return new Response(text, { status: r.status });
     await sleep(wait);
     delay = Math.min(delay * 2, 60_000);
   }
@@ -112,8 +113,25 @@ export async function synthesize(text: string, locale: Locale, priority: "live" 
         speechConfig: { languageCode: p.languageCode, voiceConfig: { prebuiltVoiceConfig: { voiceName: p.voice } } },
       },
     };
-    const r = await geminiQueue(() => geminiGenerate(p.model, body), priority);
-    if (!r.ok) throw new Error(`Gemini TTS ${r.status}: ${(await r.text()).replace(/\s+/g, " ").slice(0, 1500)}`);
+    // Usa o primeiro modelo com quota; um modelo esgotado fica de lado até a quota repor.
+    let r: Response | null = null;
+    let lastErr = "";
+    for (const model of p.models.length ? p.models : [p.model]) {
+      if ((exhaustedUntil.get(model) ?? 0) > Date.now()) continue;
+      const res = await geminiQueue(() => geminiGenerate(model, body), priority);
+      if (res.ok) {
+        r = res;
+        break;
+      }
+      lastErr = `${model} ${res.status}: ${(await res.text()).replace(/\s+/g, " ").slice(0, 600)}`;
+      if (res.status === 429 && /PerDay/i.test(lastErr)) {
+        const secs = Number(/retryDelay\D+(\d+)s/.exec(lastErr)?.[1] ?? 3600);
+        exhaustedUntil.set(model, Date.now() + secs * 1000);
+        continue;
+      }
+      break;
+    }
+    if (!r) throw new Error(`Gemini TTS: ${lastErr || "todos os modelos sem quota"}`);
     const data = (await r.json()) as { candidates?: { content?: { parts?: { inlineData?: { mimeType: string; data: string } }[] } }[] };
     const part = data.candidates?.[0]?.content?.parts?.find((x) => x.inlineData);
     if (!part?.inlineData) throw new Error("Gemini TTS não devolveu áudio");
@@ -137,7 +155,8 @@ export async function synthesize(text: string, locale: Locale, priority: "live" 
 
 /** Guarda áudio bruto; converte PCM/WAV para MP3 se houver ffmpeg (ficheiros 8x mais pequenos). */
 async function saveAudio(id: string, buf: Buffer, mime: string): Promise<string> {
-  const isPcm = /L16|pcm/i.test(mime);
+  // Alguns modelos dizem "audio/wav" mas mandam PCM cru: decide pelos bytes, não pelo tipo.
+  const isPcm = /L16|pcm/i.test(mime) || buf.subarray(0, 4).toString("ascii") !== "RIFF";
   const rate = /rate=(\d+)/.exec(mime)?.[1] ?? "24000";
   const raw = path.join(mediaDir(), `${id}.${isPcm ? "pcm" : "wav"}`);
   await fs.writeFile(raw, buf);

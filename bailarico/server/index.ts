@@ -174,8 +174,21 @@ app.use("/generated", express.static(generatedDir(), { maxAge: "0" }));
 
 // App (Vite build) + fallback SPA.
 if (distDir) {
-  app.use(express.static(distDir, { maxAge: "1h", index: "index.html" }));
-  app.get("/{*splat}", (_req, res) => res.sendFile(path.join(distDir, "index.html")));
+  // index.html nunca fica em cache (senão tablets ficam com a versão antiga); os assets têm hash e ficam 1 ano.
+  app.use(
+    express.static(distDir, {
+      index: "index.html",
+      setHeaders: (res, file) => {
+        if (file.endsWith(".html")) res.setHeader("Cache-Control", "no-cache");
+        else if (file.includes(`${path.sep}assets${path.sep}`)) res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        else res.setHeader("Cache-Control", "public, max-age=3600");
+      },
+    }),
+  );
+  app.get("/{*splat}", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache");
+    res.sendFile(path.join(distDir!, "index.html"));
+  });
 } else {
   app.get("/", (_req, res) => res.send("DanceLab API. Corre `npm run build` para servir a app."));
 }

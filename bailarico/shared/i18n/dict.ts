@@ -164,6 +164,45 @@ export interface UiStrings {
   goodRhythmVoice: string;
   keepTryingVoice: string;
   bigMovesVoice: string;
+  // novo fluxo das lições: Vê → Devagar → Com música → Consegui!
+  stepWatch: string;
+  stepSlow: string;
+  stepMusic: string;
+  stepWatchVoice: string;
+  stepSlowVoice: string;
+  stepMusicVoice: string;
+  stepAskVoice: string;
+  didIt: string;
+  tryAgain: string;
+  gotIt: string;
+  letsGo: string;
+  lessonIntro3: string;
+  lessonIntro4: string;
+  lessonIntro5: string;
+  movesToday: string;
+  routineTitle: string;
+  routineHint: string;
+  mirrorOn: string;
+  mirrorOff: string;
+  mirrorHint: string;
+  freezeHonor: string;
+  stageFollow: string;
+  soundHint: string;
+  forAdults: string;
+  parents: {
+    title: string;
+    intro: string;
+    stepsTitle: string;
+    steps: { icon: string; title: string; text: string }[];
+    tipsTitle: string;
+    tips: string[];
+    gamesTitle: string;
+    games: { icon: string; title: string; text: string }[];
+    privacyTitle: string;
+    privacy: string;
+    soundTest: string;
+    soundTip: string;
+  };
   // frases faladas
   welcome: string;
   welcomeBack: string; // "Olá, {name}! ..."

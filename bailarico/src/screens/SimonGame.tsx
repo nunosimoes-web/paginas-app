@@ -106,8 +106,8 @@ export function SimonGame() {
     <div className="app">
       <Topbar back="/" />
       <div className="lesson-layout">
-        <div className={`stage ${shownClip?.url ? "video" : ""}`} style={{ "--stage-c": "#fb923c", "--beat": "0.6s" } as React.CSSProperties}>
-          <MascotView style={stageStyle} clip={shownClip?.url} poster={mascotImage(stageStyle.id)} anim={shown ? shown.anim : phase === "input" ? "idle" : "bounce"} beat={0.6} face="🦉" />
+        <div className="stage video" style={{ "--stage-c": "#fb923c", "--beat": "0.6s" } as React.CSSProperties}>
+          <MascotView style={stageStyle} clip={shownClip?.url ?? (phase === "intro" ? moveClip("festa", "palmas") : undefined)} poster={mascotImage(stageStyle.id)} mirror />
           {shown && (
             <div className="banner" style={{ position: "absolute", bottom: 20, fontSize: "1.8rem", color: "#c2410c", zIndex: 2 }}>
               {shown.emoji} {shown.name}
@@ -120,7 +120,7 @@ export function SimonGame() {
               <h1 className="title" style={{ color: "#c2410c" }}>
                 {t.simonTitle} 🧠
               </h1>
-              <Mascot emoji="🦉" color="#fb923c">
+              <Mascot emoji="🦜" image={mascotImage("festa")} color="#fb923c">
                 {t.simonIntro}
               </Mascot>
               <button className="btn big orange mt" onClick={() => { sfx.whoosh(); startLevel(1, []); }}>

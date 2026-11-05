@@ -48,8 +48,8 @@ export function StyleDetail({ styleId }: { styleId: StyleId }) {
     <div className="app">
       <Topbar back="/estilos" />
       <div className="lesson-layout">
-        <div className={`stage ${idle ? "video" : ""}`} style={{ "--stage-c": style.colors.main } as React.CSSProperties}>
-          <MascotView style={style} clip={idle} poster={mascotImage(styleId)} anim="bounce" beat={60 / style.bpm} />
+        <div className="stage video" style={{ "--stage-c": style.colors.main } as React.CSSProperties}>
+          <MascotView style={style} clip={idle} poster={mascotImage(styleId)} />
         </div>
         <div>
           <h1 className="title" style={{ color: style.colors.dark }}>
