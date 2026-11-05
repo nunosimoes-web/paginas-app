@@ -194,6 +194,10 @@ export const ptPT: Dict = {
     stageFollow: "Faz igual ao professor! O passo muda sozinho com a música.",
     soundHint: "🔊 Liga o som",
     forAdults: "Pais",
+    whoDances: "Quem vai dançar?",
+    whoDancesVoice: "Quem vai dançar hoje?",
+    newDancer: "Novo dançarino",
+    notYou: "Não és tu? Toca aqui",
     parents: {
       title: "Para pais e professores",
       intro: "O DanceLab ensina a dançar como numa aula a sério: a criança vê o professor, imita-o devagar, depois com música, e no fim junta tudo numa pequena coreografia. Não há respostas erradas: o objetivo é mexer, ganhar ritmo e confiança.",

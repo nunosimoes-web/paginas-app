@@ -79,9 +79,9 @@ export function SimonGame() {
       setInputIdx(n);
       if (n >= seq.length) {
         setPhase("levelup");
-        sfx.star();
         progress.update((s) => ({ bestSimon: Math.max(s.bestSimon, level) }));
         progress.addEnergy(5 * level);
+        progress.addStars(1);
         void (async () => { await speak(pick(dict.praise)); await speak(t.levelUpVoice); })();
         if (level % 3 === 0) confettiBurst();
         later(() => startLevel(level + 1, seq), 1800);

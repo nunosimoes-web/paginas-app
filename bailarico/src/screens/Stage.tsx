@@ -53,9 +53,9 @@ export function Stage() {
     if (goalRef.current >= 1) {
       goalRef.current = 0;
       progress.addEnergy(50);
+      progress.addStars(1);
       confettiBurst({ colors: [style.colors.main, style.colors.glow, "#fff"] });
       sfx.fanfare();
-      void speak(pick(dict.praise));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meter.value, playing]);
@@ -78,6 +78,17 @@ export function Stage() {
       void a.play().catch(() => undefined);
     }
   };
+  // a dançar: uma estrela a cada 30 segundos
+  useEffect(() => {
+    if (!playing) return;
+    const id = window.setInterval(() => {
+      progress.addStars(1);
+      void speak(pick(dict.praise));
+    }, 30_000);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing]);
+
   const stop = () => {
     engine.stop();
     audioRef.current?.pause();

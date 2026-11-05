@@ -194,6 +194,10 @@ export const en: Dict = {
     stageFollow: "Copy the teacher! The move changes by itself with the music.",
     soundHint: "🔊 Turn the sound on",
     forAdults: "Parents",
+    whoDances: "Who's dancing?",
+    whoDancesVoice: "Who's dancing today?",
+    newDancer: "New dancer",
+    notYou: "Not you? Tap here",
     parents: {
       title: "For parents and teachers",
       intro: "DanceLab teaches dance like a real class: the child watches the teacher, copies slowly, then with music, and finally puts it all together in a short routine. There are no wrong answers: the goal is to move, find the rhythm and gain confidence.",

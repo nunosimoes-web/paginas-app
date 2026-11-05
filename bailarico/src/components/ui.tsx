@@ -36,9 +36,9 @@ export function Topbar({ back, right }: { back?: string; right?: ReactNode }) {
           ℹ️
         </a>
         {p.name && (
-          <span className="pill">
+          <a className="pill star-pill" href="#/quem" title={t.whoDances}>
             <span className="avatar">{p.avatar}</span> {p.name} · ⭐ {totalStars(p)}
-          </span>
+          </a>
         )}
         <button
           className="iconbtn lang"

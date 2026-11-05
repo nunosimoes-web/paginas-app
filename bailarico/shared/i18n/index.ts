@@ -48,7 +48,7 @@ export function allVoiceLines(locale: Locale): string[] {
   Object.values(d.moves).forEach((m) => lines.add(`${m.name}. ${m.instruction}`));
   Object.values(d.moves).forEach((m) => lines.add(m.name));
   Object.values(d.styles).forEach((s) => lines.add(s.greeting));
-  [u.lessonDone1, u.lessonDone2, u.lessonDone3, u.dance, u.freeze, u.welcome, u.welcomeBack, u.askName, u.pickStyleVoice].forEach((p) => lines.add(p));
+  [u.lessonDone1, u.lessonDone2, u.lessonDone3, u.dance, u.freeze, u.welcome, u.welcomeBack, u.askName, u.pickStyleVoice, u.whoDancesVoice].forEach((p) => lines.add(p));
   [...d.praise.slice(0, 10), ...d.freezeOk, ...d.freezeFail].forEach((p) => lines.add(p));
   [u.freezeIntroVoice, u.simonIntroVoice, u.simonYourTurnVoice, u.watch, u.levelUpVoice, u.almostWas, u.stageIntroVoice, u.stickersVoice,
     u.studioIntroVoice, u.championVoice, u.heldVoice, u.createdVoice, u.filmingVoice, u.aliveVoice].forEach((p) => lines.add(p));

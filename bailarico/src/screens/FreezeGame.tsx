@@ -121,6 +121,7 @@ export function FreezeGame() {
     sfx.fanfare();
     void speak(t.championVoice);
     progress.update((s) => ({ bestFreeze: Math.max(s.bestFreeze, ROUNDS) }));
+    progress.addStars(2);
   };
 
   const frozen = phase === "freeze" || phase === "result";
