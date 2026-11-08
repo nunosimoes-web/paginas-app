@@ -54,7 +54,8 @@ function Shell() {
       <Onboarding
         onDone={() => {
           setAdding(false);
-          window.location.hash = "/";
+          // só mudar de endereço se não estivermos já no início (mudar cortaria as boas-vindas)
+          if (window.location.hash && window.location.hash !== "#/") window.location.hash = "/";
         }}
       />
     );
