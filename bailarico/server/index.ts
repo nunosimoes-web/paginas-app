@@ -9,6 +9,7 @@ import { sanitizeKidText } from "./safety.js";
 import * as falApi from "./fal.js";
 import { left, consume } from "./quota.js";
 import { generateAll, progress as genProgress } from "./generate.js";
+import { optimizeAll, optProgress } from "./optimize.js";
 import { LOCALES, type AiStatus, type ApiError, type Locale } from "../shared/types.js";
 import { synthesize, probeGemini } from "./tts.js";
 import { isLocale } from "../shared/i18n/index.js";
@@ -166,6 +167,15 @@ app.post("/api/admin/generate", requireAdmin, (req, res) => {
   res.status(202).json({ started: true });
 });
 app.get("/api/admin/generate/status", requireAdmin, (_req, res) => res.json({ ...genProgress }));
+app.post("/api/admin/optimize", requireAdmin, (_req, res) => {
+  if (optProgress.running) {
+    res.status(409).json({ ...optProgress });
+    return;
+  }
+  optimizeAll().catch((e) => console.error("optimize:", e));
+  res.status(202).json({ started: true });
+});
+app.get("/api/admin/optimize/status", requireAdmin, (_req, res) => res.json({ ...optProgress }));
 app.get("/api/admin/tts-probe", requireAdmin, wrap(async (_req, res) => { res.json(await probeGemini()); }));
 
 // Ficheiros gerados (cache persistente) e manifesto.

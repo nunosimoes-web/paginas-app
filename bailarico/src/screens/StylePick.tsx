@@ -41,7 +41,7 @@ export function StyleDetail({ styleId }: { styleId: StyleId }) {
   const p = useProgress();
   useEffect(() => {
     void speak(style.greeting);
-    preloadClips(lessons[0]?.moves.map((m) => moveClip(styleId, m)) ?? []);
+    preloadClips(lessons[0] ? [moveClip(styleId, lessons[0].moves[0])] : []);
   }, [style, lessons, styleId, moveById]);
   const idle = mascotIdle(styleId);
   return (

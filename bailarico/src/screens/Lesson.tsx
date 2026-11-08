@@ -76,7 +76,7 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
       [introLine, t.stepWatchVoice, t.stepSlowVoice, t.stepMusicVoice, t.stepAskVoice, t.choreoReadyVoice, ...moves.map((m) => `${m.name}. ${m.instruction}`), ...moves.map((m) => m.name)],
       counts,
     );
-    preloadClips([mascotIdle(style.id), ...moves.map((m) => moveClip(style.id, m.id))]);
+    preloadClips([moveClip(style.id, moves[0].id)]); // só o primeiro; os seguintes à medida que avança
     void speak(introLine);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -88,6 +88,7 @@ function LessonInner({ lesson }: { lesson: LessonT }) {
     setIdx(i);
     setPhase("watch");
     const m = moves[i];
+    if (moves[i + 1]) preloadClips([moveClip(style.id, moves[i + 1].id)]);
     const minShow = new Promise<void>((r) => later(r, 5500)); // pelo menos uma volta do vídeo
     await speak(`${m.name}. ${m.instruction}`);
     await minShow;
