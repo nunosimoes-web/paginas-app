@@ -2,12 +2,13 @@ import { ai } from "../lib/ai";
 import { generatedVoice } from "../lib/assets";
 import { getDict } from "../../shared/i18n/index.js";
 import type { Locale } from "../../shared/types.js";
-import { audioContext } from "./context";
+import { audioContext, voiceElement } from "./context";
 
 /**
  * Voz do DanceLab.
- * - Frases faladas: elemento <audio> pré-carregado (toca em tablets mesmo em modo silencioso, sem atraso).
- * - Contagem "um, dois, três": Web Audio, para cair exatamente em cima do tempo da música.
+ * - Tudo toca por Web Audio: depois do primeiro toque no ecrã, o tablet deixa tocar sons a qualquer momento
+ *   (os elementos <audio> soltos ficavam bloqueados no iPad quando a voz começava sozinha a meio da lição).
+ * - Se a descodificação falhar, usa o único elemento <audio> já autorizado no primeiro toque.
  * - Origem: voz pré-gerada (manifesto) → voz do servidor → voz do browser (só se for da língua exata
  *   e o servidor não tiver voz para essa língua; nunca português do Brasil no lugar de Portugal).
  * - stopVoice() é chamado pelo router ANTES de o ecrã novo aparecer, por isso o ecrã novo pode falar.
@@ -19,7 +20,6 @@ let generation = 0;
 let current: { stop: () => void } | null = null;
 const urlCache = new Map<string, string>();
 const pending = new Map<string, Promise<string>>();
-const elements = new Map<string, HTMLAudioElement>();
 const buffers = new Map<string, AudioBuffer>();
 const decoding = new Map<string, Promise<AudioBuffer | null>>();
 
@@ -64,17 +64,6 @@ function voiceUrl(text: string, timeoutMs: number): Promise<string> | null {
     pending.set(key, p);
   }
   return p;
-}
-
-function elementFor(url: string): HTMLAudioElement {
-  let a = elements.get(url);
-  if (!a) {
-    a = new Audio(url);
-    a.preload = "auto";
-    a.setAttribute("playsinline", "");
-    elements.set(url, a);
-  }
-  return a;
 }
 
 function playElement(a: HTMLAudioElement): Promise<void> {
@@ -145,7 +134,45 @@ export async function speak(text: string): Promise<void> {
     return; // há voz de qualidade no servidor mas esta frase falhou: silêncio, nunca voz robótica
   }
   if (gen !== generation) return;
-  return playElement(elementFor(url));
+  const buf = await bufferForUrl(url);
+  if (gen !== generation) return;
+  if (buf) return playBuffer(buf);
+  return playShared(url);
+}
+
+function playBuffer(buf: AudioBuffer): Promise<void> {
+  return new Promise((resolve) => {
+    const c = audioContext();
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    src.connect(c.destination);
+    let done = false;
+    const finish = () => {
+      if (!done) {
+        done = true;
+        resolve();
+      }
+    };
+    src.onended = finish;
+    src.start();
+    current = {
+      stop: () => {
+        try {
+          src.stop();
+        } catch {
+          /* já parou */
+        }
+        finish();
+      },
+    };
+  });
+}
+
+/** Recurso: o elemento <audio> partilhado, autorizado no primeiro toque. */
+function playShared(url: string): Promise<void> {
+  const a = voiceElement();
+  a.src = url;
+  return playElement(a);
 }
 
 /* ---------- contagem em cima do tempo (Web Audio) ---------- */
@@ -154,6 +181,10 @@ async function bufferFor(text: string): Promise<AudioBuffer | null> {
   if (!urlP) return null;
   const url = await urlP.catch(() => null);
   if (!url) return null;
+  return bufferForUrl(url);
+}
+
+async function bufferForUrl(url: string): Promise<AudioBuffer | null> {
   const hit = buffers.get(url);
   if (hit) return hit;
   let d = decoding.get(url);
@@ -189,11 +220,7 @@ export function speakAt(text: string, when = 0): boolean {
   return true;
 }
 
-/** Pré-carrega frases (as frases para <audio>, a contagem para Web Audio). */
+/** Pré-carrega e descodifica frases (ficheiros pequenos) para tocarem sem atraso. */
 export function warmup(texts: string[], counts: string[] = []) {
-  texts.slice(0, 40).forEach((t) => {
-    const p = voiceUrl(t, 60_000);
-    p?.then((url) => elementFor(url).load()).catch(() => undefined);
-  });
-  counts.forEach((c) => void bufferFor(c));
+  [...counts, ...texts.slice(0, 24)].forEach((t) => void bufferFor(t));
 }

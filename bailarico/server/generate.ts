@@ -182,6 +182,8 @@ export async function generateAll(opts: GenerateOptions, publicBase = "", log: (
     await Promise.all([voices, visuals]);
     await save();
   } finally {
+    // versões leves dos ficheiros novos (feito depois de libertar o gerador)
+    setTimeout(() => void import("./optimize.js").then((o) => o.optimizeAll().catch(() => undefined)), 1000);
     progress.running = false;
     progress.finishedAt = new Date().toISOString();
     progress.current = undefined;

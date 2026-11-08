@@ -1,5 +1,6 @@
 let ctx: AudioContext | null = null;
 let silentEl: HTMLAudioElement | null = null;
+let voiceEl: HTMLAudioElement | null = null;
 
 /** AudioContext partilhado. Só é criado após um gesto do utilizador. */
 export function audioContext(): AudioContext {
@@ -32,6 +33,22 @@ export function unlockAudio() {
     silentEl.setAttribute("playsinline", "");
   }
   if (silentEl.paused) void silentEl.play().catch(() => undefined);
+  // Um único elemento de voz, "autorizado" por este toque: o iPad só deixa tocar mais tarde, sem toque,
+  // elementos que já tocaram dentro de um toque. Por isso a voz reutiliza sempre este.
+  if (!voiceEl) {
+    voiceEl = new Audio("silence.mp3");
+    voiceEl.setAttribute("playsinline", "");
+    void voiceEl.play().then(() => voiceEl?.pause()).catch(() => undefined);
+  }
+}
+
+/** O elemento de voz partilhado (autorizado no primeiro toque). */
+export function voiceElement(): HTMLAudioElement {
+  if (!voiceEl) {
+    voiceEl = new Audio();
+    voiceEl.setAttribute("playsinline", "");
+  }
+  return voiceEl;
 }
 
 let installed = false;
