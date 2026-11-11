@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Card, styles } from "@/components/ui";
+import { ProtectedForm } from "@/components/ProtectedForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("forgotPassword");
@@ -37,8 +38,7 @@ export default async function ForgotPasswordPage({
         </header>
 
         {sent ? null : (
-          <form method="POST" action="/api/forgot-password" className="space-y-4">
-            <input type="hidden" name="locale" value={locale} />
+          <ProtectedForm action="password_reset" sitekey={process.env.TURNSTILE_SITEKEY || ""} locale={locale} submitLabel={t("submit")}>
             <div className="space-y-1.5">
               <label htmlFor="email" className={styles.label}>
                 {a("email")}
@@ -52,10 +52,7 @@ export default async function ForgotPasswordPage({
                 className={styles.input}
               />
             </div>
-            <button type="submit" className={`${styles.btnPrimary} w-full`}>
-              {t("submit")}
-            </button>
-          </form>
+          </ProtectedForm>
         )}
 
         <p className="text-sm text-muted">

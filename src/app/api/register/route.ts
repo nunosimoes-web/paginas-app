@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validation";
 import { hashPassword } from "@/lib/password";
+import { guardPublicForm, readPublicBody, PublicFormError } from "@/lib/public-form-security";
 
 export async function POST(request: Request) {
   let json: unknown;
   try {
-    json = await request.json();
-  } catch {
-    return NextResponse.json({ error: "bad_request" }, { status: 400 });
+    json = await readPublicBody(request, "json");
+  } catch (error) {
+    return NextResponse.json({ error: "bad_request" }, { status: error instanceof PublicFormError ? error.status : 400 });
   }
 
   const parsed = registerSchema.safeParse(json);
@@ -21,6 +22,9 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+
+  try { await guardPublicForm(request, json as Record<string, unknown>, "register"); }
+  catch (error) { return NextResponse.json({ error: error instanceof PublicFormError ? error.code : "temporarily_unavailable" }, { status: error instanceof PublicFormError ? error.status : 503 }); }
 
   const { email, password, displayName } = parsed.data;
 

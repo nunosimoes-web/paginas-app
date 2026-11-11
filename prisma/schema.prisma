@@ -133,3 +133,12 @@ model ClientLink {
   createdAt   DateTime @default(now())
   @@unique([therapistId, clientId])
 }
+
+// Ephemeral, HMAC-keyed abuse counters only; no visitor profile or raw identifiers.
+model PublicFormQuota {
+  id        String   @id
+  count     Int
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}

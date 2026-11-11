@@ -8,6 +8,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { sendEmail } from "@/lib/email";
+import { guardPublicForm, readPublicBody, PublicFormError, privateDigest } from "@/lib/public-form-security";
 
 export const dynamic = "force-dynamic";
 
@@ -16,10 +17,20 @@ function esc(s: string): string {
 }
 
 export async function POST(request: Request) {
-  const form = await request.formData();
-  const message = String(form.get("message") || "").trim().slice(0, 5000);
-  const fromEmail = String(form.get("email") || "").trim().slice(0, 200);
-  const locale = form.get("locale") === "en" ? "en" : "pt-PT";
+  let data: Record<string, unknown>;
+  try {
+    data = await readPublicBody(request, "form");
+    if (typeof data.message !== "string" || data.message.trim().length < 5 || data.message.length > 5000 ||
+        (data.email && (typeof data.email !== "string" || data.email.length > 200 || !z.email().safeParse(data.email.trim()).success))) {
+      return NextResponse.json({ error: "bad_request" }, { status: 400 });
+    }
+    await guardPublicForm(request, data, "support");
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof PublicFormError ? error.code : "temporarily_unavailable" }, { status: error instanceof PublicFormError ? error.status : 503 });
+  }
+  const message = (data.message as string).trim();
+  const fromEmail = typeof data.email === "string" ? data.email.trim() : "";
+  const locale = data.locale === "en" ? "en" : "pt-PT";
   const prefix = locale === "en" ? "/en" : "";
   const base = (process.env.NEXTAUTH_URL || new URL(request.url).origin).replace(
     /\/$/,
@@ -37,6 +48,7 @@ export async function POST(request: Request) {
         to,
         replyTo: z.email().safeParse(fromEmail).success ? fromEmail : undefined,
         subject: "Mindwink — mensagem de suporte",
+        idempotencyKey: "support:" + privateDigest("support-delivery", `${fromEmail}\0${message}`),
         html: `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px;color:#33312e;">
 <p style="font-size:13px;color:#9a937f;">Mensagem de suporte do Mindwink</p>
 <p style="font-size:13px;color:#6d675d;"><strong>De:</strong> ${esc(who)}</p>
@@ -45,9 +57,11 @@ export async function POST(request: Request) {
         text: `Mensagem de suporte do Mindwink\n\nDe: ${who}\n\n${message}`,
       });
     } catch {
-      // Não bloquear o utilizador por uma falha de envio.
+      return NextResponse.json({ error: "temporarily_unavailable" }, { status: 503 });
     }
   }
 
-  return NextResponse.redirect(`${base}${prefix}/support?sent=1`, 303);
+  const redirectTo = `${base}${prefix}/support?sent=1`;
+  return request.headers.get("accept")?.includes("application/json")
+    ? NextResponse.json({ ok: true, redirectTo }) : NextResponse.redirect(redirectTo, 303);
 }

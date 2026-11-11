@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { PublicHeader } from "@/components/PublicHeader";
 import { Card, styles } from "@/components/ui";
+import { ProtectedForm } from "@/components/ProtectedForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("support");
@@ -33,8 +34,7 @@ export default async function SupportPage({
           </header>
 
           {sent ? null : (
-            <form method="POST" action="/api/support" className="space-y-4">
-              <input type="hidden" name="locale" value={locale} />
+            <ProtectedForm action="support" sitekey={process.env.TURNSTILE_SITEKEY || ""} locale={locale} submitLabel={t("submit")}>
               <div className="space-y-1.5">
                 <label htmlFor="email" className={styles.label}>
                   {t("emailLabel")}
@@ -61,10 +61,7 @@ export default async function SupportPage({
                   className={`${styles.input} resize-y`}
                 />
               </div>
-              <button type="submit" className={`${styles.btnPrimary} w-full`}>
-                {t("submit")}
-              </button>
-            </form>
+            </ProtectedForm>
           )}
 
           <p className="text-sm text-muted">
