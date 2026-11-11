@@ -10,6 +10,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { newResetToken, RESET_TTL_MS } from "@/lib/reset-token";
 import { sendEmail } from "@/lib/email";
+import { z } from "zod";
+import { guardPublicForm, readPublicBody, PublicFormError } from "@/lib/public-form-security";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +35,16 @@ const COPY = {
 };
 
 export async function POST(request: Request) {
-  const form = await request.formData();
-  const email = String(form.get("email") || "").trim().toLowerCase();
-  const locale = form.get("locale") === "en" ? "en" : "pt-PT";
+  let data: Record<string, unknown>;
+  try {
+    data = await readPublicBody(request, "form");
+    if (typeof data.email !== "string" || data.email.length > 200 || !z.email().safeParse(data.email.trim()).success) return NextResponse.json({ error: "bad_request" }, { status: 400 });
+    await guardPublicForm(request, data, "password_reset");
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof PublicFormError ? error.code : "temporarily_unavailable" }, { status: error instanceof PublicFormError ? error.status : 503 });
+  }
+  const email = (data.email as string).trim().toLowerCase();
+  const locale = data.locale === "en" ? "en" : "pt-PT";
   const prefix = locale === "en" ? "/en" : "";
   const base = (process.env.NEXTAUTH_URL || new URL(request.url).origin).replace(
     /\/$/,
@@ -75,5 +84,6 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.redirect(redirectUrl, 303);
+  return request.headers.get("accept")?.includes("application/json")
+    ? NextResponse.json({ ok: true, redirectTo: redirectUrl }) : NextResponse.redirect(redirectUrl, 303);
 }

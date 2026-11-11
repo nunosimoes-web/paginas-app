@@ -11,7 +11,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
-RUN npm run build
+RUN npm run build -- --webpack
 
 # ---- migrator: imagem com a CLI Prisma para migrar/semear (one-shot) ----
 FROM node:24-alpine AS migrator

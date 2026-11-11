@@ -6,10 +6,11 @@ import { useLocale, useTranslations } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { styles } from "@/components/ui";
+import { BotCheck, BotTrap } from "./BotCheck";
 
 type Mode = "login" | "register";
 
-export function AuthForm({ mode }: { mode: Mode }) {
+export function AuthForm({ mode, sitekey }: { mode: Mode; sitekey: string }) {
   const t = useTranslations("auth");
   const c = useTranslations("common");
   const locale = useLocale();
@@ -19,9 +20,12 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [botToken, setBotToken] = useState("");
+  const [resetKey, setResetKey] = useState(0);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (mode === "register" && !botToken) return;
     setError(null);
     setLoading(true);
 
@@ -30,7 +34,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         const res = await fetch("/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, displayName }),
+          body: JSON.stringify({ email, password, displayName, "cf-turnstile-response": botToken, website: new FormData(e.currentTarget as HTMLFormElement).get("website") || "" }),
         });
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
@@ -63,6 +67,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
     } catch {
       setError(t("errorGeneric"));
       setLoading(false);
+    } finally {
+      if (mode === "register") { setBotToken(""); setResetKey(n => n + 1); }
     }
   }
 
@@ -131,6 +137,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
         </p>
       ) : null}
 
+      {mode === "register" ? <><BotTrap /><BotCheck sitekey={sitekey} action="register" locale={locale} onToken={setBotToken} resetKey={resetKey} /></> : null}
+
+      {mode === "register" && !sitekey ? <p role="alert" className="text-sm text-clay">{locale === "en" ? "Registration is temporarily unavailable. Contact " : "O registo está temporariamente indisponível. Contacta "}<a href="mailto:hello@mindwink.cognixhub.com">hello@mindwink.cognixhub.com</a>.</p> : null}
+
       {error ? (
         <p role="alert" className="text-sm text-clay">
           {error}
@@ -139,7 +149,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || (mode === "register" && !botToken)}
         className={`${styles.btnPrimary} w-full`}
       >
         {loading

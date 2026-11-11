@@ -31,7 +31,7 @@ export async function AuthScreen({ mode }: { mode: "login" | "register" }) {
           </p>
         </header>
 
-        <AuthForm mode={mode} />
+        <AuthForm mode={mode} sitekey={process.env.TURNSTILE_SITEKEY || ""} />
 
         <p className="text-sm text-muted">
           {isLogin ? t("noAccount") : t("hasAccount")}{" "}
