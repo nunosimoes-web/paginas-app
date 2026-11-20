@@ -19,6 +19,31 @@ const THEMES: Record<string, { "pt-PT": string; en: string }> = {
   boundaries:     { "pt-PT": "Fronteiras", en: "Boundaries" },
 };
 
+// Percursos de 21 dias (Plus). A ordem dos pieceOrder é a sequência diária.
+const PROGRAMS: Array<{
+  slug: string;
+  titleI18n: Record<string, string>;
+  summaryI18n: Record<string, string>;
+  days: number;
+  themeFilter: string;
+}> = [
+  {
+    slug: "anxiety-21",
+    titleI18n: {
+      "pt-PT": "Ansiedade — 21 dias",
+      en: "Anxiety — 21 days",
+    },
+    summaryI18n: {
+      "pt-PT":
+        "Vinte e um dias com peças calmas para habitar a ansiedade — sem forçar nada — e devolver um pouco de chão aos dias.",
+      en:
+        "Twenty-one days of calm pieces for living with anxiety — without forcing anything — and gently giving back some ground to your days.",
+    },
+    days: 21,
+    themeFilter: "anxiety",
+  },
+];
+
 async function main() {
   const raw = JSON.parse(readFileSync(join(process.cwd(), "data/content_365.json"), "utf-8"));
 
@@ -32,12 +57,13 @@ async function main() {
     themeIds[slug] = t.id;
   }
 
-  // Peças
+  // Peças. As 365 peças foram revistas pelo Nuno a 20/11/2026 — seed marca
+  // needsReview=false mesmo em upsert (update), mantendo o conteúdo tal como está.
   let n = 0;
   for (const p of raw.pieces) {
     await prisma.contentPiece.upsert({
       where: { externalId: p.id },
-      update: {},
+      update: { needsReview: false },
       create: {
         externalId: p.id,
         day: p.day,
@@ -47,12 +73,49 @@ async function main() {
         moodFit: p.mood_fit,
         depth: p.depth,
         themeId: themeIds[p.theme] ?? null,
-        needsReview: true,
+        needsReview: false,
       },
     });
     n++;
   }
-  console.log(`Seed concluído: ${Object.keys(THEMES).length} temas, ${n} peças.`);
+
+  // Percursos: usamos as N primeiras peças do tema, por dia ascendente.
+  let programs = 0;
+  for (const prog of PROGRAMS) {
+    const themed = raw.pieces
+      .filter((p: { theme: string }) => p.theme === prog.themeFilter)
+      .sort((a: { day: number }, b: { day: number }) => a.day - b.day)
+      .slice(0, prog.days)
+      .map((p: { id: string }) => p.id);
+
+    if (themed.length < prog.days) {
+      console.warn(
+        `Programa ${prog.slug}: só ${themed.length} peças disponíveis (precisa ${prog.days}).`,
+      );
+    }
+
+    await prisma.program.upsert({
+      where: { slug: prog.slug },
+      update: {
+        titleI18n: prog.titleI18n,
+        summaryI18n: prog.summaryI18n,
+        days: prog.days,
+        pieceOrder: themed,
+      },
+      create: {
+        slug: prog.slug,
+        titleI18n: prog.titleI18n,
+        summaryI18n: prog.summaryI18n,
+        days: prog.days,
+        pieceOrder: themed,
+      },
+    });
+    programs++;
+  }
+
+  console.log(
+    `Seed concluído: ${Object.keys(THEMES).length} temas, ${n} peças, ${programs} percursos.`,
+  );
 }
 
 main().catch((e) => { console.error(e); process.exit(1); })

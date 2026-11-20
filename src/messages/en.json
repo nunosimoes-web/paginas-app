@@ -20,6 +20,9 @@
     "journal": "Journal",
     "journey": "Journey",
     "settings": "Settings",
+    "programs": "Journeys",
+    "weekly": "Week",
+    "body": "Body",
     "therapist": "Clients",
     "signIn": "Sign in",
     "signUp": "Sign up",
@@ -28,8 +31,10 @@
     "skipToContent": "Skip to content"
   },
   "landing": {
-    "heroTitle": "A little reflection. A fresh perspective.",
+    "heroTitle": "One minute a day to hold on to what you discovered in therapy.",
     "heroSubtitle": "Mindwink brings you a short daily reading — a metaphor, a question or an exercise — and space to write at your own pace. Use it on your own or as support between therapy sessions.",
+    "navPricing": "Plans",
+    "navBody": "Body",
     "ctaPrimary": "Get started",
     "ctaSecondary": "I already have an account",
     "heroNote": "Experimental version. One short piece a day, in less than a minute.",
@@ -293,6 +298,138 @@
     "genericTitle": "Something went wrong",
     "genericBody": "Please try again in a moment.",
     "retry": "Try again"
+  },
+  "pricing": {
+    "title": "Plans",
+    "kicker": "Mindwink",
+    "intro": "Free stays free, forever. Paid plans are for those who want to go a little deeper — and for professionals who care for others. Everything is in test mode right now; nothing is charged without your OK.",
+    "comingSoon": "Coming soon",
+    "comingSoonHelp": "Payments are being prepared. Drop us a word via support if you'd like to try earlier.",
+    "founderTitle": "You already have access to everything",
+    "founderBody": "You've been with us from the start. Your plan is lifetime and opens every tier. Nothing to buy here — keep using Mindwink as you always have.",
+    "manage": "Manage subscription",
+    "subscribe": "Subscribe",
+    "buyReport": "Buy report",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "oneOff": "one-off",
+    "safety": "Free loses nothing. Paid plans add — never take away.",
+    "free": {
+      "name": "Free",
+      "price": "€0",
+      "tagline": "Forever, for everyone.",
+      "items": [
+        "One short piece a day, in app and email",
+        "Private journal and mood check-in",
+        "Nine themes and your own time",
+        "Therapist link (client side)",
+        "Body map with medical safety step"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "€4.99",
+      "priceYear": "€39",
+      "tagline": "For when you want to go a little deeper.",
+      "items": [
+        "21-day journeys (starts with anxiety)",
+        "Export your journal as PDF",
+        "Weekly \"what you wrote this week\" summary",
+        "Full archive and favorite pieces",
+        "Everything in Free"
+      ]
+    },
+    "pro": {
+      "name": "Therapist Pro",
+      "price": "€12",
+      "tagline": "For those who care for others.",
+      "items": [
+        "Unlimited clients (free up to 3)",
+        "Seed themes after each session",
+        "Client summary, with consent",
+        "Full therapist area",
+        "Everything in Free"
+      ]
+    },
+    "body": {
+      "name": "Body (SomaSignal)",
+      "price": "€5.99",
+      "priceYear": "€45",
+      "tagline": "To inhabit the body better.",
+      "items": [
+        "Symptom journal with patterns over time",
+        "30-day report to take to a doctor or therapist",
+        "Four-week mind-body programs",
+        "Everything in Free"
+      ],
+      "reportName": "30-day report (one-off)",
+      "reportPrice": "€9",
+      "reportTagline": "Try without subscribing: a single report you can bring to a consult."
+    },
+    "safetyTitle": "Wellbeing, not treatment",
+    "safetyBody": "Mindwink is a wellbeing and support tool. It is not a medical device, does not diagnose and does not replace psychological, psychiatric or medical care."
+  },
+  "body": {
+    "title": "Body map",
+    "kicker": "Body",
+    "intro": "Pick a region to explore what might be behind it. Before looking for an emotional cause, your physical safety comes first.",
+    "safety": "If pain is severe, sudden, with shortness of breath, fever, weakness or fainting, seek medical help. This reading is exploratory and never replaces a professional.",
+    "pickZone": "Pick a region",
+    "insightLabel": "May be linked to",
+    "causesLabel": "Things to investigate",
+    "solutionsLabel": "Try now",
+    "footNote": "Mindwink Body is a module under development. Wellbeing and education, not a medical device.",
+    "plusTitle": "Need more?",
+    "plusBody": "Plus (or the one-off report) unlocks a symptom journal and a 30-day report you can bring to a doctor or therapist.",
+    "plusCta": "See plans",
+    "freeBadge": "Free",
+    "plusBadge": "Plus",
+    "reportCta": "Buy the report",
+    "diaryTitle": "Symptom journal",
+    "diaryIntro": "One entry a day. Region, intensity (0–10) and, if you want, a short note. It feeds the 30-day report.",
+    "diaryLocked": "The symptom journal is part of Plus (or the one-off report).",
+    "diaryRegion": "Region",
+    "diaryIntensity": "Intensity",
+    "diaryNote": "Note (optional)",
+    "diarySubmit": "Save",
+    "diarySaved": "Saved. Thank you.",
+    "reportTitle": "30-day report",
+    "reportEmpty": "No entries yet. Start with the journal.",
+    "reportPrint": "Print or save as PDF",
+    "reportSince": "Entries since {when}",
+    "reportTotal": "Total entries",
+    "reportAverage": "Average intensity",
+    "reportByRegion": "By region"
+  },
+  "programs": {
+    "title": "Journeys",
+    "kicker": "Plus",
+    "intro": "Twenty-one days with a steady thread. No rush, no goals — just a fixed place for your daily minute.",
+    "day": "Day {n}",
+    "ofDays": "of {total}",
+    "start": "Start journey",
+    "continue": "Continue",
+    "startedOn": "Started on {when}",
+    "locked": "Journeys are part of the Plus plan.",
+    "upsell": "See plans",
+    "noPieces": "This journey is still being prepared."
+  },
+  "journalExport": {
+    "title": "Export your journal",
+    "intro": "Print or save your full journal as PDF. It stays on a device of yours only.",
+    "button": "Print or save as PDF",
+    "locked": "Exporting your journal is part of the Plus plan.",
+    "empty": "Your journal is still empty."
+  },
+  "weekly": {
+    "title": "This week",
+    "intro": "A calm look at the past seven days — no heavy counts, no guilt.",
+    "piecesSeen": "Pieces received",
+    "journalEntries": "Journal entries",
+    "checkIns": "Mood check-ins",
+    "lastEntries": "Latest entries",
+    "empty": "No activity this week yet.",
+    "locked": "The weekly summary is part of the Plus plan."
   },
   "cookies": {
     "preferences": "Cookie preferences",

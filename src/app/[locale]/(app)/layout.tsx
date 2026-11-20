@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { requireOnboardedUser } from "@/lib/session";
+import { hasPlusAccess } from "@/lib/plan";
 import { AppNav } from "@/components/AppNav";
 
 export default async function AppLayout({
@@ -13,7 +14,10 @@ export default async function AppLayout({
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <AppNav isTherapist={user.role === "THERAPIST"} />
+      <AppNav
+        isTherapist={user.role === "THERAPIST"}
+        hasPlus={hasPlusAccess(user)}
+      />
       <main
         id="main"
         className="mx-auto w-full max-w-2xl flex-1 px-5 py-8 sm:py-12"
