@@ -7,6 +7,7 @@ import { isFounder } from "@/lib/plan";
 import { stripeConfigured } from "@/lib/stripe";
 import { Link } from "@/i18n/navigation";
 import { PricingActions } from "@/components/PricingActions";
+import { syncCheckoutSession } from "@/lib/stripe-sync";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pricing");
@@ -27,14 +28,24 @@ type Tier = {
 
 export default async function PrecosPage({
   params,
+  searchParams,
 }: PageProps<"/[locale]/precos">) {
   const { locale } = await params;
   const t = await getTranslations("pricing");
   const user = await getCurrentUser();
   const founder = user ? isFounder(user) : false;
   const canCheckout = stripeConfigured();
+  const sp = await searchParams;
+  let confirmed = false;
+  if (user && !founder && canCheckout && sp?.status === "ok" && typeof sp.session_id === "string") {
+    try {
+      confirmed = await syncCheckoutSession(sp.session_id, user.id);
+    } catch (error) {
+      console.error("[precos] sync checkout", error);
+    }
+  }
 
-  const tiers: Tier[] = [
+  const allTiers: Tier[] = [
     {
       key: "free",
       name: t("free.name"),
@@ -68,12 +79,13 @@ export default async function PrecosPage({
       name: t("body.name"),
       tagline: t("body.tagline"),
       price: t("body.price"),
-      priceYear: t("body.priceYear"),
       perLabel: t("perMonth"),
       items: (t.raw("body.items") as string[]) ?? [],
       plan: "body_month",
     },
   ];
+  // Regra fixa: founder (amigos) nunca vê preços.
+  const tiers = founder ? [] : allTiers;
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -84,6 +96,16 @@ export default async function PrecosPage({
             <PageHeader kicker={t("kicker")} title={t("title")} subtitle={t("intro")} />
           </div>
         </section>
+
+        {confirmed ? (
+          <section className="border-b border-line">
+            <div className="mx-auto w-full max-w-5xl px-6 py-6">
+              <Card className="p-5">
+                <p className="text-ink">{locale === "en" ? "Payment confirmed. Your plan is active." : "Pagamento confirmado. O teu plano está ativo."}</p>
+              </Card>
+            </div>
+          </section>
+        ) : null}
 
         {founder ? (
           <section className="border-b border-line">
@@ -96,6 +118,7 @@ export default async function PrecosPage({
           </section>
         ) : null}
 
+        {founder ? null : (
         <section className="border-b border-line">
           <div className="mx-auto grid w-full max-w-5xl gap-6 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
             {tiers.map((tier) => (
@@ -152,11 +175,8 @@ export default async function PrecosPage({
                     <PricingActions
                       plan={tier.plan!}
                       planYear={
-                        tier.key === "plus"
-                          ? "plus_year"
-                          : tier.key === "body"
-                          ? "body_year"
-                          : undefined
+                        // Corpo: só mensal + relatório avulso (preços aprovados 20/11).
+                        tier.key === "plus" ? "plus_year" : undefined
                       }
                       locale={locale}
                       subscribeLabel={t("subscribe")}
@@ -178,6 +198,9 @@ export default async function PrecosPage({
           </div>
         </section>
 
+        )}
+
+        {founder ? null : (
         <section className="border-b border-line bg-surface/40">
           <div className="mx-auto w-full max-w-5xl px-6 py-12">
             <Card className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
@@ -208,6 +231,7 @@ export default async function PrecosPage({
             </Card>
           </div>
         </section>
+        )}
 
         <section>
           <div className="mx-auto w-full max-w-5xl px-6 py-14">

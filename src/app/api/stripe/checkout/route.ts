@@ -90,7 +90,7 @@ export async function POST(request: Request) {
       mode,
       customer,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${base}${localePrefix}/precos?status=ok`,
+      success_url: `${base}${localePrefix}/precos?status=ok&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${base}${localePrefix}/precos?status=cancel`,
       allow_promotion_codes: true,
       client_reference_id: user.id,

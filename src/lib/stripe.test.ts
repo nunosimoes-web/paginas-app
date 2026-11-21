@@ -5,6 +5,7 @@ describe("stripe: tolerância a env", () => {
   beforeEach(() => {
     delete process.env.STRIPE_SECRET_KEY;
     delete process.env.STRIPE_PRICE_PLUS_MONTH;
+    delete process.env.STRIPE_ALLOW_LIVE_PREVIEW;
   });
 
   it("sem chave, stripeConfigured devolve false", () => {
@@ -15,6 +16,15 @@ describe("stripe: tolerância a env", () => {
     process.env.STRIPE_SECRET_KEY = "sk_live_1234";
     expect(stripeConfigured()).toBe(false);
     expect(isLiveKey(process.env.STRIPE_SECRET_KEY)).toBe(true);
+  });
+
+  it("aceita chave live só com a flag de preview isolado", () => {
+    process.env.STRIPE_SECRET_KEY = "rk_live_1234";
+    expect(stripeConfigured()).toBe(false);
+    process.env.STRIPE_ALLOW_LIVE_PREVIEW = "1";
+    expect(stripeConfigured()).toBe(true);
+    process.env.STRIPE_ALLOW_LIVE_PREVIEW = "true";
+    expect(stripeConfigured()).toBe(false);
   });
 
   it("aceita chave teste", () => {

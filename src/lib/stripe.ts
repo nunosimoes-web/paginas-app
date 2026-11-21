@@ -7,9 +7,9 @@ import Stripe from "stripe";
 // mostram um estado "brevemente". Em produção, as rotas de checkout/portal
 // devolvem 503 se a chave não existir — nada "crash".
 //
-// Produção: só é aceite o modo teste. Chaves live (sk_live_ / rk_live_) são
-// recusadas explicitamente para evitar cobranças reais acidentais na fase
-// de preview descrita em docs/MINDWINK.md.
+// Chaves live (sk_live_ / rk_live_) são recusadas, exceto num preview isolado
+// com STRIPE_ALLOW_LIVE_PREVIEW=1 (decisão do Nuno, 20/11: venda de teste com
+// cupão 100 %). Nunca definir esta variável em produção. Nunca pôr chaves em git.
 
 export type PlanKey = "plus_month" | "plus_year" | "pro_month" | "body_month" | "body_year" | "body_report";
 
@@ -34,7 +34,10 @@ export const PLAN_PRICE_ENV: Record<PlanKey, string> = {
 export function stripeConfigured(): boolean {
   const key = process.env.STRIPE_SECRET_KEY ?? "";
   if (!key) return false;
-  return key.startsWith("sk_test_") || key.startsWith("rk_test_");
+  if (key.startsWith("sk_test_") || key.startsWith("rk_test_")) return true;
+  // Live só num ambiente de preview isolado, com a flag explícita. A produção
+  // (Coolify) não tem esta variável, por isso continua a recusar chaves live.
+  return isLiveKey(key) && process.env.STRIPE_ALLOW_LIVE_PREVIEW === "1";
 }
 
 export function isLiveKey(key: string | undefined): boolean {
