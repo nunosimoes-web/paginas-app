@@ -7,7 +7,13 @@ import { SignOutButton } from "./SignOutButton";
 
 type Item = { href: string; key: string };
 
-export function AppNav({ isTherapist }: { isTherapist: boolean }) {
+export function AppNav({
+  isTherapist,
+  hasPlus,
+}: {
+  isTherapist: boolean;
+  hasPlus: boolean;
+}) {
   const t = useTranslations("nav");
   const pathname = usePathname();
 
@@ -16,6 +22,13 @@ export function AppNav({ isTherapist }: { isTherapist: boolean }) {
     { href: "/checkin", key: "checkin" },
     { href: "/journal", key: "journal" },
     { href: "/journey", key: "journey" },
+    ...(hasPlus
+      ? [
+          { href: "/percursos", key: "programs" },
+          { href: "/semana", key: "weekly" },
+        ]
+      : []),
+    { href: "/corpo", key: "body" },
     ...(isTherapist ? [{ href: "/therapist", key: "therapist" }] : []),
     { href: "/settings", key: "settings" },
   ];

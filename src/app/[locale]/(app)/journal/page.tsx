@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { requireOnboardedUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
+import { hasPlusAccess } from "@/lib/plan";
 import { pickText } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
 import { JournalEditor } from "@/components/JournalEditor";
@@ -58,6 +60,17 @@ export default async function JournalPage({
       />
 
       <JournalEditor pieceId={pieceParam} respondingTo={respondingTo} />
+
+      {hasPlusAccess(user) && entries.length > 0 ? (
+        <div className="text-sm">
+          <Link
+            href="/journal/exportar"
+            className="text-accent-strong underline-offset-4 hover:underline"
+          >
+            Exportar o diário (PDF/impressão)
+          </Link>
+        </div>
+      ) : null}
 
       <section className="space-y-3">
         {entries.length === 0 ? (

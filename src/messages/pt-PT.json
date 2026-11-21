@@ -20,6 +20,9 @@
     "journal": "Diário",
     "journey": "Percurso",
     "settings": "Definições",
+    "programs": "Percursos",
+    "weekly": "Semana",
+    "body": "Corpo",
     "therapist": "Clientes",
     "signIn": "Entrar",
     "signUp": "Criar conta",
@@ -28,8 +31,10 @@
     "skipToContent": "Saltar para o conteúdo"
   },
   "landing": {
-    "heroTitle": "Uma pequena reflexão. Uma nova perspetiva.",
+    "heroTitle": "Um minuto por dia para não perderes o que descobriste na terapia.",
     "heroSubtitle": "O Mindwink acompanha o teu dia com uma pequena leitura — uma metáfora, uma pergunta ou um exercício — e espaço para escreveres ao teu ritmo. Podes usá-lo por ti ou como apoio entre sessões de terapia.",
+    "navPricing": "Camadas",
+    "navBody": "Corpo",
     "ctaPrimary": "Começar",
     "ctaSecondary": "Já tenho conta",
     "heroNote": "Versão experimental. Uma peça por dia, em menos de um minuto.",
@@ -293,6 +298,138 @@
     "genericTitle": "Algo correu menos bem",
     "genericBody": "Tenta novamente dentro de momentos.",
     "retry": "Tentar de novo"
+  },
+  "pricing": {
+    "title": "Camadas",
+    "kicker": "Mindwink",
+    "intro": "O gratuito continua para sempre. As camadas pagas são para quem quer ir um pouco mais fundo — e para profissionais que acompanham outros. Tudo em modo teste neste momento; nada é cobrado sem o seu OK.",
+    "comingSoon": "Em breve",
+    "comingSoonHelp": "Os pagamentos estão em preparação. Deixa-nos uma palavra pelo suporte se quiseres experimentar mais cedo.",
+    "founderTitle": "Já tens acesso a tudo",
+    "founderBody": "Estás connosco desde o início. O teu plano é vitalício e abre todas as camadas. Não há nada para comprar aqui — continua a usar o Mindwink como sempre.",
+    "manage": "Gerir subscrição",
+    "subscribe": "Assinar",
+    "buyReport": "Comprar relatório",
+    "perMonth": "/mês",
+    "perYear": "/ano",
+    "oneOff": "pagamento único",
+    "safety": "O gratuito não perde nada. As camadas pagas acrescentam — nunca retiram.",
+    "free": {
+      "name": "Grátis",
+      "price": "0 €",
+      "tagline": "Para sempre, para todos.",
+      "items": [
+        "Uma peça por dia, na app e no email",
+        "Diário privado e check-in de humor",
+        "Nove temas e escolha da hora",
+        "Ligação com o terapeuta (lado do cliente)",
+        "Mapa corporal com passo de segurança médica"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "4,99 €",
+      "priceYear": "39 €",
+      "tagline": "Para ir um pouco mais fundo.",
+      "items": [
+        "Percursos de 21 dias (começa com ansiedade)",
+        "Exportar o diário em PDF para imprimir",
+        "Resumo semanal \"o que escreveste esta semana\"",
+        "Arquivo completo e peças favoritas",
+        "Tudo do plano Grátis"
+      ]
+    },
+    "pro": {
+      "name": "Terapeuta Pro",
+      "price": "12 €",
+      "tagline": "Para quem acompanha outros.",
+      "items": [
+        "Clientes ilimitados (grátis até 3)",
+        "Semear temas por sessão",
+        "Resumo do cliente, com consentimento",
+        "Área de terapeuta completa",
+        "Tudo do plano Grátis"
+      ]
+    },
+    "body": {
+      "name": "Corpo (SomaSignal)",
+      "price": "5,99 €",
+      "priceYear": "45 €",
+      "tagline": "Para habitar melhor o corpo.",
+      "items": [
+        "Diário de sintomas com padrões ao longo do tempo",
+        "Relatório 30 dias para levar ao médico ou terapeuta",
+        "Programas mente-corpo de 4 semanas",
+        "Tudo do plano Grátis"
+      ],
+      "reportName": "Relatório 30 dias (avulso)",
+      "reportPrice": "9 €",
+      "reportTagline": "Experimenta sem assinar: um único relatório para levares a uma consulta."
+    },
+    "safetyTitle": "Bem-estar, não tratamento",
+    "safetyBody": "O Mindwink é uma ferramenta de bem-estar e apoio. Não é um dispositivo médico, não diagnostica e não substitui acompanhamento psicológico, psiquiátrico ou médico."
+  },
+  "body": {
+    "title": "Mapa do corpo",
+    "kicker": "Corpo",
+    "intro": "Escolhe uma zona para perceber o que pode estar por trás. Antes de procurar uma causa emocional, a tua segurança física vem primeiro.",
+    "safety": "Se a dor for forte, súbita, com falta de ar, febre, perda de força ou desmaio, procura ajuda médica. Esta leitura é exploratória e nunca substitui um profissional.",
+    "pickZone": "Escolhe uma zona",
+    "insightLabel": "Pode estar ligado a",
+    "causesLabel": "Causas a investigar",
+    "solutionsLabel": "Experimenta agora",
+    "footNote": "Mindwink Corpo é um módulo em desenvolvimento. Bem-estar e educação, não dispositivo médico.",
+    "plusTitle": "Precisas de mais?",
+    "plusBody": "O Plus (ou o relatório avulso) abre um diário de sintomas e um relatório de 30 dias para levares ao médico ou terapeuta.",
+    "plusCta": "Ver camadas",
+    "freeBadge": "Grátis",
+    "plusBadge": "Plus",
+    "reportCta": "Comprar o relatório",
+    "diaryTitle": "Diário de sintomas",
+    "diaryIntro": "Um registo por dia. Zona, intensidade (0–10) e, se quiseres, uma nota curta. Serve de base ao relatório de 30 dias.",
+    "diaryLocked": "O diário de sintomas faz parte do Plus (ou do relatório avulso).",
+    "diaryRegion": "Zona",
+    "diaryIntensity": "Intensidade",
+    "diaryNote": "Nota (opcional)",
+    "diarySubmit": "Registar",
+    "diarySaved": "Registado. Obrigado.",
+    "reportTitle": "Relatório 30 dias",
+    "reportEmpty": "Ainda não há registos. Começa pelo diário.",
+    "reportPrint": "Imprimir ou guardar em PDF",
+    "reportSince": "Registos desde {when}",
+    "reportTotal": "Total de registos",
+    "reportAverage": "Intensidade média",
+    "reportByRegion": "Por zona"
+  },
+  "programs": {
+    "title": "Percursos",
+    "kicker": "Plus",
+    "intro": "Vinte e um dias com um fio condutor. Sem pressa, sem objetivos — só um lugar fixo para o teu minuto diário.",
+    "day": "Dia {n}",
+    "ofDays": "de {total}",
+    "start": "Começar percurso",
+    "continue": "Continuar",
+    "startedOn": "Começaste a {when}",
+    "locked": "Percursos fazem parte do plano Plus.",
+    "upsell": "Ver camadas",
+    "noPieces": "Este percurso ainda está a preparar-se."
+  },
+  "journalExport": {
+    "title": "Exportar o diário",
+    "intro": "Imprimir ou guardar em PDF o teu diário completo. Fica apenas num dispositivo teu.",
+    "button": "Imprimir ou guardar em PDF",
+    "locked": "Exportar o diário faz parte do plano Plus.",
+    "empty": "Ainda não há entradas no teu diário."
+  },
+  "weekly": {
+    "title": "Resumo da semana",
+    "intro": "Uma vista calma dos últimos sete dias — sem contagens pesadas, sem culpa.",
+    "piecesSeen": "Peças recebidas",
+    "journalEntries": "Entradas no diário",
+    "checkIns": "Registos de humor",
+    "lastEntries": "Últimas entradas",
+    "empty": "Ainda não há atividade nesta semana.",
+    "locked": "O resumo semanal faz parte do plano Plus."
   },
   "cookies": {
     "preferences": "Preferências de cookies",
