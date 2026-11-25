@@ -243,7 +243,7 @@ export function OnboardingFlow({
         <p className="text-sm text-muted">{t("pickAtLeastOne")}</p>
       ) : null}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={() => setStep(0)}
