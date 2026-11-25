@@ -100,6 +100,9 @@ describe("pickPiece", () => {
 });
 
 describe("selectDailyPiece (wrapper Prisma)", () => {
+  type Delivery = { piece: { externalId: string }; pieceId: string };
+  type Created = { pieceId: string };
+
   // Duas peças, ambas do tema do utilizador; a METÁFORA pontua sempre mais alto
   // do que o LEMBRETE (viés de tipo), por isso seria a escolha "vencedora" todos
   // os dias se a exclusão de repetidos não funcionasse.
@@ -108,13 +111,13 @@ describe("selectDailyPiece (wrapper Prisma)", () => {
     { id: "db_p2", externalId: "ext_p2", day: 2, type: "REMINDER", principle: "y", theme: { slug: "anxiety" }, moodFit: ["any"], depth: 1, bodyI18n: { "pt-PT": "P2" } },
   ];
 
-  function makePrisma(recentDeliveries: any[]) {
-    const created: any[] = [];
+  function makePrisma(recentDeliveries: Delivery[]) {
+    const created: Created[] = [];
     const prisma = {
       promptDelivery: {
         findFirst: async () => null, // ainda não há entrega para hoje
         findMany: async () => recentDeliveries,
-        create: async ({ data }: any) => { created.push(data); return data; },
+        create: async ({ data }: { data: Created }) => { created.push(data); return data; },
       },
       user: { findUnique: async () => ({ id: "u1", locale: "pt-PT", displayName: "Carla" }) },
       userTheme: { findMany: async () => [{ theme: { slug: "anxiety" }, weight: 2 }] },
@@ -122,7 +125,7 @@ describe("selectDailyPiece (wrapper Prisma)", () => {
       clientLink: { findMany: async () => [] },
       contentPiece: {
         findMany: async () => dbPieces,
-        findUnique: async ({ where }: any) => dbPieces.find((p) => p.externalId === where.externalId),
+        findUnique: async ({ where }: { where: { externalId: string } }) => dbPieces.find((p) => p.externalId === where.externalId),
       },
     };
     return { prisma, created };
@@ -134,7 +137,7 @@ describe("selectDailyPiece (wrapper Prisma)", () => {
     const { prisma, created } = makePrisma([
       { piece: { externalId: "ext_p1" }, pieceId: "db_p1" },
     ]);
-    const r = await selectDailyPiece(prisma as any, "u1");
+    const r = await selectDailyPiece(prisma, "u1");
     // Hoje tem de escolher a OUTRA peça, não repetir a de ontem.
     expect(r.externalId).toBe("ext_p2");
     expect(created[0].pieceId).toBe("db_p2");
@@ -142,7 +145,7 @@ describe("selectDailyPiece (wrapper Prisma)", () => {
 
   it("sem entregas anteriores, escolhe a peça de maior pontuação", async () => {
     const { prisma } = makePrisma([]);
-    const r = await selectDailyPiece(prisma as any, "u1");
+    const r = await selectDailyPiece(prisma, "u1");
     expect(r.externalId).toBe("ext_p1");
   });
 });

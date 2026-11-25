@@ -4,6 +4,7 @@ import { requireOnboardedUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { pickText } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
+import { showsWritingStarters } from "@/lib/first-week";
 import { JournalEditor } from "@/components/JournalEditor";
 import { DeleteEntryButton } from "@/components/DeleteEntryButton";
 import { Card, PageHeader } from "@/components/ui";
@@ -57,7 +58,15 @@ export default async function JournalPage({
         subtitle={t("subtitle")}
       />
 
-      <JournalEditor pieceId={pieceParam} respondingTo={respondingTo} />
+      <JournalEditor
+        pieceId={pieceParam}
+        respondingTo={respondingTo}
+        starters={
+          showsWritingStarters(user, entries.length)
+            ? [t("starter1"), t("starter2"), t("starter3")]
+            : []
+        }
+      />
 
       <section className="space-y-3">
         {entries.length === 0 ? (

@@ -3,8 +3,15 @@ import { Link } from "@/i18n/navigation";
 import { AuthForm } from "./AuthForm";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Card } from "./ui";
+import { afterAuthPath, entryQuery, type Entry } from "@/lib/entry";
 
-export async function AuthScreen({ mode }: { mode: "login" | "register" }) {
+export async function AuthScreen({
+  mode,
+  entry,
+}: {
+  mode: "login" | "register";
+  entry: Entry;
+}) {
   const t = await getTranslations("auth");
   const c = await getTranslations("common");
   const isLogin = mode === "login";
@@ -27,16 +34,29 @@ export async function AuthScreen({ mode }: { mode: "login" | "register" }) {
             {isLogin ? t("signInTitle") : t("signUpTitle")}
           </h1>
           <p className="text-sm text-muted">
-            {isLogin ? t("signInSubtitle") : t("signUpSubtitle")}
+            {entry.invite
+              ? t("inviteSubtitle")
+              : isLogin
+                ? t("signInSubtitle")
+                : entry.therapist
+                  ? t("therapistSubtitle")
+                  : t("signUpSubtitle")}
           </p>
         </header>
 
-        <AuthForm mode={mode} sitekey={process.env.TURNSTILE_SITEKEY || ""} />
+        <AuthForm
+          mode={mode}
+          sitekey={process.env.TURNSTILE_SITEKEY || ""}
+          nextPath={afterAuthPath(entry)}
+        />
 
         <p className="text-sm text-muted">
           {isLogin ? t("noAccount") : t("hasAccount")}{" "}
           <Link
-            href={isLogin ? "/register" : "/login"}
+            href={{
+              pathname: isLogin ? "/register" : "/login",
+              query: entryQuery(entry),
+            }}
             className="font-medium text-accent-strong underline-offset-4 hover:underline"
           >
             {isLogin ? t("goSignUp") : t("goSignIn")}

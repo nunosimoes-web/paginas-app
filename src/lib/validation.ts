@@ -4,6 +4,7 @@ export const registerSchema = z.object({
   email: z.string().trim().toLowerCase().pipe(z.email()),
   password: z.string().min(8),
   displayName: z.string().trim().min(1).max(60).optional().or(z.literal("")),
+  locale: z.enum(["pt-PT", "en"]).optional(),
 });
 
 export const checkinSchema = z.object({
@@ -20,6 +21,8 @@ export const onboardingSchema = z.object({
   themeSlugs: z.array(z.string()).min(1),
   role: z.enum(["INDIVIDUAL", "THERAPIST"]),
   promptHour: z.number().int().min(0).max(23),
+  // Escolha explícita: sem valor por omissão, nunca presumida.
+  emailDaily: z.boolean(),
 });
 
 export const settingsSchema = z.object({

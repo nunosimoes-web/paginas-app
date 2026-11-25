@@ -15,7 +15,10 @@ export function LocaleSwitcher({ className = "" }: { className?: string }) {
   return (
     <button
       type="button"
-      onClick={() => router.replace(pathname, { locale: other })}
+      onClick={() =>
+        // Mantém a query (ex.: código de convite) ao mudar de idioma.
+        router.replace(pathname + window.location.search, { locale: other })
+      }
       className={`text-sm text-muted underline-offset-4 hover:text-ink hover:underline ${className}`}
       aria-label={`Switch language to ${other}`}
     >

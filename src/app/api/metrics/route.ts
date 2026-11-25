@@ -11,6 +11,7 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { activation } from "@/lib/activation";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ export async function GET(request: Request) {
     }),
     prisma.user.findMany({
       where: { createdAt: { gte: from } },
-      select: { createdAt: true },
+      select: { id: true, createdAt: true },
     }),
   ]);
 
@@ -81,5 +82,13 @@ export async function GET(request: Request) {
     });
   }
   const totalUsers = await prisma.user.count();
-  return NextResponse.json({ totalUsers, days });
+  // Ativação D1/D7 das contas novas (as dos amigos ficam fora).
+  const newAccounts = activation(users, [
+    ...deliveries
+      .filter((d) => d.opened)
+      .map((d) => ({ userId: d.userId, at: d.date })),
+    ...checkIns.map((c) => ({ userId: c.userId, at: c.createdAt })),
+    ...journals.map((j) => ({ userId: j.userId, at: j.createdAt })),
+  ]);
+  return NextResponse.json({ totalUsers, days, activation: newAccounts });
 }

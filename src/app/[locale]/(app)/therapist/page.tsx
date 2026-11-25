@@ -5,6 +5,7 @@ import { requireOnboardedUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/format";
 import { GenerateCodeButton } from "@/components/GenerateCodeButton";
+import { isFounderAccount } from "@/lib/audience";
 import { Card, PageHeader } from "@/components/ui";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,6 +22,8 @@ export default async function TherapistPage({
 
   const activeLocale = await getLocale();
   const t = await getTranslations("therapist");
+
+  const isNew = !isFounderAccount(user);
 
   const links = await prisma.clientLink.findMany({
     where: { therapistId: user.id },
@@ -39,14 +42,25 @@ export default async function TherapistPage({
       />
 
       <Card className="space-y-4 p-6">
-        <GenerateCodeButton />
+        <GenerateCodeButton withLink={isNew} />
         <p className="text-xs text-muted">{t("ethicsNote")}</p>
       </Card>
 
       <section className="space-y-3">
         <h2 className="font-serif text-lg text-ink">{t("activeClients")}</h2>
         {active.length === 0 ? (
-          <p className="text-sm text-muted">{t("noClients")}</p>
+          isNew ? (
+            <Card className="space-y-3 p-6">
+              <p className="font-serif text-ink">{t("startTitle")}</p>
+              <ol className="list-decimal space-y-1.5 pl-5 text-sm text-muted">
+                <li>{t("start1")}</li>
+                <li>{t("start2")}</li>
+                <li>{t("start3")}</li>
+              </ol>
+            </Card>
+          ) : (
+            <p className="text-sm text-muted">{t("noClients")}</p>
+          )
         ) : (
           <ul className="space-y-2.5">
             {active.map((link) => (
