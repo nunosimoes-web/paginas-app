@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { Card, styles } from "@/components/ui";
+import { CrisisContacts } from "@/components/CrisisContacts";
 import { THERAPIST_PROFILE } from "@/lib/entry";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,7 +11,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("metaTitle"), description: t("intro") };
 }
 
-// Página pública para terapeutas. Sem preços. Só afirma o que o código cumpre.
+// Página pública para terapeutas. Sem preços, sem nomes, sem validação clínica.
+// Só afirma o que o código cumpre (ver docs/MINDWINK.md).
 export default async function TherapistsPage() {
   const t = await getTranslations("forTherapists");
   const landing = await getTranslations("landing");
@@ -20,9 +22,18 @@ export default async function TherapistsPage() {
     title: t(`step${n}Title`),
     body: t(`step${n}Body`),
   }));
-  const sees = [t("sees1"), t("sees2"), t("sees3")];
-  const never = [t("never1"), t("never2"), t("never3")];
-  const faq = [1, 2, 3, 4].map((n) => ({ q: t(`q${n}`), a: t(`a${n}`) }));
+  // [linha, a pessoa vê, tu vês]
+  const rows: Array<[string, string, string]> = [
+    [t("rowJournal"), t("yes"), t("no")],
+    [t("rowMood"), t("yes"), t("no")],
+    [t("rowRead"), t("yes"), t("no")],
+    [t("rowThemes"), t("themesClient"), t("yes")],
+    [t("rowName"), t("yes"), t("yes")],
+    [t("rowDate"), t("yes"), t("yes")],
+  ];
+  const data = [1, 2, 3, 4, 5].map((n) => t(`data${n}`));
+  const before = [1, 2, 3].map((n) => t(`before${n}`));
+  const faq = [1, 2, 3, 4, 5].map((n) => ({ q: t(`q${n}`), a: t(`a${n}`) }));
 
   const cta = (
     <Link
@@ -72,24 +83,63 @@ export default async function TherapistsPage() {
         </section>
 
         <section className="border-t border-line">
-          <div className="mx-auto w-full max-w-3xl px-6 py-14">
-            <h2 className="font-serif text-2xl text-ink">
-              {t("privacyTitle")}
-            </h2>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              {[
-                { title: t("seesTitle"), items: sees },
-                { title: t("neverTitle"), items: never },
-              ].map((col) => (
-                <Card key={col.title} className="space-y-3 p-6">
-                  <h3 className="font-serif text-lg text-ink">{col.title}</h3>
-                  <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted">
-                    {col.items.map((i) => (
-                      <li key={i}>{i}</li>
-                    ))}
-                  </ul>
-                </Card>
-              ))}
+          <div className="mx-auto w-full max-w-3xl space-y-6 px-6 py-14">
+            <h2 className="font-serif text-2xl text-ink">{t("tableTitle")}</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[32rem] text-left text-sm">
+                <thead>
+                  <tr className="border-b border-line text-ink">
+                    <th scope="col" className="py-2 pr-4 font-medium">
+                      {t("colInfo")}
+                    </th>
+                    <th scope="col" className="py-2 pr-4 font-medium">
+                      {t("colClient")}
+                    </th>
+                    <th scope="col" className="py-2 font-medium">
+                      {t("colYou")}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-muted">
+                  {rows.map(([info, client, you]) => (
+                    <tr key={info} className="border-b border-line/60">
+                      <th scope="row" className="py-2.5 pr-4 font-normal text-ink">
+                        {info}
+                      </th>
+                      <td className="py-2.5 pr-4">{client}</td>
+                      <td className="py-2.5">{you}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Card className="space-y-3 p-6">
+                <h3 className="font-serif text-lg text-ink">{t("dataTitle")}</h3>
+                <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted">
+                  {data.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+              </Card>
+              <Card className="space-y-3 p-6">
+                <h3 className="font-serif text-lg text-ink">
+                  {t("beforeTitle")}
+                </h3>
+                <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted">
+                  {before.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+                <h3 className="pt-2 font-serif text-lg text-ink">
+                  {t("noAskTitle")}
+                </h3>
+                <p className="text-sm text-muted">{t("noAskBody")}</p>
+              </Card>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm text-muted">{t("crisisLead")}</p>
+              <CrisisContacts />
             </div>
           </div>
         </section>
@@ -115,7 +165,18 @@ export default async function TherapistsPage() {
                 {landing("disclaimerBody")}
               </p>
             </div>
-            {cta}
+            <div className="space-y-3">
+              <h3 className="font-serif text-lg text-ink">
+                {t("contactTitle")}
+              </h3>
+              <p className="text-sm text-muted">{t("contactBody")}</p>
+              <div className="flex flex-wrap gap-3">
+                {cta}
+                <Link href="/support" className={styles.btnGhost}>
+                  {t("contactCta")}
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>

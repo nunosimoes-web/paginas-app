@@ -5,6 +5,8 @@ import { getCurrentUser } from "@/lib/session";
 import { PublicHeader } from "@/components/PublicHeader";
 import { Card, styles } from "@/components/ui";
 import { ProtectedForm } from "@/components/ProtectedForm";
+import { CrisisContacts } from "@/components/CrisisContacts";
+import { seesNewExperience } from "@/lib/audience";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("support");
@@ -63,6 +65,9 @@ export default async function SupportPage({
               </div>
             </ProtectedForm>
           )}
+
+          {/* O suporte responde por email, não em tempo real. */}
+          {seesNewExperience(user) ? <CrisisContacts compact /> : null}
 
           <p className="text-sm text-muted">
             <Link

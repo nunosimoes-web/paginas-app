@@ -28,9 +28,6 @@ model User {
   promptHour    Int      @default(8)
   // Opt-in do email diário da peça. Pode desligar-se nas definições / unsubscribe.
   emailDaily    Boolean  @default(true)
-  // Prova da escolha explícita do email diário (null = nunca escolheu, contas antigas).
-  emailChoiceAt     DateTime?
-  emailChoiceSource String?
   onboardedAt   DateTime?
   createdAt     DateTime @default(now())
   themes        UserTheme[]

@@ -13,7 +13,7 @@
 // =============================================================================
 
 /** Contas criadas antes deste instante são dos utilizadores que já existiam. */
-export const EXISTING_ACCOUNTS_BEFORE = new Date("2026-11-26T00:00:00.000Z");
+export const EXISTING_ACCOUNTS_BEFORE = new Date("2026-11-27T14:00:00.000Z");
 
 export type AudienceUser = {
   createdAt: Date;

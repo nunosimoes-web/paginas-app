@@ -71,7 +71,11 @@ vi.mock("@/lib/prisma", () => ({
       findMany: async () => [],
       count: async () => 0,
     },
-    moodCheckIn: { findMany: async () => [], count: async () => 0 },
+    moodCheckIn: {
+      findMany: async () => [],
+      findFirst: async () => null,
+      count: async () => 0,
+    },
     journalEntry: { findMany: async () => [], count: async () => 0 },
     clientLink: { findMany: async () => [] },
     contentPiece: { findMany: async () => [], findUnique: async () => null },
@@ -83,6 +87,7 @@ const { default: Journal } = await import("../src/app/[locale]/(app)/journal/pag
 const { default: Journey } = await import("../src/app/[locale]/(app)/journey/page");
 const { default: Therapist } = await import("../src/app/[locale]/(app)/therapist/page");
 const { default: Landing } = await import("../src/app/[locale]/page");
+const { default: Checkin } = await import("../src/app/[locale]/(app)/checkin/page");
 
 const props = {
   params: Promise.resolve({ locale: "pt-PT" }),
@@ -95,6 +100,7 @@ const PAGES: Record<string, Page> = {
   journey: Journey as Page,
   therapist: Therapist as Page,
   landing: Landing as unknown as Page,
+  checkin: Checkin as Page,
 };
 
 async function html(page: Page, user: TestUser | null): Promise<string> {
@@ -145,6 +151,7 @@ const NEW_TEXTS = [
   ...pick(pt.journey, /^start[A-Z]/),
   ...pick(pt.therapist, /^(start|copyLink|linkCopied)/),
   ...pick(pt.landing, /^(heroNoteNew|start|faq|therapistMore)/),
+  ...pick(pt.crisis, /^(notUrgent|abroad)$/),
 ].filter((v) => v.length > 8);
 
 const UPSELL =
@@ -179,6 +186,8 @@ describe("conta nova: o contraste prova que o teste deteta a novidade", () => {
     ["journey", pt.journey.startTitle],
     ["therapist", pt.therapist.startTitle],
     ["landing", pt.sampler.title],
+    ["journal", pt.crisis.notUrgent],
+    ["checkin", pt.crisis.notUrgent],
   ])("/%s mostra a experiência nova, sem preços", async (p, text) => {
     const out = await html(PAGES[p], NEW_USER);
     expect(out).toContain(text);

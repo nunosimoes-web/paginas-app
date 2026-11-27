@@ -35,8 +35,6 @@ export async function completeOnboarding(
         role,
         promptHour,
         emailDaily,
-        emailChoiceAt: new Date(),
-        emailChoiceSource: "onboarding",
         onboardedAt: new Date(),
       },
     }),

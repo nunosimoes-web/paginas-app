@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { pickText } from "@/lib/content";
 import { formatDateTime } from "@/lib/format";
 import { showsWritingStarters } from "@/lib/first-week";
+import { seesNewExperience } from "@/lib/audience";
+import { CrisisContacts } from "@/components/CrisisContacts";
 import { JournalEditor } from "@/components/JournalEditor";
 import { DeleteEntryButton } from "@/components/DeleteEntryButton";
 import { Card, PageHeader } from "@/components/ui";
@@ -67,6 +69,8 @@ export default async function JournalPage({
             : []
         }
       />
+      {/* Contactos de ajuda junto à escrita; os amigos veem o ecrã de sempre. */}
+      {seesNewExperience(user) ? <CrisisContacts compact /> : null}
 
       <section className="space-y-3">
         {entries.length === 0 ? (

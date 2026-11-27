@@ -22,9 +22,6 @@ export async function updateSettings(
       locale,
       promptHour,
       emailDaily,
-      ...(emailDaily !== user.emailDaily
-        ? { emailChoiceAt: new Date(), emailChoiceSource: "settings" }
-        : {}),
       role,
     },
   });

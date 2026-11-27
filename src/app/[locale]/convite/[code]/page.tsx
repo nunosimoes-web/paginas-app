@@ -5,6 +5,7 @@ import { Link, redirect } from "@/i18n/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { Card, PageHeader, styles } from "@/components/ui";
 import { parseInvite } from "@/lib/entry";
+import { CrisisContacts } from "@/components/CrisisContacts";
 import { getCurrentUser } from "@/lib/session";
 
 // Link pessoal: não deve ser indexado. Não consulta a base de dados, por isso
@@ -69,6 +70,7 @@ export default async function InvitePage({
           </Link>
         </div>
         <p className="text-xs text-muted">{t("code", { code })}</p>
+        <CrisisContacts compact />
       </main>
     </div>
   );
