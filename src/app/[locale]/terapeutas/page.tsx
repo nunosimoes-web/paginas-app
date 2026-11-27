@@ -87,7 +87,7 @@ export default async function TherapistsPage() {
           <div className="mx-auto w-full max-w-3xl space-y-6 px-6 py-14">
             <h2 className="font-serif text-2xl text-ink">{t("tableTitle")}</h2>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[32rem] text-left text-sm">
+              <table className="w-full text-left text-sm">
                 <thead>
                   <tr className="border-b border-line text-ink">
                     <th scope="col" className="py-2 pr-4 font-medium">
@@ -104,10 +104,10 @@ export default async function TherapistsPage() {
                 <tbody className="text-muted">
                   {rows.map(([info, client, you]) => (
                     <tr key={info} className="border-b border-line/60">
-                      <th scope="row" className="py-2.5 pr-4 font-normal text-ink">
+                      <th scope="row" className="py-2.5 pr-3 font-normal text-ink">
                         {info}
                       </th>
-                      <td className="py-2.5 pr-4">{client}</td>
+                      <td className="py-2.5 pr-3">{client}</td>
                       <td className="py-2.5">{you}</td>
                     </tr>
                   ))}
