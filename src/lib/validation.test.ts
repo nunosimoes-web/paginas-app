@@ -51,8 +51,16 @@ describe("onboardingSchema", () => {
         themeSlugs: [],
         role: "INDIVIDUAL",
         promptHour: 8,
+        emailDaily: true,
       }).success,
     ).toBe(false);
+  });
+  it("exige uma escolha explícita sobre o email diário", () => {
+    const base = { themeSlugs: ["anxiety"], role: "INDIVIDUAL", promptHour: 8 };
+    expect(onboardingSchema.safeParse(base).success).toBe(false);
+    expect(
+      onboardingSchema.safeParse({ ...base, emailDaily: false }).success,
+    ).toBe(true);
   });
   it("aceita uma escolha completa", () => {
     expect(
@@ -60,6 +68,7 @@ describe("onboardingSchema", () => {
         themeSlugs: ["anxiety"],
         role: "THERAPIST",
         promptHour: 21,
+        emailDaily: true,
       }).success,
     ).toBe(true);
   });

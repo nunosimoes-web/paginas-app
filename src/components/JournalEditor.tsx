@@ -9,9 +9,12 @@ import { styles } from "@/components/ui";
 export function JournalEditor({
   pieceId,
   respondingTo,
+  starters = [],
 }: {
   pieceId?: string;
   respondingTo?: string;
+  /** Inícios de frase para a página em branco (só contas novas). */
+  starters?: string[];
 }) {
   const t = useTranslations("journal");
   const c = useTranslations("common");
@@ -59,6 +62,24 @@ export function JournalEditor({
         maxLength={10000}
         className={`${styles.input} resize-y font-serif leading-relaxed`}
       />
+
+      {starters.length > 0 && !body ? (
+        <div className="flex flex-wrap gap-2">
+          {starters.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => {
+                setBody(`${s} `);
+                document.getElementById("journal-body")?.focus();
+              }}
+              className="rounded-full border border-line bg-paper px-3 py-1.5 text-left text-xs text-muted transition hover:border-accent"
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {error ? (
         <p role="alert" className="text-sm text-clay">

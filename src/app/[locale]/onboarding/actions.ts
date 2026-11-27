@@ -15,7 +15,7 @@ export async function completeOnboarding(
   const parsed = onboardingSchema.safeParse(input);
   if (!parsed.success) return { error: "invalid" };
 
-  const { themeSlugs, role, promptHour } = parsed.data;
+  const { themeSlugs, role, promptHour, emailDaily } = parsed.data;
 
   const themes = await prisma.theme.findMany({
     where: { slug: { in: themeSlugs } },
@@ -31,7 +31,12 @@ export async function completeOnboarding(
     ),
     prisma.user.update({
       where: { id: user.id },
-      data: { role, promptHour, onboardedAt: new Date() },
+      data: {
+        role,
+        promptHour,
+        emailDaily,
+        onboardedAt: new Date(),
+      },
     }),
   ]);
 

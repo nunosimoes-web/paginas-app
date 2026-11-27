@@ -5,7 +5,9 @@ import { prisma } from "@/lib/prisma";
 import { pickText } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { PieceCard } from "@/components/PieceCard";
-import { Card, PageHeader } from "@/components/ui";
+import { Link } from "@/i18n/navigation";
+import { isFounderAccount } from "@/lib/audience";
+import { Card, PageHeader, styles } from "@/components/ui";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("journey");
@@ -34,6 +36,10 @@ export default async function JourneyPage({
     }),
   ]);
 
+  // Conta nova ainda sem registos: um convite em vez de uma fila de zeros.
+  const justStarting =
+    !isFounderAccount(user) && checkinCount === 0 && journalCount === 0;
+
   const stats = [
     { label: t("piecesSeen"), value: pieceCount },
     { label: t("checkinsCount"), value: checkinCount },
@@ -52,14 +58,31 @@ export default async function JourneyPage({
         {t("since", { when: formatDate(user.createdAt, activeLocale) })}
       </p>
 
-      <div className="grid grid-cols-3 gap-3">
-        {stats.map((s) => (
-          <Card key={s.label} className="p-4 text-center">
-            <p className="font-serif text-3xl text-accent-strong">{s.value}</p>
-            <p className="mt-1 text-xs text-muted">{s.label}</p>
-          </Card>
-        ))}
-      </div>
+      {justStarting ? (
+        <Card as="section" className="space-y-3 p-6">
+          <h2 className="font-serif text-lg text-ink">{t("startTitle")}</h2>
+          <p className="text-sm text-muted">{t("startBody")}</p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/today" className={styles.btnPrimary}>
+              {t("startToday")}
+            </Link>
+            <Link href="/checkin" className={styles.btnGhost}>
+              {t("startCheckin")}
+            </Link>
+          </div>
+        </Card>
+      ) : (
+        <div className="grid grid-cols-3 gap-3">
+          {stats.map((s) => (
+            <Card key={s.label} className="p-4 text-center">
+              <p className="font-serif text-3xl text-accent-strong">
+                {s.value}
+              </p>
+              <p className="mt-1 text-xs text-muted">{s.label}</p>
+            </Card>
+          ))}
+        </div>
+      )}
 
       <p className="rounded-xl bg-accent-soft px-4 py-3 text-sm text-accent-strong">
         {t("gentleNote")}
