@@ -71,6 +71,7 @@ export default async function BodyDiaryPage({
             submit: t("diarySubmit"),
             saved: t("diarySaved"),
             consent: t("diaryConsent"),
+            consentLink: t("diaryConsentLink"),
             error: t("diaryError"),
           }}
         />

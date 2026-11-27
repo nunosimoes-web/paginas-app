@@ -86,6 +86,8 @@ export default async function BodyReportPage({
         </p>
       </header>
 
+      <p className="text-xs leading-relaxed text-muted">{t("reportNote")}</p>
+
       {total === 0 ? (
         <Card className="p-6">
           <p className="text-sm text-muted">{t("reportEmpty")}</p>

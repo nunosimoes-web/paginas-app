@@ -80,6 +80,9 @@ model BodyEntry {
   region     String
   intensity  Int      @default(0)
   note       String?
+  // Prova do consentimento explícito para dados de saúde (RGPD art. 7.º/9.º).
+  consentAt      DateTime?
+  consentVersion String?
   createdAt  DateTime @default(now())
   @@index([userId, date])
 }

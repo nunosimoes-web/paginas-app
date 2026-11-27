@@ -6,6 +6,10 @@ import { prisma } from "@/lib/prisma";
 import { hasPlusAccess } from "@/lib/plan";
 import { REGIONS } from "@/lib/body-regions";
 
+// Versão do texto de consentimento mostrado no formulário (body.diaryConsent).
+// Mudar o texto = subir a versão.
+const BODY_CONSENT_VERSION = "body-v1-2026-11-27";
+
 const schema = z.object({
   region: z.enum(REGIONS.map((r) => r.id) as [string, ...string[]]),
   intensity: z.number().int().min(0).max(10),
@@ -47,6 +51,9 @@ export async function POST(request: Request) {
       region: parsed.data.region,
       intensity: parsed.data.intensity,
       note: parsed.data.note?.trim() || null,
+      // Prova do consentimento explícito (RGPD, art. 7.º, n.º 1).
+      consentAt: new Date(),
+      consentVersion: BODY_CONSENT_VERSION,
     },
   });
 

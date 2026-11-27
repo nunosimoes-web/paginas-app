@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { styles } from "./ui";
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
     submit: string;
     saved: string;
     consent: string;
+    consentLink: string;
     error: string;
   };
 };
@@ -45,6 +46,8 @@ export function BodyEntryForm({ regions, labels }: Props) {
       }
       setDone(true);
       setNote("");
+      // O consentimento é dado em cada registo: volta a desmarcar.
+      setConsent(false);
       router.refresh();
     } catch {
       setError("err");
@@ -110,7 +113,12 @@ export function BodyEntryForm({ regions, labels }: Props) {
           onChange={(e) => setConsent(e.target.checked)}
           className="mt-1"
         />
-        <span>{labels.consent}</span>
+        <span>
+          {labels.consent}{" "}
+          <Link href="/privacy" className="underline underline-offset-4 hover:text-ink">
+            {labels.consentLink}
+          </Link>
+        </span>
       </label>
 
       <div className="flex items-center gap-3">

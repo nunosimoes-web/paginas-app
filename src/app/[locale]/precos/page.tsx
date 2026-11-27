@@ -26,7 +26,9 @@ type Tier = {
   highlight?: boolean;
   // Sem checkout: a camada ainda não tem funcionalidades pagas próprias.
   // Terapeuta Pro: nada no código depende de THERAPIST_PRO além do lado pessoal
-  // (que o Plus já dá). Não se vende até haver o que vender.
+  // (que o Plus já dá). Corpo: hasPlusAccess já abre o diário do corpo, por isso
+  // o Corpo daria o mesmo que o Plus por mais dinheiro. Não se vende até haver
+  // diferença real (decisão do Nuno: diferenciar ou fundir no Plus).
   comingSoonNote?: string;
 };
 
@@ -89,6 +91,7 @@ export default async function PrecosPage({
       perLabel: t("perMonth"),
       items: (t.raw("body.items") as string[]) ?? [],
       plan: "body_month",
+      comingSoonNote: t("body.comingSoonNote"),
     },
   ];
   // Regra fixa: founder (amigos) nunca vê preços.

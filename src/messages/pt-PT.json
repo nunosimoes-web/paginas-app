@@ -338,11 +338,11 @@
     "siteTrackingBody": "Os cookies de sessão são necessários para usar a conta. As ferramentas opcionais de análise e publicidade nas páginas públicas dependem da tua autorização e só carregam depois de a dares. Podes aceitar ou recusar separadamente, retirar a autorização nas preferências de cookies e voltar a escolher ao fim de 180 dias. O diário, os check-ins, as áreas de conta e os formulários não carregam estas ferramentas. Não enviamos conteúdo pessoal, estados emocionais ou endereços de email para publicidade. As tuas preferências de cookies não alteram a subscrição do email diário. As contagens próprias de visitas e cliques públicos são automáticas e agregadas por dia, sem cookies nem identificadores de visitante, IP, URL ou origem individuais guardados; conservamos os totais até 400 dias. Podes desativá-las nas preferências. O píxel da Meta (Facebook e Instagram) só recebe PageView público com autorização para publicidade; o sinal Global Privacy Control impede esse envio.",
     "cookiePreferences": "Preferências de cookies",
     "paidHeading": "Planos pagos",
-    "paidBody": "Os planos pagos são opcionais e o plano gratuito mantém-se. As assinaturas renovam automaticamente no fim de cada período, ao mesmo preço, até as cancelares em Definições → Gerir subscrição; o acesso mantém-se até ao fim do período já pago. Tens 14 dias a contar da compra para desistir sem indicar motivo (direito de livre resolução); escreve para hello@mindwink.cognixhub.com e devolvemos o pagamento pelo mesmo meio, no prazo máximo de 14 dias. Os pagamentos são tratados pela Stripe; o Mindwink não vê nem guarda os dados do cartão.",
+    "paidBody": "Os planos pagos são opcionais e o plano gratuito mantém-se. As assinaturas renovam automaticamente no fim de cada período, ao mesmo preço, até as cancelares em Definições → Gerir subscrição; o acesso mantém-se até ao fim do período já pago. Tens 14 dias a contar da compra para desistir sem indicar motivo (direito de livre resolução): usa «Retrate-se do contrato aqui» em Definições ou envia uma declaração clara para hello@mindwink.cognixhub.com. Reembolsamos a totalidade, pelo mesmo meio de pagamento e sem custos, até 14 dias depois de recebermos a tua decisão. Os pagamentos são tratados pela Stripe; o Mindwink não recebe o número completo do cartão.",
     "complaintsHeading": "Reclamações e litígios",
-    "complaintsBody": "Podes reclamar por escrito para hello@mindwink.cognixhub.com ou no Livro de Reclamações Eletrónico (livroreclamacoes.pt). Em caso de litígio de consumo, podes recorrer a uma entidade de resolução alternativa de litígios, como o CNIACC — Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (cniacc.pt). A lista das entidades está no Portal do Consumidor (consumidor.gov.pt).",
+    "complaintsBody": "Podes reclamar por escrito para hello@mindwink.cognixhub.com ou no Livro de Reclamações Eletrónico (livroreclamacoes.pt); não é obrigatório contactar-nos primeiro. Em caso de litígio de consumo, podes recorrer a uma entidade de resolução alternativa de litígios, como o CNIACC — Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (cniacc.pt). A lista das entidades está no Portal do Consumidor (consumidor.gov.pt). Tens também o direito de apresentar reclamação à CNPD (cnpd.pt) sobre o tratamento dos teus dados.",
     "bodyDataHeading": "Diário do corpo",
-    "bodyDataBody": "Os registos do diário do corpo (zona, intensidade e nota) são dados de saúde. Só os guardamos com o teu consentimento explícito, dado em cada registo, e servem apenas para te mostrar o diário e o relatório. Não são partilhados, não são usados para publicidade e podes apagá-los a qualquer momento, apagando a conta ou pedindo-nos por email."
+    "bodyDataBody": "Os registos do diário do corpo (zona, intensidade e nota) são dados de saúde. Só os guardamos com o teu consentimento explícito, dado em cada registo, e guardamos a data desse consentimento como prova. Servem apenas para te mostrar o diário e o resumo de 30 dias. Não os vendemos nem os usamos para publicidade. Podes retirar o consentimento e pedir o apagamento a qualquer momento, apagando a conta em Definições ou escrevendo-nos; a retirada não afeta o que foi feito antes."
   },
   "errors": {
     "notFoundTitle": "Página não encontrada",
@@ -365,7 +365,7 @@
     "buyReport": "Comprar relatório",
     "perMonth": "/mês",
     "perYear": "/ano",
-    "oneOff": "pagamento único",
+    "oneOff": "pagamento único, impostos incluídos, sem renovação",
     "safety": "O gratuito não perde nada. As camadas pagas acrescentam — nunca retiram.",
     "free": {
       "name": "Grátis",
@@ -376,7 +376,7 @@
         "Diário privado e check-in de humor",
         "Nove temas e escolha da hora",
         "Ligação com o terapeuta (lado do cliente)",
-        "Mapa corporal com passo de segurança médica"
+        "Mapa do corpo para registar sensações, com aviso de segurança"
       ]
     },
     "plus": {
@@ -388,6 +388,7 @@
         "Percursos de 21 dias: ansiedade, autocrítica, transições, solidão e fronteiras",
         "Exportar o diário para imprimir ou guardar em PDF",
         "Resumo semanal «o que escreveste esta semana», na app",
+        "Diário do corpo e resumo dos teus registos de 30 dias",
         "Tudo do plano Grátis"
       ]
     },
@@ -396,13 +397,10 @@
       "price": "12 €",
       "tagline": "Para quem acompanha outros.",
       "items": [
-        "Clientes ilimitados (grátis até 3)",
-        "Semear temas por sessão",
-        "Resumo do cliente, com consentimento",
-        "Área de terapeuta completa",
-        "Tudo do plano Grátis"
+        "Em desenvolvimento: uma área própria para quem acompanha clientes",
+        "A ligação atual a clientes continua gratuita"
       ],
-      "comingSoonNote": "A área Pro ainda está a ser construída. Até lá, a ligação a clientes continua gratuita."
+      "comingSoonNote": "As funcionalidades Pro ainda não existem. Não está à venda."
     },
     "body": {
       "name": "Corpo (SomaSignal)",
@@ -410,14 +408,13 @@
       "priceYear": "45 €",
       "tagline": "Para habitar melhor o corpo.",
       "items": [
-        "Diário do corpo: zona, intensidade e uma nota curta por dia",
-        "Relatório de 30 dias para imprimir e, se quiseres, mostrar a um profissional",
-        "Tudo do plano Plus",
-        "Tudo do plano Grátis"
+        "Em preparação: um módulo próprio para o corpo",
+        "O diário do corpo e o resumo de 30 dias já vêm no Plus"
       ],
-      "reportName": "Relatório 30 dias (avulso)",
+      "reportName": "Resumo de 30 dias (avulso)",
       "reportPrice": "9 €",
-      "reportTagline": "Experimenta sem assinar: um único relatório para levares a uma consulta."
+      "reportTagline": "Sem assinatura: um pagamento único abre o diário do corpo e o resumo dos teus registos de 30 dias nesta conta. Não renova.",
+      "comingSoonNote": "Por agora, o diário do corpo está incluído no Plus. Não está à venda em separado."
     },
     "safetyTitle": "Bem-estar, não tratamento",
     "safetyBody": "O Mindwink é uma ferramenta de bem-estar e apoio. Não é um dispositivo médico, não diagnostica e não substitui acompanhamento psicológico, psiquiátrico ou médico.",
@@ -438,11 +435,11 @@
       },
       {
         "q": "Posso desistir depois de comprar?",
-        "a": "Sim. Tens 14 dias a contar da compra para desistir, sem indicar motivo. Escreve para hello@mindwink.cognixhub.com e devolvemos o pagamento pelo mesmo meio, no prazo máximo de 14 dias."
+        "a": "Sim. Tens 14 dias a contar da compra para desistir, sem indicar motivo: em Definições, usa «Retrate-se do contrato aqui», ou envia-nos uma declaração clara para hello@mindwink.cognixhub.com. Reembolsamos a totalidade, pelo mesmo meio de pagamento e sem custos, até 14 dias depois de recebermos a tua decisão. Teres começado a usar não te tira este direito."
       },
       {
         "q": "Quem trata o pagamento?",
-        "a": "A Stripe, um prestador de pagamentos. Os dados do cartão ficam na Stripe; o Mindwink não os vê nem os guarda. Do nosso lado guardamos só o necessário para saber que plano tens: identificador de cliente, plano, data de renovação e, nas compras avulsas, o registo da compra."
+        "a": "A Stripe, um prestador de pagamentos. Introduzes os dados do cartão na página da Stripe; o Mindwink não recebe o número completo do cartão. Do nosso lado guardamos só o necessário para saber que plano tens: identificador de cliente, plano, data de renovação e, nas compras avulsas, o registo da compra."
       },
       {
         "q": "O que acontece aos meus registos se cancelar?",
@@ -454,7 +451,7 @@
       },
       {
         "q": "Onde posso fazer uma reclamação?",
-        "a": "Primeiro, escreve-nos para hello@mindwink.cognixhub.com. Podes também usar o Livro de Reclamações Eletrónico (livroreclamacoes.pt) ou recorrer a uma entidade de resolução alternativa de litígios de consumo, como o CNIACC — Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (cniacc.pt). A lista completa está no Portal do Consumidor (consumidor.gov.pt)."
+        "a": "Podes escrever-nos para hello@mindwink.cognixhub.com ou reclamar no Livro de Reclamações Eletrónico (livroreclamacoes.pt); não é obrigatório contactar-nos primeiro. Em caso de litígio de consumo, podes recorrer a uma entidade de resolução alternativa de litígios, como o CNIACC — Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (cniacc.pt). A lista completa está no Portal do Consumidor (consumidor.gov.pt)."
       }
     ],
     "complaintsBook": "Livro de Reclamações"
@@ -462,41 +459,43 @@
   "body": {
     "title": "Mapa do corpo",
     "kicker": "Corpo",
-    "intro": "Escolhe uma zona para perceber o que pode estar por trás. Antes de procurar uma causa emocional, a tua segurança física vem primeiro.",
-    "safety": "Se a dor for forte, súbita, com falta de ar, febre, perda de força ou desmaio, procura ajuda médica. Esta leitura é exploratória e nunca substitui um profissional.",
+    "intro": "Escolhe uma zona para registares o que sentes e, se quiseres, pensares no teu dia. O mapa não identifica causas nem avalia sintomas. A tua segurança física vem primeiro.",
+    "safety": "Este mapa não avalia sintomas nem diz se precisas de cuidados. Se algo te preocupa, fala com um profissional de saúde. Dor forte ou súbita, dor ou aperto no peito, falta de ar, febre, perda de força ou desmaio: procura ajuda médica já; em emergência, liga 112.",
     "pickZone": "Escolhe uma zona",
-    "insightLabel": "Pode estar ligado a",
-    "causesLabel": "Causas a investigar",
-    "solutionsLabel": "Experimenta agora",
+    "insightLabel": "Algumas pessoas relacionam esta zona com",
+    "causesLabel": "Contexto que podes anotar",
+    "solutionsLabel": "Se te apetecer, um gesto simples",
     "footNote": "Mindwink Corpo é um módulo em desenvolvimento. Bem-estar e educação, não dispositivo médico.",
     "plusTitle": "Precisas de mais?",
-    "plusBody": "O Plus (ou o relatório avulso) abre um diário do corpo e um relatório de 30 dias que podes imprimir e, se quiseres, mostrar a um profissional.",
+    "plusBody": "O Plus (ou o relatório avulso) abre um diário do corpo e um resumo dos teus registos de 30 dias, que podes imprimir e, se quiseres, mostrar a quem escolheres.",
     "plusCta": "Ver camadas",
     "freeBadge": "Grátis",
     "plusBadge": "Plus",
     "reportCta": "Comprar o relatório",
     "diaryTitle": "Diário do corpo",
-    "diaryIntro": "Um registo por dia. Zona, intensidade (0–10) e, se quiseres, uma nota curta. Serve de base ao relatório de 30 dias.",
+    "diaryIntro": "Regista a zona, a intensidade (0–10) e, se quiseres, uma nota curta. É a base do resumo de 30 dias.",
     "diaryLocked": "O diário do corpo faz parte do Plus (ou do relatório avulso).",
     "diaryRegion": "Zona",
     "diaryIntensity": "Intensidade",
     "diaryNote": "Nota (opcional)",
     "diarySubmit": "Registar",
     "diarySaved": "Registado. Obrigado.",
-    "reportTitle": "Relatório 30 dias",
+    "reportTitle": "Resumo dos teus registos — 30 dias",
     "reportEmpty": "Ainda não há registos. Começa pelo diário.",
     "reportPrint": "Imprimir ou guardar em PDF",
     "reportSince": "Registos desde {when}",
     "reportTotal": "Total de registos",
-    "reportAverage": "Intensidade média",
+    "reportAverage": "Média das intensidades que registaste",
     "reportByRegion": "Por zona",
-    "diaryConsent": "Autorizo o Mindwink a guardar este registo do corpo, que é um dado de saúde, só para o mostrar a mim no diário e no relatório. Posso apagá-lo a qualquer momento.",
-    "diaryError": "Não foi possível registar. Tenta outra vez."
+    "diaryConsent": "Consinto expressamente que o Mindwink guarde este registo (zona, intensidade e nota), que é um dado de saúde, só para me mostrar o diário do corpo e o resumo dos meus registos. Posso retirar o consentimento e pedir o apagamento a qualquer momento, sem afetar o que foi feito antes.",
+    "diaryError": "Não foi possível registar. Tenta outra vez.",
+    "diaryConsentLink": "Ler a Política de Privacidade",
+    "reportNote": "Uma compilação das sensações e notas que registaste, para uso pessoal. Não interpreta sintomas nem tira conclusões clínicas."
   },
   "programs": {
     "title": "Percursos",
     "kicker": "Plus",
-    "intro": "Vinte e um dias com um fio condutor. Sem pressa, sem objetivos — só um lugar fixo para o teu minuto diário.",
+    "intro": "Vinte e um dias com um fio condutor. Sem pressa, sem objetivos — só um lugar fixo para o teu minuto diário. Os 21 dias são a ordem das leituras, não um prazo para resultados.",
     "day": "Dia {n}",
     "ofDays": "de {total}",
     "start": "Começar percurso",
@@ -636,5 +635,19 @@
     "sns24": "Em Portugal, o SNS 24 tem aconselhamento psicológico 24 horas por dia, todos os dias: liga <tel>808 24 24 24</tel> e escolhe a opção 4.",
     "emergency": "Em emergência ou risco de vida, liga <tel>112</tel>.",
     "abroad": "Fora de Portugal, liga para o número de emergência local."
+  },
+  "withdrawal": {
+    "kicker": "Subscrição",
+    "title": "Retratação do contrato",
+    "intro": "Tens 14 dias a contar da compra para desistir, sem indicar motivo. Confirma os teus dados e o contrato; enviamos-te por email a confirmação de receção.",
+    "name": "Nome",
+    "contract": "Contrato",
+    "email": "Email para a confirmação",
+    "confirm": "Confirmar retratação",
+    "done": "Recebemos a tua retratação. Enviámos a confirmação para o teu email e devolvemos o pagamento pelo mesmo meio, no prazo máximo de 14 dias.",
+    "error": "Não foi possível enviar agora. Tenta outra vez ou escreve para hello@mindwink.cognixhub.com.",
+    "none": "Não tens contratos pagos ativos nesta conta.",
+    "note": "O direito de livre resolução existe durante 14 dias a contar da compra. Se preferires, podes também escrever para hello@mindwink.cognixhub.com.",
+    "link": "Retrate-se do contrato aqui"
   }
 }

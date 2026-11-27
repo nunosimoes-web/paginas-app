@@ -338,11 +338,11 @@
     "siteTrackingBody": "Session cookies are needed to use your account. Optional analytics and advertising tools on public pages require your permission and load only after you grant it. You can accept or refuse each purpose separately, withdraw permission in cookie preferences and choose again after 180 days. Journals, check-ins, account areas and forms do not load these tools. We do not send personal content, emotional states or email addresses for advertising. Cookie choices do not change your daily email subscription. Our public visit and click counts run automatically and are aggregated by day, without cookies or stored visitor identifiers, IPs, individual URLs or referrers; totals are retained up to 400 days. You can disable them in preferences. Meta Pixel (Facebook and Instagram) receives only public PageView after advertising consent; Global Privacy Control prevents that transmission.",
     "cookiePreferences": "Cookie preferences",
     "paidHeading": "Paid plans",
-    "paidBody": "Paid plans are optional and the free plan stays. Subscriptions renew automatically at the end of each period, at the same price, until you cancel them in Settings → Manage subscription; access stays until the end of the period already paid. You have 14 days from purchase to withdraw without giving a reason (right of withdrawal); write to hello@mindwink.cognixhub.com and we refund the payment by the same method within 14 days at most. Payments are handled by Stripe; Mindwink does not see or store card details.",
+    "paidBody": "Paid plans are optional and the free plan stays. Subscriptions renew automatically at the end of each period, at the same price, until you cancel them in Settings → Manage subscription; access stays until the end of the period already paid. You have 14 days from purchase to withdraw without giving a reason (right of withdrawal): use \"Withdraw from contract here\" in Settings or send a clear statement to hello@mindwink.cognixhub.com. We refund in full, by the same payment method and at no cost, within 14 days of receiving your decision. Payments are handled by Stripe; Mindwink does not receive your full card number.",
     "complaintsHeading": "Complaints and disputes",
-    "complaintsBody": "You can complain in writing to hello@mindwink.cognixhub.com or in Portugal's electronic Complaints Book (livroreclamacoes.pt). For a consumer dispute, you can turn to an alternative dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The list of bodies is on the Consumer Portal (consumidor.gov.pt).",
+    "complaintsBody": "You can complain in writing to hello@mindwink.cognixhub.com or in Portugal's electronic Complaints Book (livroreclamacoes.pt); you don't have to contact us first. For a consumer dispute, you can turn to an alternative dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The list of bodies is on the Consumer Portal (consumidor.gov.pt). You also have the right to complain to Portugal's data protection authority, CNPD (cnpd.pt), about how your data is handled.",
     "bodyDataHeading": "Body journal",
-    "bodyDataBody": "Body journal entries (region, intensity and note) are health data. We only store them with your explicit consent, given on each entry, and they are used only to show you the journal and the report. They are not shared, not used for advertising, and you can delete them at any time by deleting your account or asking us by email."
+    "bodyDataBody": "Body journal entries (area, intensity and note) are health data. We only store them with your explicit consent, given on each entry, and we keep the date of that consent as evidence. They are used only to show you the journal and the 30-day summary. We do not sell them or use them for advertising. You can withdraw consent and ask for deletion at any time, by deleting your account in Settings or writing to us; withdrawal does not affect what was done before."
   },
   "errors": {
     "notFoundTitle": "Page not found",
@@ -365,7 +365,7 @@
     "buyReport": "Buy report",
     "perMonth": "/month",
     "perYear": "/year",
-    "oneOff": "one-off",
+    "oneOff": "one-off payment, taxes included, no renewal",
     "safety": "Free loses nothing. Paid plans add — never take away.",
     "free": {
       "name": "Free",
@@ -376,7 +376,7 @@
         "Private journal and mood check-in",
         "Nine themes and your own time",
         "Therapist link (client side)",
-        "Body map with medical safety step"
+        "Body map to note sensations, with a safety notice"
       ]
     },
     "plus": {
@@ -388,6 +388,7 @@
         "21-day journeys: anxiety, self-criticism, transitions, loneliness and boundaries",
         "Export your journal to print or save as PDF",
         "Weekly \"what you wrote this week\" summary, in the app",
+        "Body journal and a summary of your last 30 days of entries",
         "Everything in Free"
       ]
     },
@@ -396,13 +397,10 @@
       "price": "€12",
       "tagline": "For those who care for others.",
       "items": [
-        "Unlimited clients (free up to 3)",
-        "Seed themes after each session",
-        "Client summary, with consent",
-        "Full therapist area",
-        "Everything in Free"
+        "In development: a dedicated area for those who work with clients",
+        "Linking with clients stays free"
       ],
-      "comingSoonNote": "The Pro area is still being built. Until then, linking with clients stays free."
+      "comingSoonNote": "Pro features don't exist yet. Not for sale."
     },
     "body": {
       "name": "Body (SomaSignal)",
@@ -410,14 +408,13 @@
       "priceYear": "€45",
       "tagline": "To inhabit the body better.",
       "items": [
-        "Body journal: region, intensity and a short note each day",
-        "30-day report to print and, if you wish, show to a professional",
-        "Everything in Plus",
-        "Everything in Free"
+        "In preparation: a dedicated body module",
+        "The body journal and 30-day summary already come with Plus"
       ],
-      "reportName": "30-day report (one-off)",
+      "reportName": "30-day summary (one-off)",
       "reportPrice": "€9",
-      "reportTagline": "Try without subscribing: a single report you can bring to a consult."
+      "reportTagline": "No subscription: a single payment unlocks the body journal and the summary of your last 30 days of entries on this account. Does not renew.",
+      "comingSoonNote": "For now, the body journal is included in Plus. Not sold separately."
     },
     "safetyTitle": "Wellbeing, not treatment",
     "safetyBody": "Mindwink is a wellbeing and support tool. It is not a medical device, does not diagnose and does not replace psychological, psychiatric or medical care.",
@@ -438,11 +435,11 @@
       },
       {
         "q": "Can I change my mind after buying?",
-        "a": "Yes. You have 14 days from purchase to withdraw, without giving a reason. Write to hello@mindwink.cognixhub.com and we refund the payment by the same method within 14 days at most."
+        "a": "Yes. You have 14 days from purchase to withdraw, without giving a reason: in Settings, use \"Withdraw from contract here\", or send us a clear statement at hello@mindwink.cognixhub.com. We refund in full, by the same payment method and at no cost, within 14 days of receiving your decision. Having started to use the service does not remove this right."
       },
       {
         "q": "Who handles the payment?",
-        "a": "Stripe, a payment provider. Card details stay with Stripe; Mindwink does not see or store them. On our side we keep only what we need to know your plan: customer ID, plan, renewal date and, for one-off purchases, the purchase record."
+        "a": "Stripe, a payment provider. You enter your card details on Stripe's page; Mindwink does not receive your full card number. On our side we keep only what we need to know your plan: customer ID, plan, renewal date and, for one-off purchases, the purchase record."
       },
       {
         "q": "What happens to my entries if I cancel?",
@@ -454,7 +451,7 @@
       },
       {
         "q": "Where can I make a complaint?",
-        "a": "First, write to us at hello@mindwink.cognixhub.com. You can also use Portugal's electronic Complaints Book (livroreclamacoes.pt) or an alternative consumer dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The full list is on the Consumer Portal (consumidor.gov.pt)."
+        "a": "You can write to hello@mindwink.cognixhub.com or complain through Portugal's electronic Complaints Book (livroreclamacoes.pt); you don't have to contact us first. For a consumer dispute, you can turn to an alternative dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The full list is on the Consumer Portal (consumidor.gov.pt)."
       }
     ],
     "complaintsBook": "Complaints Book"
@@ -462,41 +459,43 @@
   "body": {
     "title": "Body map",
     "kicker": "Body",
-    "intro": "Pick a region to explore what might be behind it. Before looking for an emotional cause, your physical safety comes first.",
-    "safety": "If pain is severe, sudden, with shortness of breath, fever, weakness or fainting, seek medical help. This reading is exploratory and never replaces a professional.",
+    "intro": "Choose an area to note what you feel and, if you wish, think about your day. The map does not identify causes or assess symptoms. Your physical safety comes first.",
+    "safety": "This map does not assess symptoms or tell you whether you need care. If something worries you, talk to a health professional. Severe or sudden pain, chest pain or tightness, shortness of breath, fever, loss of strength or fainting: seek medical help now; in an emergency, call 112.",
     "pickZone": "Pick a region",
-    "insightLabel": "May be linked to",
-    "causesLabel": "Things to investigate",
-    "solutionsLabel": "Try now",
+    "insightLabel": "Some people relate this area to",
+    "causesLabel": "Context you can note",
+    "solutionsLabel": "If you like, one simple gesture",
     "footNote": "Mindwink Body is a module under development. Wellbeing and education, not a medical device.",
     "plusTitle": "Need more?",
-    "plusBody": "Plus (or the one-off report) unlocks a body journal and a 30-day report you can print and, if you wish, show to a professional.",
+    "plusBody": "Plus (or the one-off report) unlocks a body journal and a summary of your last 30 days of entries, which you can print and, if you wish, show to anyone you choose.",
     "plusCta": "See plans",
     "freeBadge": "Free",
     "plusBadge": "Plus",
     "reportCta": "Buy the report",
     "diaryTitle": "Body journal",
-    "diaryIntro": "One entry a day. Region, intensity (0–10) and, if you want, a short note. It feeds the 30-day report.",
+    "diaryIntro": "Note the area, the intensity (0–10) and, if you wish, a short note. It feeds the 30-day summary.",
     "diaryLocked": "The body journal is part of Plus (or the one-off report).",
     "diaryRegion": "Region",
     "diaryIntensity": "Intensity",
     "diaryNote": "Note (optional)",
     "diarySubmit": "Save",
     "diarySaved": "Saved. Thank you.",
-    "reportTitle": "30-day report",
+    "reportTitle": "Summary of your entries — 30 days",
     "reportEmpty": "No entries yet. Start with the journal.",
     "reportPrint": "Print or save as PDF",
     "reportSince": "Entries since {when}",
     "reportTotal": "Total entries",
-    "reportAverage": "Average intensity",
+    "reportAverage": "Average of the intensities you recorded",
     "reportByRegion": "By region",
-    "diaryConsent": "I allow Mindwink to store this body entry, which is health data, only to show it to me in the journal and the report. I can delete it at any time.",
-    "diaryError": "Couldn't save. Please try again."
+    "diaryConsent": "I explicitly consent to Mindwink storing this entry (area, intensity and note), which is health data, only to show me my body journal and the summary of my entries. I can withdraw consent and ask for deletion at any time, without affecting what was done before.",
+    "diaryError": "Couldn't save. Please try again.",
+    "diaryConsentLink": "Read the Privacy Policy",
+    "reportNote": "A compilation of the sensations and notes you recorded, for personal use. It does not interpret symptoms or draw clinical conclusions."
   },
   "programs": {
     "title": "Journeys",
     "kicker": "Plus",
-    "intro": "Twenty-one days with a steady thread. No rush, no goals — just a fixed place for your daily minute.",
+    "intro": "Twenty-one days with a steady thread. No rush, no goals — just a fixed place for your daily minute. The 21 days are the order of the readings, not a deadline for results.",
     "day": "Day {n}",
     "ofDays": "of {total}",
     "start": "Start journey",
@@ -636,5 +635,19 @@
     "sns24": "In Portugal, SNS 24 offers psychological counselling 24 hours a day, every day: call <tel>808 24 24 24</tel> and choose option 4.",
     "emergency": "In an emergency or if a life is at risk, call <tel>112</tel>.",
     "abroad": "Outside Portugal, call your local emergency number."
+  },
+  "withdrawal": {
+    "kicker": "Subscription",
+    "title": "Withdraw from the contract",
+    "intro": "You have 14 days from purchase to withdraw, without giving a reason. Confirm your details and the contract; we email you an acknowledgement of receipt.",
+    "name": "Name",
+    "contract": "Contract",
+    "email": "Email for the confirmation",
+    "confirm": "Confirm withdrawal",
+    "done": "We received your withdrawal. We sent the confirmation to your email and will refund the payment by the same method within 14 days at most.",
+    "error": "Couldn't send right now. Try again or write to hello@mindwink.cognixhub.com.",
+    "none": "You have no active paid contracts on this account.",
+    "note": "The right of withdrawal lasts 14 days from purchase. If you prefer, you can also write to hello@mindwink.cognixhub.com.",
+    "link": "Withdraw from contract here"
   }
 }

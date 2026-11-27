@@ -26,9 +26,9 @@ export const PROGRAMS: ProgramDef[] = [
     },
     summaryI18n: {
       "pt-PT":
-        "Vinte e um dias com peças calmas para habitar a ansiedade — sem forçar nada — e devolver um pouco de chão aos dias.",
+        "Vinte e um dias com peças calmas para estares com a ansiedade sem forçar nada, um dia de cada vez.",
       en:
-        "Twenty-one days of calm pieces for living with anxiety — without forcing anything — and gently giving back some ground to your days.",
+        "Twenty-one days of calm pieces for being with anxiety without forcing anything, one day at a time.",
     },
     days: 21,
     themeFilter: "anxiety",
@@ -71,9 +71,9 @@ export const PROGRAMS: ProgramDef[] = [
     },
     summaryI18n: {
       "pt-PT":
-        "Vinte e um dias para olhar a solidão com menos medo: ser melhor companhia para ti e dar pequenos passos na direção das pessoas.",
+        "Vinte e um dias para olhar a solidão de outra forma: ser companhia para ti e dar pequenos passos na direção das pessoas.",
       en:
-        "Twenty-one days to look at loneliness with less fear: being better company for yourself and taking small steps towards other people.",
+        "Twenty-one days to look at loneliness differently: being company for yourself and taking small steps towards other people.",
     },
     days: 21,
     themeFilter: "loneliness",

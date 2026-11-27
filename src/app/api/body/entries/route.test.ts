@@ -46,7 +46,14 @@ describe("POST /api/body/entries — consentimento para dados de saúde", () => 
     const res = await POST(req({ region: "chest", intensity: 3, note: " nota ", consent: true }));
     expect(res.status).toBe(201);
     expect(prismaMock.bodyEntry.create).toHaveBeenCalledWith({
-      data: { userId: "u1", region: "chest", intensity: 3, note: "nota" },
+      data: {
+        userId: "u1",
+        region: "chest",
+        intensity: 3,
+        note: "nota",
+        consentAt: expect.any(Date),
+        consentVersion: "body-v1-2026-11-27",
+      },
     });
   });
 
