@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   try { await guardPublicForm(request, json as Record<string, unknown>, "register"); }
   catch (error) { return NextResponse.json({ error: error instanceof PublicFormError ? error.code : "temporarily_unavailable" }, { status: error instanceof PublicFormError ? error.status : 503 }); }
 
-  const { email, password, displayName } = parsed.data;
+  const { email, password, displayName, locale } = parsed.data;
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
@@ -39,6 +39,10 @@ export async function POST(request: Request) {
       email,
       passwordHash,
       displayName: displayName ? displayName : null,
+      // O idioma do registo decide o idioma do email diário.
+      ...(locale ? { locale } : {}),
+      // Só recebe email depois de o escolher, no onboarding.
+      emailDaily: false,
     },
   });
 

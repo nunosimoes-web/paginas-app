@@ -11,7 +11,4 @@ export function generateInviteCode(): string {
   return `${block()}-${block()}`;
 }
 
-/** Normaliza o que o utilizador escreve (maiúsculas, sem espaços). */
-export function normalizeInviteCode(input: string): string {
-  return input.trim().toUpperCase().replace(/\s+/g, "");
-}
+export { normalizeInviteCode } from "./invite-code";

@@ -10,7 +10,16 @@ import { BotCheck, BotTrap } from "./BotCheck";
 
 type Mode = "login" | "register";
 
-export function AuthForm({ mode, sitekey }: { mode: Mode; sitekey: string }) {
+export function AuthForm({
+  mode,
+  sitekey,
+  nextPath = "/today",
+}: {
+  mode: Mode;
+  sitekey: string;
+  /** Caminho interno, calculado no servidor (lib/entry.ts). */
+  nextPath?: string;
+}) {
   const t = useTranslations("auth");
   const c = useTranslations("common");
   const locale = useLocale();
@@ -34,7 +43,7 @@ export function AuthForm({ mode, sitekey }: { mode: Mode; sitekey: string }) {
         const res = await fetch("/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, displayName, "cf-turnstile-response": botToken, website: new FormData(e.currentTarget as HTMLFormElement).get("website") || "" }),
+          body: JSON.stringify({ email, password, displayName, locale, "cf-turnstile-response": botToken, website: new FormData(e.currentTarget as HTMLFormElement).get("website") || "" }),
         });
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
@@ -60,10 +69,10 @@ export function AuthForm({ mode, sitekey }: { mode: Mode; sitekey: string }) {
       }
 
       // Navegação forte: fiável a seguir a uma ação assíncrona (o push suave
-      // pode ser descartado, deixando o botão preso). O destino real
-      // (/today vs /onboarding) é decidido server-side.
+      // pode ser descartado, deixando o botão preso). Sem onboarding, o
+      // servidor encaminha para /onboarding.
       const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
-      window.location.assign(`${prefix}/today`);
+      window.location.assign(`${prefix}${nextPath}`);
     } catch {
       setError(t("errorGeneric"));
       setLoading(false);

@@ -4,6 +4,10 @@ import { Link } from "@/i18n/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { styles } from "@/components/ui";
 import { getCurrentUser } from "@/lib/session";
+import { seesNewExperience } from "@/lib/audience";
+import { ThemeSampler } from "@/components/ThemeSampler";
+import { THERAPIST_PROFILE } from "@/lib/entry";
+import { EMERGENCY_TEL, SNS24_TEL } from "@/components/CrisisContacts";
 import { MarketingConsent } from "@/components/MarketingConsent";
 import { validGtmId } from "@/lib/marketing-consent";
 
@@ -14,6 +18,25 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const [t, c, user] = await Promise.all([getTranslations("landing"), getTranslations("common"), getCurrentUser()]);
+
+  // Amigos com sessão iniciada veem a página tal como era.
+  const showNew = seesNewExperience(user);
+  const firstTime = [1, 2, 3].map((n) => ({
+    n: `0${n}`,
+    title: t(`start${n}Title`),
+    body: t(`start${n}Body`),
+  }));
+  const faq = [1, 2, 3, 4, 5].map((n) => ({
+    q: t(`faq${n}q`),
+    // A resposta sobre crise leva ligações tel: para o SNS 24 e o 112.
+    a:
+      n === 4
+        ? t.rich("faq4a", {
+            sns: (chunks) => <a href={`tel:${SNS24_TEL}`} className="underline">{chunks}</a>,
+            sos: (chunks) => <a href={`tel:${EMERGENCY_TEL}`} className="underline">{chunks}</a>,
+          })
+        : t(`faq${n}a`),
+  }));
 
   const features = [
     { n: "01", title: t("feature1Title"), body: t("feature1Body") },
@@ -52,7 +75,7 @@ export default async function HomePage() {
                   {t("ctaSecondary")}
                 </Link>
               </div>
-              <p className="text-sm text-muted/80">{t("heroNote")}</p>
+              <p className="text-sm text-muted/80">{showNew ? t("heroNoteNew") : t("heroNote")}</p>
             </div>
 
             {/* Pré-visualização da peça do dia — mostra o produto. */}
@@ -61,6 +84,9 @@ export default async function HomePage() {
                 aria-hidden
                 className="absolute -right-3.5 -bottom-3.5 h-full w-full rotate-2 rounded-2xl border border-line bg-surface/70"
               />
+              {showNew ? (
+                <ThemeSampler />
+              ) : (
               <div className="relative rounded-2xl border border-line bg-surface p-7 shadow-[0_18px_50px_-16px_rgba(47,43,38,0.22)]">
                 <p className="text-[11px] font-medium tracking-[0.14em] text-accent-strong uppercase">
                   {t("previewLabel")}
@@ -85,6 +111,7 @@ export default async function HomePage() {
                   {t("previewAction")}
                 </div>
               </div>
+              )}
             </div>
           </div>
         </section>
@@ -109,6 +136,30 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* ---- A primeira vez ---- */}
+        {showNew ? (
+          <section className="border-t border-line">
+            <div className="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
+              <p className="font-serif text-sm tracking-wide text-accent-strong">
+                {t("startKicker")}
+              </p>
+              <h2 className="mt-3 max-w-xl font-serif text-2xl leading-snug text-ink sm:text-3xl">
+                {t("startTitle")}
+              </h2>
+              <ol className="mt-9 grid gap-9 sm:grid-cols-3">
+                {firstTime.map((f) => (
+                  <li key={f.n} className="space-y-2">
+                    <h3 className="font-serif text-xl text-ink">{f.title}</h3>
+                    <p className="text-sm leading-relaxed text-muted">
+                      {f.body}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        ) : null}
+
         {/* ---- Para terapeutas ---- */}
         <section className="border-t border-line">
           <div className="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
@@ -123,14 +174,48 @@ export default async function HomePage() {
                 {t("therapistBody")}
               </p>
               <Link
-                href="/register"
+                href={
+                  showNew
+                    ? {
+                        pathname: "/register",
+                        query: { perfil: THERAPIST_PROFILE },
+                      }
+                    : "/register"
+                }
                 className="mt-7 inline-flex items-center rounded-full bg-paper px-5 py-2.5 text-sm font-medium text-accent-strong transition hover:bg-surface"
               >
                 {t("therapistCta")}
               </Link>
+              {showNew ? (
+                <Link
+                  href="/terapeutas"
+                  className="mt-4 block w-fit text-sm text-paper/80 underline-offset-4 hover:underline"
+                >
+                  {t("therapistMore")}
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>
+
+        {/* ---- Perguntas ---- */}
+        {showNew ? (
+          <section className="border-t border-line bg-surface/40">
+            <div className="mx-auto w-full max-w-5xl px-6 py-16">
+              <h2 className="font-serif text-2xl text-ink">{t("faqTitle")}</h2>
+              <dl className="mt-7 grid gap-x-12 gap-y-7 sm:grid-cols-2">
+                {faq.map((f) => (
+                  <div key={f.q}>
+                    <dt className="font-medium text-ink">{f.q}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-muted">
+                      {f.a}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        ) : null}
 
         {/* ---- Disclaimer ---- */}
         <section className="border-t border-line">
@@ -170,6 +255,11 @@ export default async function HomePage() {
             {c("appName")} — {t("footerRights")}
           </span>
           <span className="flex gap-4">
+            {showNew ? (
+              <Link href="/terapeutas" className="hover:text-ink">
+                {t("footerTherapists")}
+              </Link>
+            ) : null}
             <Link href="/support" className="hover:text-ink">
               {t("footerSupport")}
             </Link>

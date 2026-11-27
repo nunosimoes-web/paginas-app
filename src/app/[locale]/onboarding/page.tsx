@@ -4,6 +4,7 @@ import { redirect } from "@/i18n/navigation";
 import { requireUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { pickText } from "@/lib/content";
+import { parseEntry } from "@/lib/entry";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,10 +14,17 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OnboardingPage({
   params,
+  searchParams,
 }: PageProps<"/[locale]/onboarding">) {
   const { locale } = await params;
   const user = await requireUser(locale);
-  if (user.onboardedAt) redirect({ href: "/today", locale });
+  const entry = parseEntry(await searchParams);
+  if (user.onboardedAt) {
+    redirect({
+      href: entry.invite ? `/convite/${entry.invite}` : "/today",
+      locale,
+    });
+  }
 
   const activeLocale = await getLocale();
   const themes = await prisma.theme.findMany({ orderBy: { slug: "asc" } });
@@ -27,7 +35,11 @@ export default async function OnboardingPage({
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-xl flex-col justify-center px-5 py-12">
-      <OnboardingFlow themes={themeOptions} defaultRole={user.role} />
+      <OnboardingFlow
+        themes={themeOptions}
+        defaultRole={entry.therapist ? "THERAPIST" : user.role}
+        invite={entry.invite}
+      />
     </main>
   );
 }

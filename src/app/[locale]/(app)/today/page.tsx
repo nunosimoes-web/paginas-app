@@ -8,6 +8,10 @@ import { dayRangeUTC } from "@/lib/day";
 import { pickText } from "@/lib/content";
 import { PieceCard } from "@/components/PieceCard";
 import { MarkReadButton } from "@/components/MarkReadButton";
+import { TodayCompanion } from "@/components/TodayCompanion";
+import { isFounderAccount } from "@/lib/audience";
+import { todayExtra } from "@/lib/first-week";
+import { loadActivity } from "@/lib/activity";
 import { PageHeader, styles } from "@/components/ui";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -37,6 +41,10 @@ export default async function TodayPage({
   const themeName = delivery?.piece.theme
     ? pickText(delivery.piece.theme.nameI18n, activeLocale)
     : null;
+  // Novidades só para contas novas; para os amigos o ecrã fica como sempre foi.
+  const extra = isFounderAccount(user)
+    ? null
+    : todayExtra(user, await loadActivity(user.id));
   const relaxed = daily.relaxations.length > 0;
 
   return (
@@ -73,6 +81,8 @@ export default async function TodayPage({
           </div>
         }
       />
+
+      <TodayCompanion extra={extra} pieceId={delivery?.pieceId ?? null} />
 
       {relaxed ? (
         <p className="text-sm text-muted">{t("relaxNote")}</p>

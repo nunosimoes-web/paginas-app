@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { formatDateTime } from "@/lib/format";
 import { CheckinForm } from "@/components/CheckinForm";
 import { PageHeader } from "@/components/ui";
+import { CrisisContacts } from "@/components/CrisisContacts";
+import { seesNewExperience } from "@/lib/audience";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("checkin");
@@ -39,6 +41,7 @@ export default async function CheckinPage({
           })}
         </p>
       ) : null}
+      {seesNewExperience(user) ? <CrisisContacts compact /> : null}
     </div>
   );
 }

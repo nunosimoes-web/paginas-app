@@ -161,3 +161,14 @@ BD de produção verificada: **365 peças**, **9 temas**, **365 com `needsReview
 - As 365 peças mantêm `needsReview = true`.
 - Segredos fora do git (`.env`, `deploy.env` ignorados; `.env` fora da imagem).
 - BD da Páginas isolada (Postgres dedicado, sem tocar noutros projetos).
+
+## 2026-11-25 — primeira sessão, hábito e terapeutas (PR draft)
+
+- Landing: peça por tema antes de criar conta, "A primeira vez", perguntas.
+- Onboarding em dois passos (eram três), com escolha explícita do email diário.
+- `/today`: uma sugestão de cada vez (primeiros passos, check-in de um toque,
+  regresso sem culpa, primeira semana). Sem streaks, sem emails novos.
+- Estados vazios: diário, percurso e área do terapeuta.
+- `/terapeutas` e `/convite/CODE`; o convite deixou de se perder no registo.
+- O registo guarda o idioma (antes, quem se registava em EN recebia email em PT).
+- Amigos: HTML visível igual ao de main (ver docs/MINDWINK.md).

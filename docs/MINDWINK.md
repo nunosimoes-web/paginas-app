@@ -33,10 +33,48 @@ an older backup over newer user activity without a separately reviewed recovery 
 
 ## Future public signup
 
-The existing emailDaily preferences are preserved. The inherited signup defaults
-emailDaily to true and has no dedicated consent-event history. Before promoting
-public registrations, implement explicit daily-email choice and consent evidence;
-keep any future promotional email permission separate.
+The existing emailDaily preferences are preserved. New accounts are created with
+emailDaily=false and make an explicit, unselected-by-default choice in onboarding.
+The choice is stored only in the existing `emailDaily` column. This release has no
+Prisma schema change and no migration. What changes in processing: registration
+stores the chosen locale in the existing `locale` column; the landing sampler keeps
+one theme in sessionStorage (never sent); `/today` reads activity dates (never
+content or mood values) for suggestions; `/api/metrics` adds aggregate D1/D7; the
+quick check-in on `/today` is a second entry point to the existing mood record.
+Keep any future promotional email permission separate.
+
+## Crisis contacts
+
+`src/components/CrisisContacts.tsx` shows official numbers only, checked at the source
+on 2026-11-27: SNS 24 psychological counselling, 808 24 24 24 option 4, 24 h/7 days,
+and 112 for emergencies (https://www.sns24.gov.pt/pt/servico/aconselhamento-psicologico-no-sns-24/).
+It appears next to writing and check-ins, including the quick check-in on `/today`
+(new accounts only; friends keep the old screens), on `/terapeutas`, on the
+invite page and on the landing FAQ. Re-check the source before changing a number.
+
+## Health-data consent, therapist unlink, DPIA
+
+Not in production. Proposals for the owner's decision live outside the repo
+(agentes/trabalho/claude-quota-2511/mindwink-terapeutas/produto/). Until then the
+client ends a therapist link through support, or by deleting the account.
+
+## Existing accounts (friends) see nothing new
+
+`src/lib/audience.ts` is the single gate. An account is protected when
+`planSource === "founder"` or when it was created before `EXISTING_ACCOUNTS_BEFORE`.
+Any new in-app UI must go through it; `tests/founder-ui.test.tsx` renders the real
+pages as a friend and fails on any price, upsell or new text. If a friend registers
+between that date and the deploy, move the constant forward before deploying.
+
+## Public entry points
+
+- `/terapeutas` (and `/en/terapeutas`): therapists, no prices.
+- `/convite/CODE`: invite link, noindex, no database lookup. The code survives
+  register, login, language switch and onboarding (`src/lib/entry.ts`).
+- The theme picked in the landing sampler stays in sessionStorage; it is never sent
+  in a URL or to analytics.
+- `/robots.txt` allows indexing only on the canonical URL; previews are disallowed.
+- `/api/metrics` now includes `activation` (D1, D7), excluding existing accounts.
 
 ## Consent and marketing tags
 
