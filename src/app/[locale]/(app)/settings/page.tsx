@@ -6,6 +6,9 @@ import { SettingsForm } from "@/components/SettingsForm";
 import { SignOutButton } from "@/components/SignOutButton";
 import { DeleteAccountButton } from "@/components/DeleteAccountButton";
 import { Card, PageHeader, styles } from "@/components/ui";
+import { ManageSubscriptionButton } from "@/components/ManageSubscriptionButton";
+import { isFounder } from "@/lib/plan";
+import { stripeConfigured } from "@/lib/stripe";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("settings");
@@ -19,6 +22,10 @@ export default async function SettingsPage({
   const user = await requireOnboardedUser(locale);
   const t = await getTranslations("settings");
   const connect = await getTranslations("connect");
+  const withdrawal = await getTranslations("withdrawal");
+  // Founder (amigos) nunca vê nada de faturação. Os outros, só se já tiverem
+  // passado pelo checkout (têm cliente Stripe).
+  const showBilling = !isFounder(user) && !!user.stripeCustomerId && stripeConfigured();
 
   return (
     <div className="space-y-7">
@@ -33,6 +40,21 @@ export default async function SettingsPage({
           role: user.role,
         }}
       />
+
+      {showBilling ? (
+        <Card className="space-y-2 p-6">
+          <h2 className="font-serif text-lg text-ink">{t("billingTitle")}</h2>
+          <p className="text-sm text-muted">{t("billingBody")}</p>
+          <ManageSubscriptionButton
+            locale={locale}
+            label={t("billingManage")}
+            errorLabel={t("billingError")}
+          />
+          <Link href="/retratacao" className="block w-fit text-sm text-muted underline underline-offset-4 hover:text-ink">
+            {withdrawal("link")}
+          </Link>
+        </Card>
+      ) : null}
 
       <Card className="space-y-2 p-6">
         <h2 className="font-serif text-lg text-ink">{connect("title")}</h2>

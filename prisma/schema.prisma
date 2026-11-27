@@ -18,6 +18,12 @@ enum PieceType {
   REFLECTION
 }
 
+enum Plan {
+  FREE
+  PLUS
+  THERAPIST_PRO
+}
+
 model User {
   id            String   @id @default(cuid())
   email         String   @unique
@@ -30,6 +36,13 @@ model User {
   emailDaily    Boolean  @default(true)
   onboardedAt   DateTime?
   createdAt     DateTime @default(now())
+  // Camada paga. planSource guarda a origem ("founder" para os amigos atuais,
+  // "stripe" para subscrições pagas, null para FREE comum). planRenewsAt é a
+  // próxima data de renovação quando aplicável. founder nunca é cobrado.
+  plan              Plan     @default(FREE)
+  planSource        String?
+  stripeCustomerId  String?  @unique
+  planRenewsAt      DateTime?
   themes        UserTheme[]
   checkIns      MoodCheckIn[]
   journalEntries JournalEntry[]
@@ -37,6 +50,67 @@ model User {
   asClient      ClientLink[] @relation("ClientSide")
   asTherapist   ClientLink[] @relation("TherapistSide")
   resetTokens   PasswordResetToken[]
+  purchases     Purchase[]
+  bodyEntries   BodyEntry[]
+  enrollments   ProgramEnrollment[]
+}
+
+// Compras avulsas (one-shot). Ex.: "Relatório 30 dias" do módulo Corpo.
+model Purchase {
+  id                String   @id @default(cuid())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+  // sku estável para identificar o produto comprado (ex.: "body_report_30d").
+  sku               String
+  stripeSessionId   String   @unique
+  stripePaymentIntent String? @unique
+  amountCents       Int
+  currency          String
+  createdAt         DateTime @default(now())
+  @@index([userId, sku])
+}
+
+// Registo diário do módulo Corpo — entrada por dia, com zona, intensidade (0-10)
+// e nota curta. É o input para o "Relatório 30 dias" (PDF/print).
+model BodyEntry {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  date       DateTime @default(now())
+  region     String
+  intensity  Int      @default(0)
+  note       String?
+  // Prova do consentimento explícito para dados de saúde (RGPD art. 7.º/9.º).
+  consentAt      DateTime?
+  consentVersion String?
+  createdAt  DateTime @default(now())
+  @@index([userId, date])
+}
+
+// Programa (percurso temático) de N dias. Ex.: "ansiedade" com 21 entradas.
+// A estrutura é um array de externalId de ContentPiece em dayStep.
+model Program {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titleI18n   Json
+  summaryI18n Json
+  days        Int      @default(21)
+  // Array ordenado de externalId das ContentPiece a usar em cada dia do percurso.
+  pieceOrder  String[]
+  createdAt   DateTime @default(now())
+  enrollments ProgramEnrollment[]
+}
+
+// Enrollment do utilizador num Program. startedAt marca o dia 1.
+model ProgramEnrollment {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  program    Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  programId  String
+  startedAt  DateTime @default(now())
+  completedAt DateTime?
+  @@unique([userId, programId])
 }
 
 model PasswordResetToken {
