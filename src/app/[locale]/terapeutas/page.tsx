@@ -29,10 +29,11 @@ export default async function TherapistsPage() {
     [t("rowRead"), t("yes"), t("no")],
     [t("rowThemes"), t("themesClient"), t("yes")],
     [t("rowName"), t("yes"), t("yes")],
-    [t("rowDate"), t("yes"), t("yes")],
+    [t("rowDate"), t("no"), t("yes")],
   ];
   const data = [1, 2, 3, 4, 5].map((n) => t(`data${n}`));
   const before = [1, 2, 3].map((n) => t(`before${n}`));
+  const notYet = [1, 2, 3].map((n) => t(`notYet${n}`));
   const faq = [1, 2, 3, 4, 5].map((n) => ({ q: t(`q${n}`), a: t(`a${n}`) }));
 
   const cta = (
@@ -137,6 +138,14 @@ export default async function TherapistsPage() {
                 <p className="text-sm text-muted">{t("noAskBody")}</p>
               </Card>
             </div>
+            <Card className="space-y-3 p-6">
+              <h3 className="font-serif text-lg text-ink">{t("notYetTitle")}</h3>
+              <ul className="list-disc space-y-1.5 pl-5 text-sm text-muted">
+                {notYet.map((i) => (
+                  <li key={i}>{i}</li>
+                ))}
+              </ul>
+            </Card>
             <div className="space-y-2">
               <p className="text-sm text-muted">{t("crisisLead")}</p>
               <CrisisContacts />

@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { TodayExtra } from "@/lib/first-week";
 import { QuickCheckin } from "@/components/QuickCheckin";
+import { CrisisContacts } from "@/components/CrisisContacts";
 import { Card, styles } from "@/components/ui";
 
 /**
@@ -51,7 +52,12 @@ export function TodayCompanion({
             </li>
           ))}
         </ol>
-        {extra.next === "checkin" ? <QuickCheckin /> : null}
+        {extra.next === "checkin" ? (
+          <>
+            <QuickCheckin />
+            <CrisisContacts compact />
+          </>
+        ) : null}
         {extra.next === "write" ? (
           <Link href={writeHref} className={`${styles.btnGhost} w-fit`}>
             {t("writeCta")}
@@ -67,6 +73,7 @@ export function TodayCompanion({
         <h2 className="font-serif text-lg text-ink">{t("backTitle")}</h2>
         <p className="text-sm text-muted">{t("backBody")}</p>
         <QuickCheckin />
+        <CrisisContacts compact />
       </Card>
     );
   }
@@ -92,6 +99,7 @@ export function TodayCompanion({
     <Card as="section" className="space-y-3 p-6">
       <h2 className="font-serif text-lg text-ink">{t("checkinTitle")}</h2>
       <QuickCheckin />
+      <CrisisContacts compact />
     </Card>
   );
 }

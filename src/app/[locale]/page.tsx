@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/lib/session";
 import { seesNewExperience } from "@/lib/audience";
 import { ThemeSampler } from "@/components/ThemeSampler";
 import { THERAPIST_PROFILE } from "@/lib/entry";
+import { EMERGENCY_TEL, SNS24_TEL } from "@/components/CrisisContacts";
 import { MarketingConsent } from "@/components/MarketingConsent";
 import { validGtmId } from "@/lib/marketing-consent";
 
@@ -27,7 +28,14 @@ export default async function HomePage() {
   }));
   const faq = [1, 2, 3, 4, 5].map((n) => ({
     q: t(`faq${n}q`),
-    a: t(`faq${n}a`),
+    // A resposta sobre crise leva ligações tel: para o SNS 24 e o 112.
+    a:
+      n === 4
+        ? t.rich("faq4a", {
+            sns: (chunks) => <a href={`tel:${SNS24_TEL}`} className="underline">{chunks}</a>,
+            sos: (chunks) => <a href={`tel:${EMERGENCY_TEL}`} className="underline">{chunks}</a>,
+          })
+        : t(`faq${n}a`),
   }));
 
   const features = [

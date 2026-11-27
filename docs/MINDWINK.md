@@ -35,16 +35,21 @@ an older backup over newer user activity without a separately reviewed recovery 
 
 The existing emailDaily preferences are preserved. New accounts are created with
 emailDaily=false and make an explicit, unselected-by-default choice in onboarding.
-The choice is stored only in the existing `emailDaily` column (no new columns, no
-migration: this release does not change what data is collected). Keep any future
-promotional email permission separate.
+The choice is stored only in the existing `emailDaily` column. This release has no
+Prisma schema change and no migration. What changes in processing: registration
+stores the chosen locale in the existing `locale` column; the landing sampler keeps
+one theme in sessionStorage (never sent); `/today` reads activity dates (never
+content or mood values) for suggestions; `/api/metrics` adds aggregate D1/D7; the
+quick check-in on `/today` is a second entry point to the existing mood record.
+Keep any future promotional email permission separate.
 
 ## Crisis contacts
 
 `src/components/CrisisContacts.tsx` shows official numbers only, checked at the source
 on 2026-11-27: SNS 24 psychological counselling, 808 24 24 24 option 4, 24 h/7 days,
 and 112 for emergencies (https://www.sns24.gov.pt/pt/servico/aconselhamento-psicologico-no-sns-24/).
-It appears next to writing and check-ins (new accounts), on `/terapeutas`, on the
+It appears next to writing and check-ins, including the quick check-in on `/today`
+(new accounts only; friends keep the old screens), on `/terapeutas`, on the
 invite page and on the landing FAQ. Re-check the source before changing a number.
 
 ## Health-data consent, therapist unlink, DPIA
