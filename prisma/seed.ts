@@ -3,6 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { readFileSync } from "fs";
 import { join } from "path";
 import "dotenv/config";
+import { PROGRAMS, programPieceOrder } from "./programs";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
@@ -18,31 +19,6 @@ const THEMES: Record<string, { "pt-PT": string; en: string }> = {
   trauma:         { "pt-PT": "Trauma", en: "Trauma" },
   boundaries:     { "pt-PT": "Fronteiras", en: "Boundaries" },
 };
-
-// Percursos de 21 dias (Plus). A ordem dos pieceOrder é a sequência diária.
-const PROGRAMS: Array<{
-  slug: string;
-  titleI18n: Record<string, string>;
-  summaryI18n: Record<string, string>;
-  days: number;
-  themeFilter: string;
-}> = [
-  {
-    slug: "anxiety-21",
-    titleI18n: {
-      "pt-PT": "Ansiedade — 21 dias",
-      en: "Anxiety — 21 days",
-    },
-    summaryI18n: {
-      "pt-PT":
-        "Vinte e um dias com peças calmas para habitar a ansiedade — sem forçar nada — e devolver um pouco de chão aos dias.",
-      en:
-        "Twenty-one days of calm pieces for living with anxiety — without forcing anything — and gently giving back some ground to your days.",
-    },
-    days: 21,
-    themeFilter: "anxiety",
-  },
-];
 
 async function main() {
   const raw = JSON.parse(readFileSync(join(process.cwd(), "data/content_365.json"), "utf-8"));
@@ -82,11 +58,7 @@ async function main() {
   // Percursos: usamos as N primeiras peças do tema, por dia ascendente.
   let programs = 0;
   for (const prog of PROGRAMS) {
-    const themed = raw.pieces
-      .filter((p: { theme: string }) => p.theme === prog.themeFilter)
-      .sort((a: { day: number }, b: { day: number }) => a.day - b.day)
-      .slice(0, prog.days)
-      .map((p: { id: string }) => p.id);
+    const themed = programPieceOrder(raw.pieces, prog);
 
     if (themed.length < prog.days) {
       console.warn(

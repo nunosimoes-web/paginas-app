@@ -24,7 +24,13 @@ type Tier = {
   items: string[];
   plan?: "plus_month" | "plus_year" | "pro_month" | "body_month" | "body_year";
   highlight?: boolean;
+  // Sem checkout: a camada ainda não tem funcionalidades pagas próprias.
+  // Terapeuta Pro: nada no código depende de THERAPIST_PRO além do lado pessoal
+  // (que o Plus já dá). Não se vende até haver o que vender.
+  comingSoonNote?: string;
 };
+
+type Faq = { q: string; a: string };
 
 export default async function PrecosPage({
   params,
@@ -73,6 +79,7 @@ export default async function PrecosPage({
       perLabel: t("perMonth"),
       items: (t.raw("pro.items") as string[]) ?? [],
       plan: "pro_month",
+      comingSoonNote: t("pro.comingSoonNote"),
     },
     {
       key: "body",
@@ -86,6 +93,7 @@ export default async function PrecosPage({
   ];
   // Regra fixa: founder (amigos) nunca vê preços.
   const tiers = founder ? [] : allTiers;
+  const faq = founder ? [] : ((t.raw("faq") as Faq[]) ?? []);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -171,6 +179,13 @@ export default async function PrecosPage({
                     )
                   ) : founder ? (
                     <p className="text-xs text-muted">—</p>
+                  ) : tier.comingSoonNote ? (
+                    <div className="space-y-1">
+                      <span className="inline-flex items-center rounded-full border border-line px-3 py-1 text-xs text-muted">
+                        {t("comingSoon")}
+                      </span>
+                      <p className="text-xs text-muted">{tier.comingSoonNote}</p>
+                    </div>
                   ) : canCheckout ? (
                     <PricingActions
                       plan={tier.plan!}
@@ -196,6 +211,9 @@ export default async function PrecosPage({
               </Card>
             ))}
           </div>
+          <p className="mx-auto w-full max-w-5xl px-6 pb-10 text-xs leading-relaxed text-muted">
+            {t("priceNote")}
+          </p>
         </section>
 
         )}
@@ -233,6 +251,22 @@ export default async function PrecosPage({
         </section>
         )}
 
+        {faq.length > 0 ? (
+          <section className="border-b border-line">
+            <div className="mx-auto w-full max-w-3xl space-y-5 px-6 py-12">
+              <h2 className="font-serif text-2xl text-ink">{t("faqTitle")}</h2>
+              <div className="space-y-3">
+                {faq.map((item) => (
+                  <details key={item.q} className="rounded-2xl border border-line p-5">
+                    <summary className="cursor-pointer font-serif text-lg text-ink">{item.q}</summary>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         <section>
           <div className="mx-auto w-full max-w-5xl px-6 py-14">
             <div className="rounded-2xl border border-clay/25 bg-clay/5 p-6">
@@ -249,11 +283,19 @@ export default async function PrecosPage({
           <span>{t("safety")}</span>
           <span className="flex gap-4">
             <Link href="/privacy" className="hover:text-ink">
-              Privacidade
+              {locale === "en" ? "Privacy" : "Privacidade"}
             </Link>
             <Link href="/terms" className="hover:text-ink">
-              Termos
+              {locale === "en" ? "Terms" : "Termos"}
             </Link>
+            <a
+              href="https://www.livroreclamacoes.pt/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-ink"
+            >
+              {t("complaintsBook")}
+            </a>
           </span>
         </div>
       </footer>

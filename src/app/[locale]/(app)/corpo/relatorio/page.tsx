@@ -8,6 +8,12 @@ import { Card, PageHeader, styles } from "@/components/ui";
 import { PrintTrigger } from "@/components/PrintTrigger";
 import { REGIONS } from "@/lib/body-regions";
 
+
+// Fora do componente: a regra react-hooks/purity não aceita Date.now() no render.
+function daysAgo(days: number): Date {
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("body");
   return { title: t("reportTitle") };
@@ -40,7 +46,7 @@ export default async function BodyReportPage({
     );
   }
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = daysAgo(30);
 
   const entries = await prisma.bodyEntry.findMany({
     where: { userId: user.id, date: { gte: thirtyDaysAgo } },

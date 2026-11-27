@@ -6,6 +6,12 @@ import { prisma } from "@/lib/prisma";
 import { hasPlusAccess } from "@/lib/plan";
 import { Card, PageHeader, styles } from "@/components/ui";
 
+
+// Fora do componente: a regra react-hooks/purity não aceita Date.now() no render.
+function daysAgo(days: number): Date {
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("weekly");
   return { title: t("title") };
@@ -33,7 +39,7 @@ export default async function WeeklyPage({
     );
   }
 
-  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const sevenDaysAgo = daysAgo(7);
 
   const [pieces, journal, checkins] = await Promise.all([
     prisma.promptDelivery.count({

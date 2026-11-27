@@ -10,6 +10,8 @@ const schema = z.object({
   region: z.enum(REGIONS.map((r) => r.id) as [string, ...string[]]),
   intensity: z.number().int().min(0).max(10),
   note: z.string().max(2000).optional().nullable(),
+  // Consentimento explícito para dados de saúde (RGPD, art. 9.º, n.º 2, al. a)).
+  consent: z.literal(true),
 });
 
 export async function POST(request: Request) {

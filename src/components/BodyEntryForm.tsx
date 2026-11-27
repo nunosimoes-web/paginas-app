@@ -12,6 +12,8 @@ type Props = {
     note: string;
     submit: string;
     saved: string;
+    consent: string;
+    error: string;
   };
 };
 
@@ -20,6 +22,9 @@ export function BodyEntryForm({ regions, labels }: Props) {
   const [region, setRegion] = useState(regions[0]?.id ?? "chest");
   const [intensity, setIntensity] = useState(3);
   const [note, setNote] = useState("");
+  // Consentimento explícito para dados de saúde (RGPD, art. 9.º, n.º 2, al. a)).
+  // Pedido em cada registo; o servidor recusa o registo sem ele.
+  const [consent, setConsent] = useState(false);
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +37,7 @@ export function BodyEntryForm({ regions, labels }: Props) {
       const res = await fetch("/api/body/entries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ region, intensity, note }),
+        body: JSON.stringify({ region, intensity, note, consent }),
       });
       if (!res.ok) {
         setError("err");
@@ -96,12 +101,24 @@ export function BodyEntryForm({ regions, labels }: Props) {
         />
       </div>
 
+      <label className="flex items-start gap-2 text-sm text-muted" htmlFor="consent">
+        <input
+          id="consent"
+          type="checkbox"
+          required
+          checked={consent}
+          onChange={(e) => setConsent(e.target.checked)}
+          className="mt-1"
+        />
+        <span>{labels.consent}</span>
+      </label>
+
       <div className="flex items-center gap-3">
-        <button type="submit" className={styles.btnPrimary} disabled={pending}>
+        <button type="submit" className={styles.btnPrimary} disabled={pending || !consent}>
           {pending ? "…" : labels.submit}
         </button>
         {done ? <span className="text-sm text-accent-strong">{labels.saved}</span> : null}
-        {error ? <span className="text-sm text-clay">·</span> : null}
+        {error ? <span className="text-sm text-clay">{labels.error}</span> : null}
       </div>
     </form>
   );

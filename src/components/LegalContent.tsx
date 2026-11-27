@@ -12,6 +12,9 @@ export async function LegalContent() {
   const sections = [
     { heading: t("disclaimerHeading"), body: t("disclaimerBody") },
     { heading: t("rgpdHeading"), body: t("rgpdBody") },
+    { heading: t("bodyDataHeading"), body: t("bodyDataBody") },
+    // Sem preços (regra dos amigos): só as condições gerais dos planos pagos.
+    { heading: t("paidHeading"), body: t("paidBody") },
     {
       heading: t("emailTrackingHeading"),
       body: t("emailTrackingBody"),
@@ -20,6 +23,7 @@ export async function LegalContent() {
     { heading: locale === "en" ? "Form protection" : "Proteção dos formulários", body: locale === "en"
       ? "Support, registration and password recovery use Cloudflare Turnstile to help prevent automated abuse. Technical challenge data is processed by Cloudflare. The application keeps temporary rate counters with keyed hashes rather than raw IP addresses, email addresses or challenge tokens; expired counters are removed. This protection does not enable advertising tracking."
       : "O suporte, o registo e a recuperação de palavra-passe usam Cloudflare Turnstile para ajudar a prevenir abuso automático. Os dados técnicos do desafio são tratados pela Cloudflare. A aplicação mantém contadores temporários com hashes protegidos por chave, em vez de endereços IP, e-mails ou tokens do desafio em claro; os contadores expirados são removidos. Esta proteção não ativa a medição publicitária." },
+    { heading: t("complaintsHeading"), body: t("complaintsBody") },
     { heading: t("contactHeading"), body: t("contactBody") },
   ];
 

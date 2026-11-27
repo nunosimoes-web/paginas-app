@@ -241,7 +241,11 @@
     "deleteNote": "You can permanently delete your account and all your data. This action cannot be undone.",
     "deleteAccount": "Delete my account",
     "deleteConfirm": "Are you sure? We will permanently delete your account and all your records — mood, journal, deliveries. There is no going back.",
-    "deleteConfirmYes": "Yes, delete everything"
+    "deleteConfirmYes": "Yes, delete everything",
+    "billingTitle": "Subscription",
+    "billingBody": "Cancel, change your card or see receipts. Opens Stripe's secure page, our payment provider.",
+    "billingManage": "Manage subscription",
+    "billingError": "Couldn't open right now. Please try again shortly."
   },
   "therapist": {
     "title": "Your clients",
@@ -289,7 +293,13 @@
     "contactBody": "For privacy questions or to access, correct or delete your data, email hello@mindwink.cognixhub.com.",
     "siteTrackingHeading": "Cookies and measurement on public pages",
     "siteTrackingBody": "Session cookies are needed to use your account. Optional analytics and advertising tools on public pages require your permission and load only after you grant it. You can accept or refuse each purpose separately, withdraw permission in cookie preferences and choose again after 180 days. Journals, check-ins, account areas and forms do not load these tools. We do not send personal content, emotional states or email addresses for advertising. Cookie choices do not change your daily email subscription. Our public visit and click counts run automatically and are aggregated by day, without cookies or stored visitor identifiers, IPs, individual URLs or referrers; totals are retained up to 400 days. You can disable them in preferences. Meta Pixel (Facebook and Instagram) receives only public PageView after advertising consent; Global Privacy Control prevents that transmission.",
-    "cookiePreferences": "Cookie preferences"
+    "cookiePreferences": "Cookie preferences",
+    "paidHeading": "Paid plans",
+    "paidBody": "Paid plans are optional and the free plan stays. Subscriptions renew automatically at the end of each period, at the same price, until you cancel them in Settings → Manage subscription; access stays until the end of the period already paid. You have 14 days from purchase to withdraw without giving a reason (right of withdrawal); write to hello@mindwink.cognixhub.com and we refund the payment by the same method within 14 days at most. Payments are handled by Stripe; Mindwink does not see or store card details.",
+    "complaintsHeading": "Complaints and disputes",
+    "complaintsBody": "You can complain in writing to hello@mindwink.cognixhub.com or in Portugal's electronic Complaints Book (livroreclamacoes.pt). For a consumer dispute, you can turn to an alternative dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The list of bodies is on the Consumer Portal (consumidor.gov.pt).",
+    "bodyDataHeading": "Body journal",
+    "bodyDataBody": "Body journal entries (region, intensity and note) are health data. We only store them with your explicit consent, given on each entry, and they are used only to show you the journal and the report. They are not shared, not used for advertising, and you can delete them at any time by deleting your account or asking us by email."
   },
   "errors": {
     "notFoundTitle": "Page not found",
@@ -302,7 +312,7 @@
   "pricing": {
     "title": "Plans",
     "kicker": "Mindwink",
-    "intro": "Free stays free, forever. Paid plans are for those who want to go a little deeper — and for professionals who care for others. Everything is in test mode right now; nothing is charged without your OK.",
+    "intro": "Free stays free, forever. Paid plans are for those who want to go a little deeper — and for professionals who care for others.",
     "comingSoon": "Coming soon",
     "comingSoonHelp": "Payments are being prepared. Drop us a word via support if you'd like to try earlier.",
     "founderTitle": "You already have access to everything",
@@ -332,10 +342,9 @@
       "priceYear": "€39",
       "tagline": "For when you want to go a little deeper.",
       "items": [
-        "21-day journeys (starts with anxiety)",
-        "Export your journal as PDF",
-        "Weekly \"what you wrote this week\" summary",
-        "Full archive and favorite pieces",
+        "21-day journeys: anxiety, self-criticism, transitions, loneliness and boundaries",
+        "Export your journal to print or save as PDF",
+        "Weekly \"what you wrote this week\" summary, in the app",
         "Everything in Free"
       ]
     },
@@ -349,7 +358,8 @@
         "Client summary, with consent",
         "Full therapist area",
         "Everything in Free"
-      ]
+      ],
+      "comingSoonNote": "The Pro area is still being built. Until then, linking with clients stays free."
     },
     "body": {
       "name": "Body (SomaSignal)",
@@ -357,9 +367,9 @@
       "priceYear": "€45",
       "tagline": "To inhabit the body better.",
       "items": [
-        "Symptom journal with patterns over time",
-        "30-day report to take to a doctor or therapist",
-        "Four-week mind-body programs",
+        "Body journal: region, intensity and a short note each day",
+        "30-day report to print and, if you wish, show to a professional",
+        "Everything in Plus",
         "Everything in Free"
       ],
       "reportName": "30-day report (one-off)",
@@ -367,7 +377,44 @@
       "reportTagline": "Try without subscribing: a single report you can bring to a consult."
     },
     "safetyTitle": "Wellbeing, not treatment",
-    "safetyBody": "Mindwink is a wellbeing and support tool. It is not a medical device, does not diagnose and does not replace psychological, psychiatric or medical care."
+    "safetyBody": "Mindwink is a wellbeing and support tool. It is not a medical device, does not diagnose and does not replace psychological, psychiatric or medical care.",
+    "priceNote": "Final prices in euros, including applicable taxes. Subscriptions renew automatically at the end of each period, at the same price, until you cancel. You can cancel at any time in Settings → Manage subscription.",
+    "faqTitle": "Frequently asked questions",
+    "faq": [
+      {
+        "q": "Will the free plan go away?",
+        "a": "No. The daily piece, the journal, the mood check-in, the themes and the body map stay free. Paid plans add; they take nothing away from Free."
+      },
+      {
+        "q": "How do I cancel?",
+        "a": "In Settings → Manage subscription, at any time, without having to write to us. Paid access stays until the end of the period already paid and there are no further charges after that."
+      },
+      {
+        "q": "Does the subscription renew on its own?",
+        "a": "Yes. Monthly renews every month and yearly every year, at the same price, until you cancel. The 30-day report is a one-off payment and does not renew."
+      },
+      {
+        "q": "Can I change my mind after buying?",
+        "a": "Yes. You have 14 days from purchase to withdraw, without giving a reason. Write to hello@mindwink.cognixhub.com and we refund the payment by the same method within 14 days at most."
+      },
+      {
+        "q": "Who handles the payment?",
+        "a": "Stripe, a payment provider. Card details stay with Stripe; Mindwink does not see or store them. On our side we keep only what we need to know your plan: customer ID, plan, renewal date and, for one-off purchases, the purchase record."
+      },
+      {
+        "q": "What happens to my entries if I cancel?",
+        "a": "They remain yours and stay stored. You go back to Free: the journal and check-ins stay open; journeys, the weekly summary and the body journal are closed until you subscribe again. You can ask us to delete everything at any time."
+      },
+      {
+        "q": "Does Mindwink replace therapy or a medical appointment?",
+        "a": "No. It is a wellbeing tool. It is not a medical device, does not diagnose and does not treat any condition. If something in your body or mood worries you, talk to a health professional."
+      },
+      {
+        "q": "Where can I make a complaint?",
+        "a": "First, write to us at hello@mindwink.cognixhub.com. You can also use Portugal's electronic Complaints Book (livroreclamacoes.pt) or an alternative consumer dispute resolution body such as CNIACC — the National Consumer Arbitration Centre (cniacc.pt). The full list is on the Consumer Portal (consumidor.gov.pt)."
+      }
+    ],
+    "complaintsBook": "Complaints Book"
   },
   "body": {
     "title": "Body map",
@@ -380,14 +427,14 @@
     "solutionsLabel": "Try now",
     "footNote": "Mindwink Body is a module under development. Wellbeing and education, not a medical device.",
     "plusTitle": "Need more?",
-    "plusBody": "Plus (or the one-off report) unlocks a symptom journal and a 30-day report you can bring to a doctor or therapist.",
+    "plusBody": "Plus (or the one-off report) unlocks a body journal and a 30-day report you can print and, if you wish, show to a professional.",
     "plusCta": "See plans",
     "freeBadge": "Free",
     "plusBadge": "Plus",
     "reportCta": "Buy the report",
-    "diaryTitle": "Symptom journal",
+    "diaryTitle": "Body journal",
     "diaryIntro": "One entry a day. Region, intensity (0–10) and, if you want, a short note. It feeds the 30-day report.",
-    "diaryLocked": "The symptom journal is part of Plus (or the one-off report).",
+    "diaryLocked": "The body journal is part of Plus (or the one-off report).",
     "diaryRegion": "Region",
     "diaryIntensity": "Intensity",
     "diaryNote": "Note (optional)",
@@ -399,7 +446,9 @@
     "reportSince": "Entries since {when}",
     "reportTotal": "Total entries",
     "reportAverage": "Average intensity",
-    "reportByRegion": "By region"
+    "reportByRegion": "By region",
+    "diaryConsent": "I allow Mindwink to store this body entry, which is health data, only to show it to me in the journal and the report. I can delete it at any time.",
+    "diaryError": "Couldn't save. Please try again."
   },
   "programs": {
     "title": "Journeys",

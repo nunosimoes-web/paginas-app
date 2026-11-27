@@ -70,6 +70,8 @@ export default async function BodyDiaryPage({
             note: t("diaryNote"),
             submit: t("diarySubmit"),
             saved: t("diarySaved"),
+            consent: t("diaryConsent"),
+            error: t("diaryError"),
           }}
         />
       </Card>
